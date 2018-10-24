@@ -6,6 +6,20 @@ function addTable(table){
         tables: table
     }
 }
+function showTableItem(tableItem){
+    return {
+        type: actionTypes.SHOW_TABLE,
+        tableItem: tableItem
+    }
+}
+export function fetchTableItem(id){
+    return dispatch => {
+        return fetch(`/table/${id}`)
+        .then( (response) => response.json() )
+        .then( (data) => dispatch(showTableItem(data.data)))
+        .catch( (e) => console.log(e) );
+    }    
+}
 export function fetchTable(){
     return dispatch => {
         return fetch(`/table`)
@@ -27,22 +41,16 @@ export function submitTable(data){
             .catch( (e) => console.log(e) );
     }    
 }
-/*
-function addFood(category, meat, note, count){
+function addFood(body){
     return {
-        type: actionTypes.s,
-        category: category,
-        meat: meat,
-        note: note,
-        count: count
+        type: actionTypes.ORDER_FOOD,
+        body: body
     }
 }
-
-
-export function submitFood(tableID, data){
+export function submitFood(tableItemID, data){
     
     return dispatch => {
-        return fetch(`/table/${tableID}/food`, { 
+        return fetch(`/table/${tableItemID}/food`, { 
             method: 'POST', 
              headers: {
                 'Accept': 'application/json',
@@ -55,10 +63,9 @@ export function submitFood(tableID, data){
                     throw Error(response.statusText);
                 }else{
 
-                    dispatch(addFood(data.category, data.meat, data.note, data.count))
+                    dispatch(addFood(data.body))
                 }
             })
             .catch( (e) => console.log(e) );
     }    
 }
-*/

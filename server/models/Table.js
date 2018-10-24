@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const FoodSchema = require('./Food').schema;  
 
 const TableSchema = new mongoose.Schema({  
-    title: String,
-    state: String,
-    note: String,
+    indexTable: String,
+    statusTable: String,
+    noteTable: String,
     status: {
         type: Number,
         default: 1

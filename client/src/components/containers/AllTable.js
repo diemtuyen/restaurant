@@ -10,15 +10,13 @@ class AllTable extends Component {
     render(){
 
         const tableIdx = this.props.allTable.map( (tableIdx, i) => {
-            return ( <li key={i}><TableListing data = {tableIdx} /></li> );
+            return ( <TableListing data = {tableIdx} /> );
         });
 
         return (
             <div>
                 <h2>All tables</h2>
-                <ul>
-                    {tableIdx}
-                </ul>
+                {tableIdx}
             </div>
         )
     }

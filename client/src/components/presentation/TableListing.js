@@ -6,12 +6,13 @@ import {Button} from 'reactstrap';
 class TableListing extends Component {
     render() {
         return (
-            <div style={{ backgroundColor: `{this.props.data.statusTable}` }}>
+            <div className="tableIdx">
                 <div><Link to={`/table/${this.props.data._id}`}>Ban so <b>{this.props.data.indexTable}</b></Link></div>
-                    <div>
-                        <Button>Dat mon</Button>
-                        <Button>Thanh toan</Button>
-                    </div> 
+                <br/>
+                <div>
+                    <Button>Dat mon</Button>{' '}
+                    <Button>Thanh toan</Button>
+                </div> 
             </div> 
         )
     }

@@ -5,9 +5,7 @@ import AllTable from '../containers/AllTable';
 class Home extends Component {
     render() {
         return (
-            <div>
-                <AllTable />
-            </div>
+            <AllTable />
         )
     }
 }

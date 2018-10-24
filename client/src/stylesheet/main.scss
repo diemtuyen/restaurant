@@ -1,0 +1,18 @@
+@import 'var';
+body,html{
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+}
+.tienhai{
+    @import '../../node_modules/bootstrap/scss/bootstrap.scss';    
+    font-family: $font_name;
+    font-size:12px;    
+    .tableIdx{
+        width: 150px;
+        border: 1px solid gray;
+        background-color: aqua;
+    }
+}
+
+

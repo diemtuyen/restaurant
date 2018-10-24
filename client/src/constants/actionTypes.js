@@ -1,3 +1,6 @@
 export default {
-    ADD_TABLE: 'ADD_TABLE'
+    ADD_TABLE: 'ADD_TABLE',
+    SHOW_TABLE: 'SHOW_TABLE',
+    ORDER_FOOD: 'ORDER_FOOD',
+    TABLE_LOADING: 'TABLE_LOADING'
 }
