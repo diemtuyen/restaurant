@@ -1,8 +1,7 @@
 import constants from '../constants/actionTypes'
 
 var initialState = {
-    tables: [],
-    itemLoading: true
+    tables: []
 }
 
 export default (state = initialState, action) => {
@@ -10,17 +9,14 @@ export default (state = initialState, action) => {
   var updated = Object.assign({}, state)
 
   switch(action.type) {
-
-    case constants.NEWS_RECEIVED:
-      updated['tables'] = action.news
+    case constants.ADD_TABLE:
+      updated['tables'] = action.tables
       return updated
 
-    case constants.NEWSITEM_LOADING:
-      updated['itemLoading'] = true;
+    /*case constants.TABLE_LOADING:
+      updated['tableLoading'] = true;
       return updated
-
-    
-
+    */
     default:
       return state
     }

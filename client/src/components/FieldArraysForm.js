@@ -1,7 +1,31 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
+import DropdownList from 'react-widgets/lib/DropdownList'
+import SelectList from 'react-widgets/lib/SelectList'
+import Multiselect from 'react-widgets/lib/Multiselect'
 import validate from './validate/validate';
-import WidgetForm from './WidgetForm';
+import 'react-widgets/dist/css/react-widgets.css'
+
+const renderDropdownList = ({ input, data, valueField, textField }) =>
+  <DropdownList {...input}
+    data={data}
+    valueField={valueField}
+    textField={textField}
+    onChange={input.onChange} />
+
+const renderMultiselect = ({ input, data, valueField, textField }) =>
+  <Multiselect {...input}
+    onBlur={() => input.onBlur()}
+    value={input.value || []} // requires value to be an array
+    data={data}
+    valueField={valueField}
+    textField={textField}
+  />
+
+const renderSelectList = ({ input, data }) =>
+  <SelectList {...input}
+    onBlur={() => input.onBlur()}
+    data={data} />
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
@@ -13,22 +37,33 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-
 const renderFood = ({ fields, meta: { touched, error, submitFailed } }) => (
   <ul>
     <li>
-      <button type="button" onClick={() => fields.push({})}>Them mon</button>
+      <button type="button" onClick={() => fields.push({})}>Add Food</button>
       {(touched || submitFailed) && error && <span>{error}</span>}
     </li>
-    {fields.map((member, index) => (
+    {fields.map((food, index) => (
       <li key={index}>
         <button
           type="button"
-          title="Remove Member"
+          title="Remove Food"
           onClick={() => fields.remove(index)}
         />
-        <h4>Food #{index + 1}</h4>
-        <WidgetForm />        
+        <h4>Food #{index + 1}</h4>        
+        <Field
+          name={`${food}.noodle`}
+          component={renderSelectList}
+          data={[ 'Bun', 'Bun thit nuong', 'Hu tiu', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Mien' ]}/>
+        <Field
+          name={`${food}.meat`}
+          component={renderMultiselect}
+          data={['Thap cam', 'Thit nat', 'Thit gio bo', 'Gio khoanh', ' Xuong', 'Bo', 'Ga', 'Moc', 'Cha' ]}/>
+        <Field
+          name={`${food}.note`}
+          component={renderMultiselect}
+          data={['Hanh la', 'Hanh phi', 'Ngo', ' Rau', 'Ca rot', 'Dau phong']}/>
+        <Field name={`${food}.count`} component="input" type="number" placeholder="So luong"/>
       </li>
     ))}
   </ul>
@@ -38,8 +73,8 @@ const FieldArraysForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
-      <div>Ban so 1</div>
-      <FieldArray name="food" component={renderFood} />
+      <Field name="tableId" component="input" type="number" placeholder="Table"/>
+      <FieldArray name="foods" component={renderFood} />
       <div>
         <button type="submit" disabled={submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>

@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 
 
 var FoodSchema = new mongoose.Schema({  
-    type: String,
+    category: String,
     meat:String,
     note: String,
+    count: Number,
     status: {
         type: Number,
         default: 1

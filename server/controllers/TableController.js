@@ -3,14 +3,13 @@ const Food = require('../models/Food')
 
 
 module.exports = {
-    orderFood: function(idTable, type, meat, note, callback){
-        Table.findById(idTable, function(err, result){
+    /*orderFood: function(category, meat, note, count, callback){
+        Table.create(params, function(err, result){
             if(err){
                 callback(err, null);
-                return;
+                return
             }
-            
-            var food = new Food({type: type, meat: meat, note: note});
+            var food = new Food({category: category, meat: meat, note: note, count: count});
 
             result.foods.push(food);
             
@@ -23,31 +22,20 @@ module.exports = {
                 callback(null, foodResult);
             });
         });
-
-    },
-    
+    },*/
     create: function(params, callback){
         Table.create(params, function(err, result){
             if(err){
                 callback(err, null);
+                console.log("ko tao duoc")
                 return
             }
+            console.log("tao moi thanh cong")
             callback(null, result);
         });
     },
-
     find: function(params, callback){
-        Table.find(params,'_id title state', function(err, results){
-            if(err){
-                callback(err, null);
-                return;
-            }
-            callback(null, results);
-        })
-    },
-
-    findById: function(id, callback){
-        Table.findById(id, function(err, results){
+        Table.find(params,'_id indexTable statusTable noteTable', function(err, results){
             if(err){
                 callback(err, null);
                 return;

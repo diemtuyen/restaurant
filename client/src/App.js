@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import Layout from './components/layouts/Layout';
 import Home from './components/layouts/Home';
+import AddTable from './components/containers/AddTable';
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
         <BrowserRouter>
           <Layout>
               <Route path="/" component={Home} />
+              <Route path='/addTable' component={AddTable}/>
           </Layout>
         </BrowserRouter>
       </Provider>

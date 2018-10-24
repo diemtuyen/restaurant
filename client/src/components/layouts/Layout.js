@@ -6,19 +6,14 @@ class Layout extends Component {
     return (
         <div>
             <div>
-                <h1>MadOwlNews.com - Breaking news about Mad Owls</h1>
+                <h1>Welcome to Tien Hai</h1>
             </div>
             <div>
-                <ul>
-                    {/* <li><Link to={'/'}>Home</Link></li>
-                    <li><Link to={'/about'}>About</Link></li>
-                    <li><Link to={'/log'}>Log</Link></li>
-                    <li><Link to={'/submit'}>Add news</Link></li> */}
+                {/* <ul>
                     <li><Link to={'/'}>All</Link></li>
                     <li><Link to={'/waiting'}>Waiting</Link></li>
                     <li><Link to={'/billing'}>Billing</Link></li>
-
-                </ul>
+                </ul> */}
                 { this.props.children }
             </div>
         </div>

@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import TableListing from '../presentation/TableListing';
-import OrderFood from '../presentation/OrderFood'
+import AllTable from '../containers/AllTable';
 
 class Home extends Component {
     render() {
         return (
             <div>
-                <div> 
-                    <TableListing />
-                    <OrderFood />
-                </div> 
+                <AllTable />
             </div>
         )
     }
