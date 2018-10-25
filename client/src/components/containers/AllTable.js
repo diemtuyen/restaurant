@@ -15,7 +15,6 @@ class AllTable extends Component {
 
         return (
             <div>
-                <h2>All tables</h2>
                 {tableIdx}
             </div>
         )

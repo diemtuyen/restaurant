@@ -12,8 +12,7 @@ class TableItem extends Component {
     render(){
         
         return (
-            <div>
-                <h2>Table Item</h2>
+            <div className="detailTableItem">
                 <ul>
                     { !this.props.tableItemLoading ? <div>
                         <TableDetail data={this.props.tableItem} /> 

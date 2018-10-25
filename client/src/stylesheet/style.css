@@ -1,4 +1,3 @@
-
 .tienhai .tableIdx{
     width: 170px;
     border: 1px solid gray;
@@ -6,4 +5,9 @@
     text-align: center;
     padding: 10px;
     margin: 20px;
+    margin-right: 10px;
+    float: left;
+}
+.tienhai .detailTableItem{
+    clear: left;
 }

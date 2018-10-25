@@ -31,32 +31,37 @@ const renderSelectList = ({ input, data }) =>
 let WidgetForm = props => {
   const { noodle, meat, note, count, handleSubmit, pristine, reset, submitting  } = props
   return (
-    <form onSubmit={handleSubmit}>      
+    <form onSubmit={handleSubmit} >      
+        <div>
+            <label>So luong</label>
+            <Field name="count" component="input" type="number" placeholder="So luong"/>
+        </div>
         <div>
             <label>Mon</label>
             <Field
                 name="noodle"
                 component={renderSelectList}
-                data={[ 'Bun', 'Bun thit nuong', 'Hu tiu', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Mien' ]}/>
+                // data={[ 'Bun', 'Bun thit nuong', 'Hu tiu', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Mien' ]}/>
+                data={[ 'Bun', 'Hu tiu', 'Mien' ]}/>
         </div>
         <div>
             <label>Thit</label>
             <Field
                 name="meat"
                 component={renderMultiselect}
-                data={['Thap cam', 'Thit nat', 'Thit gio bo', 'Gio khoanh', ' Xuong', 'Bo', 'Ga', 'Moc', 'Cha' ]}/>
+                // data={['Thap cam', 'Thit nat', 'Thit gio bo', 'Gio khoanh', ' Xuong', 'Bo', 'Ga', 'Moc', 'Cha' ]}/>
+                data={[' Thap cam ', ' Bo ', ' Moc ', ' Cha ' ]}/>
         </div>
         <div>
             <label>Khong an</label>
             <Field
                 name="note"
                 component={renderMultiselect}
-                data={['Hanh la', 'Hanh phi', 'Ngo', ' Rau', 'Ca rot', 'Dau phong']}/>
+                // data={['Hanh la', 'Hanh phi', 'Ngo', ' Rau', 'Ca rot', 'Dau phong']}/>
+                data={['Hanh la', 'Hanh phi']}/>
         </div>  
-        <div>
-            <label>So luong</label>
-            <Field name="count" component="input" type="number" placeholder="So luong"/>
-        </div>      
+        
+        <p>{count && <b>{count}: </b>} {noodle && <b>{noodle}</b>} {meat && <i>{meat}</i>} {note && <span>~{note}</span>}</p>   
         <div>
             <button type="submit" disabled={pristine || submitting}>Order</button>
         </div>

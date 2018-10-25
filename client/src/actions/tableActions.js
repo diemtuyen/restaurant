@@ -52,7 +52,7 @@ export function submitFood(tableItemID, data){
     return dispatch => {
         return fetch(`/table/${tableItemID}/food`, { 
             method: 'POST', 
-             headers: {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },

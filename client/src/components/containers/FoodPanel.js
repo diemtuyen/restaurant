@@ -11,7 +11,7 @@ class FoodPanel extends Component {
 
         return (
             <div>
-                <h6>List of Foods</h6>
+                <h3>List of Foods</h3>
                 <ul>
                     {(this.props.foods.length > 0) ? <ul>{foodItem}</ul> : <div>No food</div>}
                 </ul>
