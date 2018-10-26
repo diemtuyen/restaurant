@@ -63,7 +63,8 @@ router.post('/:id/food', function(req, res, next) {
     
     const id = req.params.id;
     console.log('SERVER:::::::::: PREPARE orderfood');
-    tableController.orderFood(id, req.body.category, req.body.meat, req.body.note, req.body.count, function(err, result){
+    debugger;
+    tableController.orderFood(id, req.body.noodle, req.body.meat, req.body.note, req.body.count, function(err, result){
         if(err){  
             console.log(err);
             res.json({

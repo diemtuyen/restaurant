@@ -44,7 +44,10 @@ export function submitTable(data){
 function addFood(body){
     return {
         type: actionTypes.ORDER_FOOD,
-        body: body
+        noodle: body.noodle,
+        meat: body.meat,
+        note: body.note,
+        count: body.count
     }
 }
 export function submitFood(tableItemID, data){

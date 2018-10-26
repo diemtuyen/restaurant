@@ -4,8 +4,8 @@ const Food = require('../models/Food')
 
 module.exports = {
     
-    orderFood: function(id, category, meat, note, count, callback){
-        console.log('CONTROLLER:::::::::: PREPARE FIND');
+    orderFood: function(id, noodle, meat, note, count, callback){
+        console.log('CONTROLLER:::::::::: PREPARE FIND' + noodle);
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
@@ -13,7 +13,7 @@ module.exports = {
                 return;
             }
             console.log('CONTROLLER:::::::::: PREPARE orderfood');
-            var food = new Food({category: category, meat: meat, note: note, count: count});
+            var food = new Food({noodle: noodle, meat: meat, note: note, count: count});
             
             result.foods.push(food);
             

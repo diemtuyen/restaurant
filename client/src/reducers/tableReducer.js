@@ -26,7 +26,9 @@ export default (state = initialState, action) => {
     
     case constants.ORDER_FOOD:
       var updatedFoods = Object.assign([], updated['tableItem'].foods);
-      updatedFoods.push({"body": action.body});
+      debugger;
+      console.log('updatedFoods ' + updatedFoods);
+      updatedFoods.push({"noodle": action.noodle, "meat": action.meat, "note": action.note, "count": action.count});
       updated['tableItem'].foods = updatedFoods;
       return updated  
     
