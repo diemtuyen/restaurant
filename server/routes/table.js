@@ -62,16 +62,18 @@ router.post('/', function(req, res, next) {
 router.post('/:id/food', function(req, res, next) {
     
     const id = req.params.id;
-    console.log('SERVER:::::::::: PREPARE orderfood');
-    debugger;
+    
     tableController.orderFood(id, req.body.noodle, req.body.meat, req.body.note, req.body.count, function(err, result){
+    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.noodle);
+    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.meat);
+    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.note);
+    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.count);
         if(err){  
             console.log(err);
             res.json({
                 success: 0,
                 error: err
             })
-            console.log('SERVER:::::::::: ERROR orderfood');
             return;
         }
         console.log('SERVER:::::::::: OK ::::::: orderfood');

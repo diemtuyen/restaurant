@@ -5,16 +5,15 @@ const Food = require('../models/Food')
 module.exports = {
     
     orderFood: function(id, noodle, meat, note, count, callback){
-        console.log('CONTROLLER:::::::::: PREPARE FIND' + noodle);
+        console.log('CONTROLLER 11111111111111111111 PREPARE FIND ' + noodle);
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
-                console.log('CONTROLLER:::::::::: NOTFOUND');
                 return;
             }
-            console.log('CONTROLLER:::::::::: PREPARE orderfood');
+            console.log('CONTROLLER AAAAAAAAAAAAAAA PREPARE orderfood ' + noodle);
             var food = new Food({noodle: noodle, meat: meat, note: note, count: count});
-            
+            console.log('CONTROLLER BBBBBBBBBBBBBB PREPARE orderfood ' + food.noodle);
             result.foods.push(food);
             
             result.save(function(err, foodResult){
