@@ -4,7 +4,6 @@ import {Route,BrowserRouter} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import './stylesheet/main.scss';
-import './stylesheet/style.css';
 import Layout from './components/layouts/Layout';
 import Home from './components/layouts/Home';
 import AddTable from './components/containers/AddTable';
