@@ -12,15 +12,14 @@ class TableListing extends Component {
         else if(`${this.props.data.statusTable}` === `state_order`)
             bg = 'tableIdx order';        
         return (
-            
-            
             <div className={bg}>            
-                {this.props.data.statusTable}
-                <div><Link to={`/table/${this.props.data._id}`}>Ban so <b>{this.props.data.indexTable}</b></Link></div>
+                <div className = "titleIndex">Ban so <b>{this.props.data.indexTable}</b></div>
                 <br/>
                 <div>
-                    <Button>Order</Button>{' '}
+                    <Link to={`/table/${this.props.data._id}`}><Button>Order</Button></Link>{' '}
+                    <Link to ="#">
                     {(`${this.props.data.statusTable}` !== `state_order`) && <Button>Bill</Button>}
+                    </Link>
                 </div> 
             </div> 
         )

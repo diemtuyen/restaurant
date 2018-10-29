@@ -13,6 +13,10 @@ body,html{
     .btn-secondary {
         background-color: $btn;
     }
+    .nav-link {
+        font-size: 18px;
+        color: black;
+    }
     .tableIdx{
         width: 200px;
         border: 1px solid gray;
@@ -23,12 +27,15 @@ body,html{
         float: left;
         &.wait{
             background-color: $state_waiting;
+            font-size: 24px;
         }
         &.bill{
             background-color: $state_billing;
+            font-size: 24px;
         }
         &.order{
             background-color: $state_order;
+            font-size: 24px;
         }
         a {
             text-decoration: none;
