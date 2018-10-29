@@ -32,7 +32,7 @@ export function submitTable(data){
     return dispatch => {
         return fetch('/table/', { 
             method: 'POST', 
-             headers: {
+            headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               },

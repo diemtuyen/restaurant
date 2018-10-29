@@ -2,24 +2,49 @@
 body,html{
     margin: 0;
     padding: 0;
-    background-color: gray;
 }
 .tienhai{
-    //@import '../../node_modules/bootstrap/scss/bootstrap.scss';    
+    @import '../../node_modules/bootstrap/scss/bootstrap.scss';
     font-family: $font_name;
     font-size:12px;    
+    .header{
+        text-align: center;
+    }
+    .btn-secondary {
+        background-color: $btn;
+    }
     .tableIdx{
-        width: 170px;
+        width: 200px;
         border: 1px solid gray;
-        background-color: $state_order;
         text-align: center;
         padding: 10px;
         margin: 20px;
         margin-right: 10px;
         float: left;
+        &.wait{
+            background-color: $state_waiting;
+        }
+        &.bill{
+            background-color: $state_billing;
+        }
+        &.order{
+            background-color: $state_order;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
     }
     .detailTableItem{
         clear: left;
+    }
+    .addTable{
+        clear: both;
+        text-align: center;
+    }        
+    .alignCenter{
+        text-align: center;
     }
 }
 

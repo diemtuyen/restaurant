@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import { submitFood } from '../../actions/tableActions';
 import { connect } from 'react-redux';
-import WidgetForm from "../WidgetForm";
+import OrderFoodForm from "../OrderFoodForm";
 
 class OrderFood extends Component {   
     constructor(){
@@ -16,7 +16,7 @@ class OrderFood extends Component {
         return (
             <div>
                 <h3>Order Food</h3>
-                <WidgetForm onSubmit={this.submitOrderFood}/> 
+                <OrderFoodForm onSubmit={this.submitOrderFood}/> 
             </div>
         )
     }

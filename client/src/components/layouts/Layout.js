@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {  Nav, NavItem, NavLink } from 'reactstrap';
+import classnames from 'classnames';
  
-class Layout extends Component {
+class Layout extends Component {    
     render() {
-    return (
-        <div>
+        return (
             <div>
-                <h1>Welcome to Tien Hai</h1>
-            </div>
-            <div>
-                {/* <ul>
-                    <li><Link to={'/'}>All</Link></li>
-                    <li><Link to={'/waiting'}>Waiting</Link></li>
-                    <li><Link to={'/billing'}>Billing</Link></li>
-                </ul> */}
+                <div>
+                    <h1 className="header">Welcome to Tien Hai</h1>
+                </div>                
+                <Nav>
+                <NavItem>
+                    <NavLink href="/">All Tables</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/order">Order Tables</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/waiting">Waiting Tables</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/billing">Billing Tables</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink disabled href="/addTable">Add new table</NavLink>
+                </NavItem>
+                </Nav>
                 { this.props.children }
             </div>
-        </div>
-        );
-    }
+            );
+        }
 }
 
 export default Layout;

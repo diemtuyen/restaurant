@@ -5,9 +5,14 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import './stylesheet/main.scss';
 import Layout from './components/layouts/Layout';
-import Home from './components/layouts/Home';
+import AllTable from './components/layouts/AllTable';
+import OrderTable from './components/layouts/OrderTable';
+import WaitingTable from './components/layouts/WaitingTable';
+import BillingTable from './components/layouts/BillingTable';
+
 import AddTable from './components/containers/AddTable';
 import TableItem from './components/containers/TableItem';
+
 
 
 class App extends Component {
@@ -16,7 +21,11 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <Layout>
-              <Route path="/" component={Home} />
+              <Route exact path="/" component={AllTable} />
+              <Route path="/order" component={OrderTable} />
+              <Route path="/waiting" component={WaitingTable} />
+              <Route path="/billing" component={BillingTable} />
+
               <Route path='/table/:id' component={TableItem}/> 
               <Route path='/addTable' component={AddTable}/>
           </Layout>
