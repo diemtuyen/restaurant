@@ -5,7 +5,7 @@ class FoodElement extends Component {
     render(){
         return (
             <div>
-                {this.props.data.body}
+                {this.props.data.count && <span>{this.props.data.count}</span>} {this.props.data.noodle && <b>{this.props.data.noodle}</b>} {this.props.data.meat && <i>{this.props.data.meat}</i>} {this.props.data.note && <span>~{this.props.data.note}</span>}
             </div>
         )
     }

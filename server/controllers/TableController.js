@@ -1,29 +1,38 @@
 const Table = require('../models/Table')
 const Food = require('../models/Food')
+const OptionFood = require('../models/OptionFood')
 
 
 module.exports = {
     
-    orderFood: function(id, noodle, meat, note, count, callback){
-        console.log('CONTROLLER 11111111111111111111 PREPARE FIND ' + noodle);
+    orderFood: function(id, noodle, meat, note, count, hasOption, optional, countOption, priceOption, callback){
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
                 return;
             }
-            console.log('CONTROLLER AAAAAAAAAAAAAAA PREPARE orderfood ' + noodle);
-            var food = new Food({noodle: noodle, meat: meat, note: note, count: count});
-            console.log('CONTROLLER BBBBBBBBBBBBBB PREPARE orderfood ' + food.noodle);
+            let price = count * 25000;
+            var food = new Food({noodle: noodle, meat: meat, note: note, count: count, totalPrice: price});
+            var total = price;
             result.foods.push(food);
-            
-            result.save(function(err, foodResult){
-                if(err){
-                    callback(err, null);
-                    console.log('CONTROLLER:::::::::: ERROR');
-                    return;
-                }
-                console.log('CONTROLLER:::::::::: OK ::::::: orderfood');
-                callback(null, foodResult);
+            if(hasOption){
+                let price = countOption * priceOption;  
+                total +=  price;            
+                var optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
+                result.optionFoods.push(optionFood);
+            }  
+            console.log('11111111111111111111'); 
+            result.update({'_id': id}, {'$set': {
+                '$.totalPrice': '55555555'
+            }}, function(err) {
+                console.log('22222222222222'); 
+                result.save(function(err, foodResult){
+                    if(err){
+                        callback(err, null);
+                        return;
+                    }
+                    callback(null, foodResult);
+                });
             });
         });
 

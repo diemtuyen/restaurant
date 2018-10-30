@@ -42,7 +42,8 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
-    
+    console.log('========================================= ');
+    console.log(req.body);
     tableController.create(req.body, function(err, result){
         if(err){  
             console.log(err);
@@ -60,14 +61,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/:id/food', function(req, res, next) {
-    
-    const id = req.params.id;
-    
-    tableController.orderFood(id, req.body.noodle, req.body.meat, req.body.note, req.body.count, function(err, result){
-    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.noodle);
-    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.meat);
-    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.note);
-    console.log('SERVER:::::::::: PREPARE orderfood ' + req.body.count);
+    const id = req.params.id; 
+    console.log(req.body.body);
+    tableController.orderFood(id, req.body.body.noodle, req.body.body.meat, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
         if(err){  
             console.log(err);
             res.json({
@@ -76,7 +72,6 @@ router.post('/:id/food', function(req, res, next) {
             })
             return;
         }
-        console.log('SERVER:::::::::: OK ::::::: orderfood');
         res.json({
             success: 1,
             data: result

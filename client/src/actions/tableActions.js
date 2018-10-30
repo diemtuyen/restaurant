@@ -47,7 +47,11 @@ function addFood(body){
         noodle: body.noodle,
         meat: body.meat,
         note: body.note,
-        count: body.count
+        count: body.count,
+        hasOption: body.hasOption,
+        optional: body.optional,
+        countOption: body.countOption,
+        priceOption: body.priceOption
     }
 }
 export function submitFood(tableItemID, data){

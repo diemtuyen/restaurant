@@ -6,6 +6,7 @@ var FoodSchema = new mongoose.Schema({
     meat:String,
     note: String,
     count: Number,
+    totalPrice: Number,
     status: {
         type: Number,
         default: 1
