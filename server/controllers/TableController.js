@@ -20,12 +20,9 @@ module.exports = {
                 total +=  price;            
                 var optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
                 result.optionFoods.push(optionFood);
-            }  
-            console.log('11111111111111111111'); 
-            result.update({'_id': id}, {'$set': {
-                '$.totalPrice': '55555555'
-            }}, function(err) {
-                console.log('22222222222222'); 
+            } 
+            result.update({ totalPrice: total}, function(foodResult) {
+                result.modified = new Date();
                 result.save(function(err, foodResult){
                     if(err){
                         callback(err, null);
