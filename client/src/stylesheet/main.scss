@@ -6,9 +6,8 @@ body,html{
 .tienhai{
     @import '../../node_modules/bootstrap/scss/bootstrap.scss';
     font-family: $font_name;
-    font-size:12px; 
+    font-size: 14px; 
     form{
-        font-size: 14px;
         border: 2px dashed skyblue;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -34,8 +33,16 @@ body,html{
         position: relative;
         height: auto;
     } 
-    .btn-secondary {
+    .btn-secondary{
         background-color: $btn;
+        &:not(:disabled):not(.disabled):active:focus{
+            box-shadow: unset;
+        }
+    }
+    .btn{
+        &:focus{
+            box-shadow: unset;
+        }
     }
     .nav-link {
         font-size: 18px;
@@ -64,7 +71,6 @@ body,html{
         a {
             text-decoration: none;
             color: black;
-            font-size: 14px;
         }
     }
     .detailTableItem{
@@ -75,7 +81,6 @@ body,html{
         text-align: center;
     } 
     .newTable{
-        font-size: 14px;
         border: 1px solid gray;
         border-radius: 5px;
         width: 40%;

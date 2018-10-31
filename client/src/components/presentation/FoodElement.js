@@ -5,11 +5,10 @@ class FoodElement extends Component {
     render(){
         return (
             <div>
-                {this.props.data.count && <span>{this.props.data.count}</span>} {' '}
-                {this.props.data.noodle && <span>{this.props.data.noodle}</span>}{' '} 
-                {this.props.data.meat && <span>{this.props.data.meat}</span>}{' '}
-                {this.props.data.note && <span>~{this.props.data.note}</span>}{' '}
-                {this.props.data.hasOptionValue && <i>({this.props.data.countOption}{' '}{this.props.data.optional})</i>}
+                <p>
+                    {this.props.data.count && <b>{this.props.data.count}</b>} {this.props.data.noodle && <b>{this.props.data.noodle}</b>} {this.props.data.meat && <b>{this.props.data.meat}</b>} {this.props.data.reject && <span> ( khong {this.props.data.reject}  )</span>} {this.props.data.note && <span>({this.props.data.note})</span>}
+                    {this.props.data.hasOptionValue && <i>( THEM: {this.props.data.countOption}{' '}{this.props.data.optional} )</i>}
+                </p>
             </div>
         )
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field, reduxForm, formValueSelector  } from 'redux-form'
+import { reset, Field, reduxForm, formValueSelector  } from 'redux-form'
 import DropdownList from 'react-widgets/lib/DropdownList'
 import SelectList from 'react-widgets/lib/SelectList'
 import Multiselect from 'react-widgets/lib/Multiselect'
@@ -31,13 +31,13 @@ const renderSelectList = ({ input, data }) =>
 let OrderFoodForm = props => {
   const { hasOptionValue, noodle, meat, reject, note, count, optional, countOption, priceOption , handleSubmit, pristine, reset, submitting  } = props
   return (
-    <form onSubmit={handleSubmit} >      
+    <form onSubmit={handleSubmit} onReset={reset} >      
       <Row>  
         <Col md={4}>
           <label>Mon</label>
           <Field
             name="noodle"
-            component={renderSelectList}
+            component={renderDropdownList}
             data={[ 'Bun', 'Bun thit nuong', 'Hu tiu', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Mien' ]}/>
         </Col>
         <Col md={4}>
@@ -107,14 +107,16 @@ let OrderFoodForm = props => {
       </p>
       <div className="alignC">
           <Button type="submit" disabled={pristine || submitting}>Order</Button>{' '}
-          <Button type="button" disabled={pristine || submitting} onClick={reset}>Reset</Button>
       </div>
     </form>
   )
 }
+const afterSubmit = (result, dispatch) =>
+  dispatch(reset('reactWidgets'));
 
 OrderFoodForm = reduxForm({
-  form: 'reactWidgets'  // a unique identifier for this form
+  form: 'reactWidgets',
+  onSubmitSuccess: afterSubmit,
 })(OrderFoodForm)
 
 

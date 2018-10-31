@@ -60,6 +60,26 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.post('/:id', function(req, res, next) {
+    const id = req.params.id; 
+    console.log(req.body);
+    tableController.updateStatus(id, req.body.statusTable, function(err, result){
+        if(err){  
+            console.log(err);
+            res.json({
+                success: 0,
+                error: err
+            })
+            return;
+        }
+        res.json({
+            success: 1,
+            data: result
+        });
+    });
+
+});
+
 router.post('/:id/food', function(req, res, next) {
     const id = req.params.id; 
     console.log(req.body.body);

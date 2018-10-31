@@ -6,6 +6,18 @@ import { fetchTableItem } from '../../actions/tableActions'
 
 class TableItem extends Component {
 
+    /*constructor(props){
+        super(props);
+        this.state = {
+            status: ''
+        };
+        this.handleStatus= this.handleStatus.bind(this);
+    }
+    handleStatus(value){
+        this.setState({
+            status: value   
+        });
+    }*/
     componentDidMount(){
         this.props.dispatch(fetchTableItem(this.props.match.params.id));
     }

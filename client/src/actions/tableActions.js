@@ -77,3 +77,32 @@ export function submitFood(tableItemID, data){
             .catch( (e) => console.log(e) );
     }    
 }
+function updateStatus(statusTable){
+    return {
+        type: actionTypes.UPDATE_TABLE,
+        statusTable: statusTable
+    }
+}
+export function updateTable(tableItemID, data){
+    
+    return dispatch => {
+        return fetch(`/table/${tableItemID}`, { 
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(data), 
+            mode: 'cors'})
+            .then( (response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }else{
+                    console.log('1111111111111111111111111111');
+                    console.log(data);
+                    dispatch(updateStatus(data.statusTable))
+                }
+            })
+            .catch( (e) => console.log(e) );
+    }    
+}

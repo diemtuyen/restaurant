@@ -34,6 +34,30 @@ module.exports = {
         });
 
     },
+    updateStatus: function(id, statusTable, callback){
+        Table.findById(id, function(err, result){
+            if(err){
+                callback(err, null);
+                return;
+            }   
+            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA') ;        
+            console.log(statusTable) ;        
+            console.log(result) ;        
+            result.update({ statusTable: statusTable}, function(updateResult) {
+                
+                result.modified = new Date();
+                console.log(result) ;     
+                result.save(function(err, updateResult){
+                    if(err){
+                        callback(err, null);
+                        return;
+                    }
+                    callback(null, updateResult);
+                });
+            });
+        });
+
+    },
     create: function(params, callback){
         Table.create(params, function(err, result){
             if(err){
