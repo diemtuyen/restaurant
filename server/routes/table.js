@@ -63,7 +63,7 @@ router.post('/', function(req, res, next) {
 router.post('/:id/food', function(req, res, next) {
     const id = req.params.id; 
     console.log(req.body.body);
-    tableController.orderFood(id, req.body.body.noodle, req.body.body.meat, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
+    tableController.orderFood(id, req.body.body.noodle, req.body.body.meat, req.body.body.except, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
         if(err){  
             console.log(err);
             res.json({

@@ -46,6 +46,7 @@ function addFood(body){
         type: actionTypes.ORDER_FOOD,
         noodle: body.noodle,
         meat: body.meat,
+        reject: body.reject,
         note: body.note,
         count: body.count,
         hasOption: body.hasOption,

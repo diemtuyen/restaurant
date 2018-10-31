@@ -6,10 +6,34 @@ body,html{
 .tienhai{
     @import '../../node_modules/bootstrap/scss/bootstrap.scss';
     font-family: $font_name;
-    font-size:12px;    
-    .header{
-        text-align: center;
+    font-size:12px; 
+    form{
+        font-size: 14px;
+        border: 2px dashed skyblue;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
+    input{
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        height: 32px;
+    }
+    select{
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        height: 30px;
+    }
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    } 
+    #hasOption{
+        zoom: 1.7;
+        top: 2px;
+        left: 5px;
+        position: relative;
+        height: auto;
+    } 
     .btn-secondary {
         background-color: $btn;
     }
@@ -49,9 +73,35 @@ body,html{
     .addTable{
         clear: both;
         text-align: center;
-    }        
-    .alignCenter{
+    } 
+    .newTable{
+        font-size: 14px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 40%;
+        padding: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 30px;
+        .row{
+            padding-bottom: 5px;
+            padding-top: 5px;
+            input{
+                width: 100%;
+            }
+        }
+    }       
+    .alignC{
         text-align: center;
+    }
+    .alignL{
+        text-align: left;
+    }
+    .alignR{
+        text-align: right;
+    }
+    .marginT{
+        margin-top: 15px;
     }
 }
 

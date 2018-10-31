@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var FoodSchema = new mongoose.Schema({  
     noodle: String,
     meat:String,
+    reject: String,
     note: String,
     count: Number,
     totalPrice: Number,

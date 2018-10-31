@@ -10,7 +10,6 @@ class OrderFood extends Component {
     } 
     submitOrderFood(values){
         console.log('value:::::::::: '+ values);
-        debugger;
         this.props.dispatch(submitFood(this.props.tableItemID, {body: values})); 
     }
     render(){

@@ -8,18 +8,32 @@ let AddTableForm = props => {
   return (
     <form onSubmit={handleSubmit}>
       <Row>  
-          <Col md={2}>
-            Number's table
+          <Col md={3}>
+            Ban so: 
           </Col>
-          <Col md={10}>
-            <Field name="indexTable" component="input" type="number" placeholder="Ban so" />
+          <Col md={9}>
+            <Field name="indexTable" component="select">
+              <option />              
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </Field>
           </Col>
       </Row>
       <Row>  
-          <Col md={2}>
-            Status
+          <Col md={3}>
+            Trang thai:
           </Col>
-          <Col md={10}>
+          <Col md={9}>
             <Field name="statusTable" component="select">
               <option />
               <option value="state_order">Con trong</option>
@@ -29,17 +43,19 @@ let AddTableForm = props => {
           </Col>
       </Row>
       <Row>  
-          <Col md={2}>
-          Notes
+          <Col md={3}>
+          Ghi chu:
           </Col>
-          <Col md={10}>
-            <Field name="noteTable" component="textarea" />
+          <Col md={9}>
+            <Field name="noteTable" component="input" type="text" fullWidth/>
           </Col>
       </Row>
-      <Row>  
-        <Button type="submit" disabled={pristine || submitting}>
-        Add new table
-        </Button>
+      <Row>
+        <Col md={{ size: 2, offset: 5 }}>          
+          <Button type="submit" disabled={pristine || submitting}>
+          Them moi
+          </Button>
+        </Col>
       </Row>
     </form>
   )

@@ -16,7 +16,7 @@ class AddTable extends Component {
     }
     render(){
         return (
-            <div>
+            <div className="newTable">
                 <AddTableForm onSubmit={this.submitSubmission}/> 
                 {/* Ban so <input onChange={this.updateSubmission.bind(this)} id="indexTable" type="number" placeholder= "Ban so ..."/><br/>
                 Tinh trang <input onChange={this.updateSubmission.bind(this)} id="statusTable" type="text" /><br/>  

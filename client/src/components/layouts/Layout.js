@@ -8,7 +8,7 @@ class Layout extends Component {
         return (
             <div>
                 <div>
-                    <h1 className="header">Welcome to Tien Hai</h1>
+                    <h1 className="alignC">Welcome to Tien Hai</h1>
                 </div>                
                 <Nav>
                 <NavItem>
