@@ -10,11 +10,15 @@ class FoodPanel extends Component {
 
     constructor(props){
         super(props);
-        this.toggleStatus= this.toggleStatus.bind(this);
+        this.toggleServe= this.toggleServe.bind(this);
+        this.toggleBill= this.toggleBill.bind(this);
     }
-    toggleStatus(){
-        debugger;
-        this.props.dispatch(updateTable(this.props.id, {statusTable: 'state_serving'}));
+    toggleServe(){
+        this.props.dispatch(updateStatusTable(this.props.id, {statusTable: 'state_serving'}));
+        this.props.history.push("/");
+    }
+    toggleBill(){
+        this.props.dispatch(updateStatusTable(this.props.id, {statusTable: 'state_billing'}));
         this.props.history.push("/");
     }
     render(){
@@ -23,16 +27,23 @@ class FoodPanel extends Component {
         });
 
         return (
-            <div>                
-                <OrderFood tableItemID={this.props.id}/>                
+            <div>
+                {(`${this.props.st}` == `state_order` || `${this.props.st}` == `state_waiting`) &&                
+                    <OrderFood tableItemID={this.props.id}/>  
+                }              
                 <div>
                     <h3>List of Foods</h3>
                     {(this.props.foods.length <= 0) ? <div>No food</div> : 
                         <div>
                             <ul>{foodItem}</ul>
-                            <div className="alignC">
-                            <Button onClick={this.toggleStatus}>Serve</Button>
-                            </div>
+                                <div className="alignC">
+                                    {(`${this.props.st}` == `state_waiting`) &&
+                                        <Button onClick={this.toggleServe}>Serve</Button>
+                                    }{' '}
+                                    {(`${this.props.st}` == `state_waiting` || `${this.props.st}` == `state_serving`) &&
+                                        <Button onClick={this.toggleBill}>Bill</Button>
+                                    }
+                                </div>                  
                         </div>
                     }
                 </div>
