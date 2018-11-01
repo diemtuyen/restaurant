@@ -10,7 +10,7 @@ class OrderFood extends Component {
     } 
     submitOrderFood(values){
         console.log('value:::::::::: '+ values);
-        this.props.dispatch(submitFood(this.props.tableItemID, {body: values})); 
+        this.props.dispatch(submitFood(this.props.tableItemID, {stTable:'state_waiting', body: values})); 
     }
     render(){
         return (

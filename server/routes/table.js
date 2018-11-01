@@ -42,8 +42,6 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
-    console.log('========================================= ');
-    console.log(req.body);
     tableController.create(req.body, function(err, result){
         if(err){  
             console.log(err);
@@ -60,10 +58,9 @@ router.post('/', function(req, res, next) {
     });
 });
 
-router.post('/:id', function(req, res, next) {
+router.post('/:id/update', function(req, res, next) {
     const id = req.params.id; 
-    console.log(req.body);
-    tableController.updateStatus(id, req.body.statusTable, function(err, result){
+    tableController.setState(id, req.body.statusTable, function(err, result){
         if(err){  
             console.log(err);
             res.json({
@@ -82,8 +79,7 @@ router.post('/:id', function(req, res, next) {
 
 router.post('/:id/food', function(req, res, next) {
     const id = req.params.id; 
-    console.log(req.body.body);
-    tableController.orderFood(id, req.body.body.noodle, req.body.body.meat, req.body.body.except, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
+    tableController.orderFood(id, req.body.stTable, req.body.body.noodle, req.body.body.meat, req.body.body.except, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
         if(err){  
             console.log(err);
             res.json({

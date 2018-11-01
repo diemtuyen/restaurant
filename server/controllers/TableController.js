@@ -5,7 +5,7 @@ const OptionFood = require('../models/OptionFood')
 
 module.exports = {
     
-    orderFood: function(id, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
+    orderFood: function(id, stTable, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
@@ -21,7 +21,7 @@ module.exports = {
                 var optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
                 result.optionFoods.push(optionFood);
             } 
-            result.update({ totalPrice: total}, function(foodResult) {
+            result.update({statusTable: stTable, totalPrice: total}, function(foodResult) {
                 result.modified = new Date();
                 result.save(function(err, foodResult){
                     if(err){
@@ -34,19 +34,15 @@ module.exports = {
         });
 
     },
-    updateStatus: function(id, statusTable, callback){
+    setState: function(id, statusTable, callback){
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
                 return;
-            }   
-            console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAA') ;        
-            console.log(statusTable) ;        
-            console.log(result) ;        
+            }             
             result.update({ statusTable: statusTable}, function(updateResult) {
                 
                 result.modified = new Date();
-                console.log(result) ;     
                 result.save(function(err, updateResult){
                     if(err){
                         callback(err, null);

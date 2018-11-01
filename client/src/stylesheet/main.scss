@@ -68,6 +68,10 @@ body,html{
             background-color: $state_order;
             font-size: 24px;
         }
+        &.serve{
+            background-color: $state_serving;
+            font-size: 24px;
+        }
         a {
             text-decoration: none;
             color: black;

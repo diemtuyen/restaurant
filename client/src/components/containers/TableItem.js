@@ -5,19 +5,6 @@ import { connect } from 'react-redux'
 import { fetchTableItem } from '../../actions/tableActions'
 
 class TableItem extends Component {
-
-    /*constructor(props){
-        super(props);
-        this.state = {
-            status: ''
-        };
-        this.handleStatus= this.handleStatus.bind(this);
-    }
-    handleStatus(value){
-        this.setState({
-            status: value   
-        });
-    }*/
     componentDidMount(){
         this.props.dispatch(fetchTableItem(this.props.match.params.id));
     }
@@ -28,7 +15,7 @@ class TableItem extends Component {
                 <ul>
                     { !this.props.tableItemLoading ? <div>
                         <TableDetail data={this.props.tableItem} /> 
-                        <FoodPanel foods={this.props.foods} id={this.props.tableItem._id} />
+                        <FoodPanel foods={this.props.foods} id={this.props.tableItem._id} st={this.props.tableItem.statusTable} />
                         </div> : <div>Loading</div>}
                 </ul>
             </div>

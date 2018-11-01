@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import FoodElement from '../presentation/FoodElement';
 import OrderFood from '../presentation/OrderFood';
 import { Button } from 'reactstrap';
-import { updateTable } from '../../actions/tableActions';
+import { updateStatusTable } from '../../actions/tableActions';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
@@ -14,7 +14,7 @@ class FoodPanel extends Component {
     }
     toggleStatus(){
         debugger;
-        this.props.dispatch(updateTable(this.props.id, {statusTable: 'state_waiting'}));
+        this.props.dispatch(updateTable(this.props.id, {statusTable: 'state_serving'}));
         this.props.history.push("/");
     }
     render(){
@@ -24,16 +24,18 @@ class FoodPanel extends Component {
 
         return (
             <div>                
-                <OrderFood tableItemID={this.props.id}/>
-                <h3>List of Foods</h3>
-                {(this.props.foods.length <= 0) ? <div>No food</div> : 
-                    <div>
-                        <ul>{foodItem}</ul>
-                        <div className="alignC">
-                            <Button onClick={this.toggleStatus}>Done</Button>
+                <OrderFood tableItemID={this.props.id}/>                
+                <div>
+                    <h3>List of Foods</h3>
+                    {(this.props.foods.length <= 0) ? <div>No food</div> : 
+                        <div>
+                            <ul>{foodItem}</ul>
+                            <div className="alignC">
+                            <Button onClick={this.toggleStatus}>Serve</Button>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         )
     }

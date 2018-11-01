@@ -41,9 +41,10 @@ export function submitTable(data){
             .catch( (e) => console.log(e) );
     }    
 }
-function addFood(body){
+function addFood(stTable, body){
     return {
         type: actionTypes.ORDER_FOOD,
+        stTable: stTable,
         noodle: body.noodle,
         meat: body.meat,
         reject: body.reject,
@@ -71,22 +72,22 @@ export function submitFood(tableItemID, data){
                     throw Error(response.statusText);
                 }else{
 
-                    dispatch(addFood(data.body))
+                    dispatch(addFood(data.stTable, data.body));
                 }
             })
             .catch( (e) => console.log(e) );
     }    
 }
-function updateStatus(statusTable){
+function updateTable(st){
     return {
         type: actionTypes.UPDATE_TABLE,
-        statusTable: statusTable
+        statusTable: st
     }
 }
-export function updateTable(tableItemID, data){
+export function updateStatusTable(tableItemID, data){
     
     return dispatch => {
-        return fetch(`/table/${tableItemID}`, { 
+        return fetch(`/table/${tableItemID}/update`, { 
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
@@ -98,9 +99,7 @@ export function updateTable(tableItemID, data){
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }else{
-                    console.log('1111111111111111111111111111');
-                    console.log(data);
-                    dispatch(updateStatus(data.statusTable))
+                    dispatch(updateTable(data.statusTable))
                 }
             })
             .catch( (e) => console.log(e) );
