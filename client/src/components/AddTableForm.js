@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux'
 
 let AddTableForm = props => {
-  const { statusTable, noteTable, handleSubmit, pristine, reset, submitting } = props
+  const { statusTable, noteTable, handleSubmit, pristine, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
       <Row>  

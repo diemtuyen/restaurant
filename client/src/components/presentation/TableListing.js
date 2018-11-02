@@ -15,20 +15,11 @@ class TableListing extends Component {
             bg = 'tableIdx serve';        
         return (
             <div className={bg}>            
-                <div className = "titleIndex">Ban so <b>{this.props.data.indexTable}</b></div>
+                <div>Ban so <b>{this.props.data.indexTable}</b></div>
                 <br/>
                 <div>
                     <Link to={`/table/${this.props.data._id}`}>
-                        {(`${this.props.data.statusTable}` == `state_order`|| `${this.props.data.statusTable}` == `state_waiting`) && <Button>Order</Button>}
-                    </Link>{' '}
-                    <Link to ={`/table/${this.props.data._id}`}>
-                        {(`${this.props.data.statusTable}` == `state_waiting`) && <Button>Serve</Button>}
-                    </Link>{' '}
-                    <Link to ={`/table/${this.props.data._id}`}>
-                        {(`${this.props.data.statusTable}` == `state_serving`) && <Button>Bill</Button>}
-                    </Link>
-                    <Link to ={`/table/${this.props.data._id}`}>{' '}
-                        {(`${this.props.data.statusTable}` == `state_billing`) && <Button>Bill</Button>}
+                        <Button></Button>
                     </Link>
                 </div> 
             </div> 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {  Nav, NavItem, NavLink } from 'reactstrap';
-import classnames from 'classnames';
+// import classnames from 'classnames';
+// import { Link } from 'react-router-dom';
  
 class Layout extends Component {    
     render() {

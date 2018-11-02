@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const tableController = require('../controllers/tableController')
-
+const recordController = require('../controllers/recordController')
 
 router.get('/', function(req, res, next) {
 
@@ -42,6 +42,7 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
+    
     tableController.create(req.body, function(err, result){
         if(err){  
             console.log(err);
@@ -56,6 +57,25 @@ router.post('/', function(req, res, next) {
             data: result
         });
     });
+});
+
+router.post('/record', function(req, res, next) {
+    console.log(req)
+    recordController.submitRecord(req.body.count, req.body.food, req.body.total, function(err, result){
+        if(err){  
+            console.log(err);
+            res.json({
+                success: 0,
+                error: err
+            })
+            return;
+        }
+        res.json({
+            success: 1,
+            data: result
+        });
+    });
+
 });
 
 router.post('/:id/update', function(req, res, next) {

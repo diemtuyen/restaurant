@@ -15,7 +15,7 @@ class TableItem extends Component {
                 <ul>
                     { !this.props.tableItemLoading ? <div>
                         <TableDetail data={this.props.tableItem} /> 
-                        <FoodPanel foods={this.props.foods} id={this.props.tableItem._id} st={this.props.tableItem.statusTable} />
+                        <FoodPanel foods={this.props.foods} id={this.props.tableItem._id} st={this.props.tableItem.statusTable} total={this.props.tableItem.totalPrice} />
                         </div> : <div>Loading</div>}
                 </ul>
             </div>

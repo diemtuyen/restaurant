@@ -31,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', routes);
 app.use('/table', tableRoute);
+app.use('/table/record', tableRoute);
 app.use('/table/:id/food', tableRoute);
 
 app.listen(PORT, function () {
