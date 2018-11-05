@@ -105,17 +105,41 @@ export function updateStatusTable(tableItemID, data){
             .catch( (e) => console.log(e) );
     }    
 }
-function addRecord(count, food, total){
+function resetData(){
     return {
-        type: actionTypes.UPDATE_TABLE,
-        count: count,
-        food: food,
-        total: total
+        type: actionTypes.RESET_TABLE
+    }
+}
+export function resetTable(tableItemID){
+    
+    return dispatch => {
+        return fetch(`/table/${tableItemID}/reset`, { 
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(), 
+            mode: 'cors'})
+            .then( (response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }else{
+                    dispatch(resetData())
+                }
+            })
+            .catch( (e) => console.log(e) );
+    }    
+}
+function addRecord(report){
+    return {
+        type: actionTypes.ADD_RECORD,
+        reports: report
     }
 }
 export function submitRecord(data){
     return dispatch => {
-        return fetch(`/table/record/`, { 
+        return fetch(`/report/`, { 
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',

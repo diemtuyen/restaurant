@@ -12,13 +12,4 @@ const store = createStore(
     thunk
   )
 );
-/*
-const reducer = combineReducers({
-  tableRedu: tableReducer,
-  form: reduxFormReducer,
-});
-const store = (window.devToolsExtension
-  ? window.devToolsExtension()(createStore)
-  : createStore)(reducer);
-*/
 export default store;

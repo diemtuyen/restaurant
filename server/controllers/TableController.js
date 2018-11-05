@@ -13,8 +13,10 @@ module.exports = {
             }
             let price = count * 25000;
             var food = new Food({noodle: noodle, meat: meat, reject: reject, note: note, count: count, totalPrice: price});
-            var total = price;
             result.foods.push(food);
+
+            var total = price;
+            
             if(hasOption){
                 let price = countOption * priceOption;  
                 total +=  price;            
@@ -41,6 +43,26 @@ module.exports = {
                 return;
             }             
             result.update({ statusTable: statusTable}, function(updateResult) {
+                
+                result.modified = new Date();
+                result.save(function(err, updateResult){
+                    if(err){
+                        callback(err, null);
+                        return;
+                    }
+                    callback(null, updateResult);
+                });
+            });
+        });
+
+    },
+    reset: function(id, callback){
+        Table.findById(id, function(err, result){
+            if(err){
+                callback(err, null);
+                return;
+            }             
+            result.update({statusTable: 'state_order', totalPrice: '0', foods: [], optionFoods: []}, function(updateResult) {
                 
                 result.modified = new Date();
                 result.save(function(err, updateResult){

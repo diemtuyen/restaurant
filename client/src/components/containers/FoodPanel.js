@@ -2,7 +2,7 @@ import React, { Component} from 'react';
 import FoodElement from '../presentation/FoodElement';
 import OrderFood from '../presentation/OrderFood';
 import { Button } from 'reactstrap';
-import { updateStatusTable, submitRecord } from '../../actions/tableActions';
+import { updateStatusTable, submitRecord, resetTable } from '../../actions/tableActions';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 // import { constants } from 'os';
@@ -24,8 +24,8 @@ class FoodPanel extends Component {
         const dtTotal = this.props.total;
         const doc = {dtCount, dtFood, dtTotal};
         debugger;
-        this.props.dispatch(submitRecord({data: doc}));
-        this.props.dispatch(updateStatusTable(this.props.id, {statusTable: 'state_order'}));
+        //this.props.dispatch(submitRecord({data: doc}));
+        this.props.dispatch(resetTable(this.props.id));
         this.props.history.push("/");
     }
     render(){
