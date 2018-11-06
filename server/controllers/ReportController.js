@@ -1,5 +1,4 @@
 const Report = require('../models/Report')
-// const Record = require('../models/Record')
 
 module.exports = {
 
@@ -9,27 +8,15 @@ module.exports = {
                 callback(err, null);
                 return
             }
-            callback(null, result);
+            result.update({foods: params.data.dtFoods, optionFoods: params.data.dtOptions, totalPrice: params.data.dtTotal}, function(reportResult) {
+                result.save(function(err, reportResult){
+                    if(err){
+                        callback(err, null);
+                        return;
+                    }
+                    callback(null, reportResult);
+                });
+            });
         });
     }
-    
-    // submitRecord: function(count, food, total, callback){  
-    //     Report.findById(id, function(err, result){
-    //         if(err){
-    //             callback(err, null);
-    //             return;
-    //         } 
-    //         console.log(result);    
-    //         var record = new Record({count: count, food: food, total: total});
-    //         console.log(record);     
-    //         result.records.push(record);  
-    //         result.save(function(err, recordResult){
-    //             if(err){
-    //                 callback(err, null);
-    //                 return;
-    //             }
-    //             callback(null, foodResult);
-    //         });
-    //     });
-    // }
 }

@@ -24,7 +24,6 @@ class FoodPanel extends Component {
         const dtFoods = this.props.foods;
         const dtTotal = this.props.total;
         const doc = {dtOptions, dtFoods, dtTotal};
-        debugger;
         this.props.dispatch(submitReport({data: doc}));
         this.props.dispatch(resetTable(this.props.id));
         this.props.history.push("/");

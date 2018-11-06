@@ -11,16 +11,18 @@ module.exports = {
                 callback(err, null);
                 return;
             }
+            var total = result.totalPrice;
+                        
             let price = count * 25000;
-            var food = new Food({noodle: noodle, meat: meat, reject: reject, note: note, count: count, totalPrice: price});
+            let food = new Food({noodle: noodle, meat: meat, reject: reject, note: note, count: count, totalPrice: price});
             result.foods.push(food);
 
-            var total = price;
+            total += price;
             
             if(hasOption){
                 let price = countOption * priceOption;  
                 total +=  price;            
-                var optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
+                let optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
                 result.optionFoods.push(optionFood);
             } 
             result.update({statusTable: stTable, totalPrice: total}, function(foodResult) {

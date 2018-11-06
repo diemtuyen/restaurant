@@ -10,7 +10,11 @@ body,html{
     form{
         border: 2px dashed skyblue;
         padding-top: 10px;
-        padding-bottom: 10px;
+        padding-bottom: 10px;        
+        .required{
+            color: darkred;
+            font-weight: bold;
+        }
     }
     input, select{
         border-radius: 4px;

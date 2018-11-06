@@ -7,21 +7,29 @@ import { connect } from 'react-redux'
 import 'react-widgets/dist/css/react-widgets.css'
 import {Row, Col, Button} from 'reactstrap'
 
-const renderDropdownList = ({ input, data, valueField, textField }) =>
-  <DropdownList {...input}
-    data={data}
-    valueField={valueField}
-    textField={textField}
-    onChange={input.onChange} />
+const required = value => value ? undefined : 'Required'
 
-const renderMultiselect = ({ input, data, valueField, textField }) =>
-  <Multiselect {...input}
-    onBlur={() => input.onBlur()}
-    value={input.value || []} // requires value to be an array
-    data={data}
-    valueField={valueField}
-    textField={textField}
-  />
+const renderDropdownList = ({ input, data, valueField, textField, meta: { touched, error, warning } }) =>
+  <div>
+    <DropdownList {...input}
+      data={data}
+      valueField={valueField}
+      textField={textField}
+      onChange={input.onChange} />
+    {touched && ((error && <span className="required">{error}</span>) || (warning && <span>{warning}</span>))}
+  </div>
+
+const renderMultiselect = ({ input, data, valueField, textField, meta: { touched, error, warning } }) =>
+  <div>
+    <Multiselect {...input}
+      onBlur={() => input.onBlur()}
+      value={input.value || []} // requires value to be an array
+      data={data}
+      valueField={valueField}
+      textField={textField}
+    />
+    {touched && ((error && <span className="required">{error}</span>) || (warning && <span>{warning}</span>))}
+  </div>
 
 const renderSelectList = ({ input, data }) =>
   <SelectList {...input}
@@ -31,13 +39,14 @@ const renderSelectList = ({ input, data }) =>
 let OrderFoodForm = props => {
   const { hasOptionValue, noodle, meat, reject, note, count, optional, countOption, priceOption , handleSubmit, pristine, reset, submitting  } = props
   return (
-    <form onSubmit={handleSubmit} onReset={reset} >      
+    <form onSubmit={handleSubmit} >      
       <Row>  
         <Col md={4}>
           <label>Mon</label>
           <Field
             name="noodle"
             component={renderDropdownList}
+            validate={required}
             data={[ 'Bun', 'Hu tiu', 'Mien', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Bun thit nuong' ]}/>
         </Col>
         <Col md={4}>
@@ -45,6 +54,7 @@ let OrderFoodForm = props => {
           <Field
             name="meat"
             component={renderMultiselect}
+            validate={required}
             data={['Thap cam', 'Thit nat', 'Thit gio bo', 'Gio khoanh', ' Xuong', 'Bo', 'Ga', 'Moc', 'Cha' ]}/>
         </Col>
         <Col md={4}>
