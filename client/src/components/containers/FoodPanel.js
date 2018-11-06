@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import FoodElement from '../presentation/FoodElement';
 import OrderFood from '../presentation/OrderFood';
 import { Button } from 'reactstrap';
-import { updateStatusTable, submitRecord, resetTable } from '../../actions/tableActions';
+import { updateStatusTable, resetTable } from '../../actions/tableActions';
+import { submitReport } from '../../actions/reportActions';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 // import { constants } from 'os';
@@ -19,12 +20,12 @@ class FoodPanel extends Component {
         this.props.history.push("/");
     }
     toggleBill(){
-        const dtCount = this.props.foods[0].count;
-        const dtFood = this.props.foods[0].noodle +' '+ this.props.foods[0].meat;
+        const dtOptions = this.props.options;
+        const dtFoods = this.props.foods;
         const dtTotal = this.props.total;
-        const doc = {dtCount, dtFood, dtTotal};
+        const doc = {dtOptions, dtFoods, dtTotal};
         debugger;
-        //this.props.dispatch(submitRecord({data: doc}));
+        this.props.dispatch(submitReport({data: doc}));
         this.props.dispatch(resetTable(this.props.id));
         this.props.history.push("/");
     }

@@ -1,7 +1,6 @@
 import constants from '../constants/actionTypes'
 
 var initialState = {
-    reports: [],
     tables: [],
     tableItem: {},
     tableItemLoading: true
@@ -30,10 +29,6 @@ export default (state = initialState, action) => {
       updatedFoods.push({"noodle": action.noodle, "meat": action.meat, "reject": action.reject, "note": action.note, "count": action.count});     
       updated['tableItem'].foods = updatedFoods;
       return updated
-
-    case constants.ADD_RECORD:
-      updated['reports'] = action.reports
-      return updated  
     
     default:
       return state

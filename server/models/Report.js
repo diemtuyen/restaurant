@@ -1,8 +1,12 @@
 var mongoose = require('mongoose'); 
-const RecordSchema = require('./Record').schema; 
+const FoodSchema = require('./Food').schema;  
+const OptionFoodSchema = require('./OptionFood').schema;  
 
 var ReportSchema = new mongoose.Schema({  
-    records: [RecordSchema],
+    totalPrice: {
+        type: Number,
+        default: 0
+      },
     status: {
         type: Number,
         default: 1
@@ -11,9 +15,11 @@ var ReportSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: new Date()
-    }
+    },
+    foods: [FoodSchema], 
+    optionFoods: [OptionFoodSchema]
 });
 
-mongoose.model('Report', RecordSchema);
+mongoose.model('Report', ReportSchema);
 
 module.exports = mongoose.model('Report');

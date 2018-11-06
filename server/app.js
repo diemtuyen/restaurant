@@ -1,9 +1,12 @@
 const express = require('express');
 const routes = require('./routes/index');
 const tableRoute = require('./routes/table');
+const reportRoute = require('./routes/report');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+var authRoute = require('./routes/auth');
+const authCheckMiddleware = require('./middleware/authCheck');
 
 require('dotenv').config()
 
@@ -30,8 +33,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', routes);
+app.use('/user', authRoute);
+//app.use('/table/:id/food', authCheckMiddleware);
 app.use('/table', tableRoute);
-app.use('/table/record', tableRoute);
+app.use('/report', reportRoute);
 app.use('/table/:id/food', tableRoute);
 
 app.listen(PORT, function () {

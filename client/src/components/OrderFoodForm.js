@@ -38,7 +38,7 @@ let OrderFoodForm = props => {
           <Field
             name="noodle"
             component={renderDropdownList}
-            data={[ 'Bun', 'Bun thit nuong', 'Hu tiu', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Mien' ]}/>
+            data={[ 'Bun', 'Hu tiu', 'Mien', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Bun thit nuong' ]}/>
         </Col>
         <Col md={4}>
           <label>Thit</label>
