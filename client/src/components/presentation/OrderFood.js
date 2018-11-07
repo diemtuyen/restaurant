@@ -14,7 +14,6 @@ class OrderFood extends Component {
     render(){
         return (
             <div>
-                <h3>Order Food</h3>
                 <OrderFoodForm onSubmit={this.submitOrderFood}/> 
             </div>
         )

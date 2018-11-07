@@ -114,4 +114,24 @@ router.post('/:id/food', function(req, res, next) {
 
 });
 
+router.post('/:id/food/:fid', function(req, res, next) {
+    const id = req.params.id; 
+    const fid = req.params.fid; 
+    tableController.removeFood(id, fid, function(err, result){
+        if(err){  
+            console.log(err);
+            res.json({
+                success: 0,
+                error: err
+            })
+            return;
+        }
+        res.json({
+            success: 1,
+            data: result
+        });
+    });
+
+});
+
 module.exports = router

@@ -8,7 +8,7 @@ class BillingTable extends Component {
         this.props.dispatch(fetchTable());
     }
     render(){
-        var orders = this.props.allTable.filter(t => t.statusTable ==='state_billing');
+        var orders = this.props.allTable.filter(t => t.statusTable ==='state_serving');
         const tableIdx = orders.map( (tableIdx, i) => {
             return ( <TableListing data = {tableIdx} /> );
         });

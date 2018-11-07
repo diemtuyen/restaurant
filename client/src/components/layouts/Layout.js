@@ -7,9 +7,6 @@ class Layout extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <h1 className="alignC">Welcome to Tien Hai</h1>
-                </div>                
                 <Nav>
                 <NavItem>
                     <NavLink href="/">All Tables</NavLink>

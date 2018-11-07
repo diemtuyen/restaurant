@@ -8,6 +8,7 @@ import 'react-widgets/dist/css/react-widgets.css'
 import {Row, Col, Button} from 'reactstrap'
 
 const required = value => value ? undefined : 'Required'
+const numbers = value =>(parseFloat(value) > 0) ? value : 'Required';
 
 const renderDropdownList = ({ input, data, valueField, textField, meta: { touched, error, warning } }) =>
   <div>
@@ -127,6 +128,7 @@ const afterSubmit = (result, dispatch) =>
 OrderFoodForm = reduxForm({
   form: 'reactWidgets',
   onSubmitSuccess: afterSubmit,
+  initialValues: { count: '1', countOption: '1' }
 })(OrderFoodForm)
 
 

@@ -42,6 +42,7 @@ body,html{
         &:not(:disabled):not(.disabled):active:focus{
             box-shadow: unset;
         }
+        color: black;
     }
     .btn{
         &:focus{
@@ -51,6 +52,19 @@ body,html{
     .nav-link {
         font-size: 18px;
         color: black;
+    }
+    .detail{
+        text-align: center;
+        color: $state_billing;
+        span{
+            font-weight: bold;
+        }
+    }
+    .titleLst{
+        color: $state_order;
+    }
+    .lstOrder{
+        font-size: 20px;
     }
     .tableIdx{
         width: 200px;
@@ -65,7 +79,7 @@ body,html{
             font-size: 24px;
             a{
                 >button:after{
-                    content: 'Wait';
+                    content: 'Detail';
                 }
             }
         }
@@ -74,7 +88,7 @@ body,html{
             font-size: 24px;
             a{
                 >button:after{
-                    content: 'Bill';
+                    content: 'Serve';
                 }
             }
         }
@@ -92,7 +106,7 @@ body,html{
             font-size: 24px;
             a{
                 >button:after{
-                    content: 'Serve';
+                    content: 'Bill';
                 }
             }
         }
@@ -123,7 +137,13 @@ body,html{
                 width: 100%;
             }
         }
-    }       
+    } 
+    .price{
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: $state_serving;
+    }      
     .alignC{
         text-align: center;
     }

@@ -78,6 +78,33 @@ export function submitFood(tableItemID, data){
             .catch( (e) => console.log(e) );
     }    
 }
+function removeFood(){
+    return {
+        type: actionTypes.REMOVE_FOOD
+    }
+}
+export function removeFood(tableItemID, foodID){
+    
+    return dispatch => {
+        return fetch(`/table/${tableItemID}/food/${foodID}`, { 
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(), 
+            mode: 'cors'})
+            .then( (response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }else{
+
+                    dispatch(removeFood());
+                }
+            })
+            .catch( (e) => console.log(e) );
+    }    
+}
 function updateTable(st){
     return {
         type: actionTypes.UPDATE_TABLE,

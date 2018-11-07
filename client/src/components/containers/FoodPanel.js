@@ -6,6 +6,7 @@ import { updateStatusTable, resetTable } from '../../actions/tableActions';
 import { submitReport } from '../../actions/reportActions';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 // import { constants } from 'os';
 
 class FoodPanel extends Component {
@@ -24,13 +25,19 @@ class FoodPanel extends Component {
         const dtFoods = this.props.foods;
         const dtTotal = this.props.total;
         const doc = {dtOptions, dtFoods, dtTotal};
-        this.props.dispatch(submitReport({data: doc}));
-        this.props.dispatch(resetTable(this.props.id));
-        this.props.history.push("/");
+        alert(' Thanh tien: ' + dtTotal)
+        if (this.props.st === 'state_serving')
+        {
+            this.props.dispatch(submitReport({data: doc}));
+            this.props.dispatch(resetTable(this.props.id));
+            this.props.history.push("/");
+        }
+        else
+            this.props.dispatch(updateStatusTable(this.props.id, {statusTable: 'state_billing'}));
     }
     render(){
         const foodItem = this.props.foods.map( (food, i) => {
-            return ( <li key={i}><FoodElement data = {food} /></li> );
+            return ( <li key={i}><FoodElement data = {food} tableId ={this.props.id} /></li> );
         });
 
         return (
@@ -39,11 +46,15 @@ class FoodPanel extends Component {
                     <OrderFood tableItemID={this.props.id}/>  
                 }              
                 <div>
-                    <h3>List of Foods</h3>
+                    <h3 className="titleLst">List of Foods</h3>
                     {(this.props.foods.length <= 0) ? <div>No food</div> : 
                         <div>
                             <ul>{foodItem}</ul>
                                 <div className="alignC">
+                                    <div className="price">
+                                        Tong tien: 
+                                        <NumberFormat value={this.props.total} displayType={'text'} thousandSeparator={true} prefix={' '} suffix={' (VND)'} />
+                                    </div>
                                     {(`${this.props.st}` === `state_waiting`) &&
                                         <Button onClick={this.toggleServe}>Serve</Button>
                                     }{' '}

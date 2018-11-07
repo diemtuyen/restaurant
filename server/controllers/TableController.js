@@ -2,7 +2,6 @@ const Table = require('../models/Table')
 const Food = require('../models/Food')
 const OptionFood = require('../models/OptionFood')
 
-
 module.exports = {
     
     orderFood: function(id, stTable, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
@@ -38,6 +37,12 @@ module.exports = {
         });
 
     },
+    removeFood: function(id, fid, callback){
+        
+        Table.findOneAndUpdate({_id: id}, {$pull: {foods: {_id: fid}}}, function(err, data){
+            console.log(data) 
+        });
+    },
     setState: function(id, statusTable, callback){
         Table.findById(id, function(err, result){
             if(err){
@@ -46,7 +51,6 @@ module.exports = {
             }             
             result.update({ statusTable: statusTable}, function(updateResult) {
                 
-                result.modified = new Date();
                 result.save(function(err, updateResult){
                     if(err){
                         callback(err, null);

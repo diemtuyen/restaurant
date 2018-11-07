@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import {Button} from 'reactstrap';
 class TableListing extends Component {
     render() {        
-        let bg = 'tableIdx'; 
+        let st = 'tableIdx'; 
         if(`${this.props.data.statusTable}` === `state_waiting`)
-            bg = 'tableIdx wait';
+            st = 'tableIdx wait';
         else if(`${this.props.data.statusTable}` === `state_billing`)
-            bg = 'tableIdx bill';
+            st = 'tableIdx bill';
         else if(`${this.props.data.statusTable}` === `state_order`)
-            bg = 'tableIdx order';
+            st = 'tableIdx order';
         else if(`${this.props.data.statusTable}` === `state_serving`)
-            bg = 'tableIdx serve';        
+            st = 'tableIdx serve';        
         return (
-            <div className={bg}>            
+            <div className={st}>            
                 <div>Ban so <b>{this.props.data.indexTable}</b></div>
                 <br/>
                 <div>
