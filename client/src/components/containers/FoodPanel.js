@@ -41,7 +41,7 @@ class FoodPanel extends Component {
         return (
             <div>
                 {(`${this.props.st}` === `state_order` || `${this.props.st}` === `state_waiting`) &&                
-                    <OrderFood tableItemID={this.props.id}/>  
+                    <OrderFood tableItemID={this.props.id} status={this.props.st}/>  
                 }              
                 <div>
                     <h3 className="titleLst">List of Foods</h3>

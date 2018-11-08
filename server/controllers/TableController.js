@@ -4,7 +4,7 @@ const OptionFood = require('../models/OptionFood')
 
 module.exports = {
     
-    orderFood: function(id, username, stTable, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
+    orderFood: function(id, username, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
@@ -24,7 +24,7 @@ module.exports = {
                 let optionFood = new OptionFood({optional: optional, countOption: countOption, priceOption: priceOption, count: count, totalPrice: price});
                 result.optionFoods.push(optionFood);
             } 
-            result.update({statusTable: stTable, totalPrice: total}, function(foodResult) {
+            result.update({totalPrice: total}, function(foodResult) {
                 result.modified = new Date();
                 result.save(function(err, foodResult){
                     if(err){
@@ -73,8 +73,8 @@ module.exports = {
             if(err){
                 callback(err, null);
                 return;
-            }             
-            result.update({ statusTable: statusTable}, function(updateResult) {
+            }   
+            result.update({ statusTable: statusTable, created: new Date()}, function(updateResult) {
                 
                 result.save(function(err, updateResult){
                     if(err){
@@ -93,7 +93,7 @@ module.exports = {
                 callback(err, null);
                 return;
             }             
-            result.update({statusTable: 'state_order', totalPrice: '0', foods: [], optionFoods: []}, function(updateResult) {
+            result.update({created: new Date(), statusTable: 'state_order', totalPrice: '0', foods: [], optionFoods: []}, function(updateResult) {
                 
                 result.modified = new Date();
                 result.save(function(err, updateResult){
@@ -117,13 +117,14 @@ module.exports = {
         });
     },
     find: function(params, callback){
+        
         Table.find(params,'_id indexTable statusTable noteTable totalPrice', function(err, results){
             if(err){
                 callback(err, null);
                 return;
             }
             callback(null, results);
-        })
+        }).sort({created: 1});
     },
 
     findById: function(id, callback){

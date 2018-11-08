@@ -41,11 +41,10 @@ export function submitTable(data){
             .catch( (e) => console.log(e) );
     }    
 }
-function addFood(username, stTable, body){
+function addFood(username, body){
     return {
         type: actionTypes.ORDER_FOOD,
         username: username,
-        stTable: stTable,
         noodle: body.noodle,
         meat: body.meat,
         reject: body.reject,
@@ -75,7 +74,7 @@ export function submitFood(username, tableItemID, data){
                     throw Error(response.statusText);
                 }else{
 
-                    dispatch(addFood(username, data.stTable, data.body));
+                    dispatch(addFood(username, data.body));
                 }
             })
             .catch( (e) => console.log(e) );
