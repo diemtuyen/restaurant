@@ -4,7 +4,7 @@ const OptionFood = require('../models/OptionFood')
 
 module.exports = {
     
-    orderFood: function(id, stTable, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
+    orderFood: function(id, username, stTable, noodle, meat, reject, note, count, hasOption, optional, countOption, priceOption, callback){
         Table.findById(id, function(err, result){
             if(err){
                 callback(err, null);
@@ -13,7 +13,7 @@ module.exports = {
             var total = result.totalPrice;
                         
             let price = count * 25000;
-            let food = new Food({noodle: noodle, meat: meat, reject: reject, note: note, count: count, totalPrice: price});
+            let food = new Food({username: username, noodle: noodle, meat: meat, reject: reject, note: note, count: count, totalPrice: price});
             result.foods.push(food);
 
             total += price;

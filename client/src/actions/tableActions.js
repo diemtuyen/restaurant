@@ -41,9 +41,10 @@ export function submitTable(data){
             .catch( (e) => console.log(e) );
     }    
 }
-function addFood(stTable, body){
+function addFood(username, stTable, body){
     return {
         type: actionTypes.ORDER_FOOD,
+        username: username,
         stTable: stTable,
         noodle: body.noodle,
         meat: body.meat,
@@ -56,14 +57,16 @@ function addFood(stTable, body){
         priceOption: body.priceOption
     }
 }
-export function submitFood(tableItemID, data){
-    
+export function submitFood(username, tableItemID, data){
+    var token = localStorage.getItem('token') || null;
+
     return dispatch => {
         return fetch(`/table/${tableItemID}/food`, { 
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`
               },
             body: JSON.stringify(data), 
             mode: 'cors'})
@@ -72,7 +75,7 @@ export function submitFood(tableItemID, data){
                     throw Error(response.statusText);
                 }else{
 
-                    dispatch(addFood(data.stTable, data.body));
+                    dispatch(addFood(username, data.stTable, data.body));
                 }
             })
             .catch( (e) => console.log(e) );

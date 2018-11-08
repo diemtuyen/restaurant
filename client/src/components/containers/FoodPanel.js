@@ -7,7 +7,6 @@ import { submitReport } from '../../actions/reportActions';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
-// import { constants } from 'os';
 
 class FoodPanel extends Component {
 
@@ -25,7 +24,6 @@ class FoodPanel extends Component {
         const dtFoods = this.props.foods;
         const dtTotal = this.props.total;
         const doc = {dtOptions, dtFoods, dtTotal};
-        alert(' Thanh tien: ' + dtTotal)
         if (this.props.st === 'state_serving')
         {
             this.props.dispatch(submitReport({data: doc}));
@@ -51,10 +49,10 @@ class FoodPanel extends Component {
                         <div>
                             <ul>{foodItem}</ul>
                                 <div className="alignC">
-                                    <div className="price">
+                                    {/* <div className="price">
                                         Tong tien: 
                                         <NumberFormat value={this.props.total} displayType={'text'} thousandSeparator={true} prefix={' '} suffix={' (VND)'} />
-                                    </div>
+                                    </div> */}
                                     {(`${this.props.st}` === `state_waiting`) &&
                                         <Button onClick={this.toggleServe}>Serve</Button>
                                     }{' '}

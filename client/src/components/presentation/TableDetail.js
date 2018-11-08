@@ -6,7 +6,7 @@ class TableDetail extends Component {
     render(){
         return (
             <div>
-                <h2 className="detail">Detail for table <span>#{this.props.data.indexTable}</span></h2>
+                <h2 className="detail">Table <span>#{this.props.data.indexTable}</span></h2>
             </div>
         )
     }

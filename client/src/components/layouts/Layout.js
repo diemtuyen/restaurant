@@ -23,6 +23,9 @@ class Layout extends Component {
                 <NavItem>
                     <NavLink disabled href="/addTable">Add new table</NavLink>
                 </NavItem>
+                <NavItem right>
+                    <NavLink href="/log">My profile</NavLink>
+                </NavItem>
                 </Nav>
                 { this.props.children }
             </div>

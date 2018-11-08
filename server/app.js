@@ -34,10 +34,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', routes);
 app.use('/user', authRoute);
-//app.use('/table/:id/food', authCheckMiddleware);
+app.use('/table/:id/food', authCheckMiddleware);
 app.use('/table', tableRoute);
 app.use('/report', reportRoute);
-app.use('/table/:id/food', tableRoute);
+// app.use('/table/:id/food', tableRoute);
 
 app.listen(PORT, function () {
     console.log(`Listening on port ${PORT}`);

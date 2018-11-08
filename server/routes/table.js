@@ -97,7 +97,7 @@ router.post('/:id/update', function(req, res, next) {
 
 router.post('/:id/food', function(req, res, next) {
     const id = req.params.id; 
-    tableController.orderFood(id, req.body.stTable, req.body.body.noodle, req.body.body.meat, req.body.body.except, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
+    tableController.orderFood(id, req.userData.username, req.body.stTable, req.body.body.noodle, req.body.body.meat, req.body.body.except, req.body.body.note, req.body.body.count, req.body.body.hasOption, req.body.body.optional, req.body.body.countOption, req.body.body.priceOption, function(err, result){
         if(err){  
             console.log(err);
             res.json({

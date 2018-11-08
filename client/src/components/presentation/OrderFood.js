@@ -9,7 +9,7 @@ class OrderFood extends Component {
         this.submitOrderFood = this.submitOrderFood.bind(this);
     } 
     submitOrderFood(values){
-        this.props.dispatch(submitFood(this.props.tableItemID, {stTable:'state_waiting', body: values})); 
+        this.props.dispatch(submitFood(this.props.username, this.props.tableItemID, {stTable:'state_waiting', body: values})); 
     }
     render(){
         return (
@@ -19,4 +19,9 @@ class OrderFood extends Component {
         )
     }
 }
-export default connect()(OrderFood);
+const mapStateToProps = state => {
+    return {
+        username: state.authRedu.username        
+    }
+}
+export default connect(mapStateToProps)(OrderFood);

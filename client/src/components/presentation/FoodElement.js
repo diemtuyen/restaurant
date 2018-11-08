@@ -19,8 +19,10 @@ class FoodElement extends Component {
                 <span className="lstOrder">
                     {this.props.data.count && <b>{this.props.data.count}</b>} {this.props.data.noodle && <b>{this.props.data.noodle}</b>} {this.props.data.meat && <b>{this.props.data.meat}</b>} {this.props.data.reject && <span> ( khong {this.props.data.reject}  )</span>} {this.props.data.note && <span>({this.props.data.note})</span>}
                     {this.props.data.hasOptionValue && <i>( THEM: {this.props.data.countOption}{' '}{this.props.data.optional} )</i>}
-                </span>
+                
                 <Link to={`/table/${this.props.tableId}/food/`} onClick ={this.removeFood}>Delete</Link>
+                </span>
+                <i> ({this.props.data.username})</i>
             </div>
         )
     }
@@ -29,6 +31,7 @@ class FoodElement extends Component {
 
 FoodElement.propTypes = {
     data: PropTypes.shape({
+        username: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired
     })
 };

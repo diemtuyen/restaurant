@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 
 var FoodSchema = new mongoose.Schema({  
+    username: String,
     noodle: String,
     meat:String,
     reject: String,

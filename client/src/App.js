@@ -12,6 +12,7 @@ import BillingTable from './components/layouts/BillingTable';
 
 import AddTable from './components/containers/AddTable';
 import TableItem from './components/containers/TableItem';
+import Authentication from './components/containers/Authentication';
 
 
 
@@ -25,6 +26,7 @@ class App extends Component {
               <Route path="/order" component={OrderTable} />
               <Route path="/waiting" component={WaitingTable} />
               <Route path="/billing" component={BillingTable} />
+              <Route path="/log" component={Authentication} />
 
               <Route path='/table/:id' component={TableItem}/> 
               <Route path='/addTable' component={AddTable}/>
