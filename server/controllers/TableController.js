@@ -35,9 +35,34 @@ module.exports = {
                 });
             });
         });
-
     },
     removeFood: function(id, fid, callback){
+        Table.findById(id, function(err, result){
+            if(err){
+                callback(err, null);
+                return;
+            }
+            var total = result.totalPrice;
+            for (let i=0; i<result.foods.length;i++)
+            {
+                if(result.foods[i]._id == fid)
+                {
+                    total -= result.foods[i].totalPrice;
+                    break;
+                }
+            }
+            result.update({ totalPrice: total}, function(updateResult) {
+                result.modified = new Date();                
+                result.save(function(err, updateResult){
+                    if(err){
+                        callback(err, null);
+                        return;
+                    }
+                    callback(null, updateResult);
+                });
+            });
+
+        });
         
         Table.findOneAndUpdate({_id: id}, {$pull: {foods: {_id: fid}}}, function(err, data){
             console.log(data) 
@@ -92,7 +117,7 @@ module.exports = {
         });
     },
     find: function(params, callback){
-        Table.find(params,'_id indexTable statusTable noteTable', function(err, results){
+        Table.find(params,'_id indexTable statusTable noteTable totalPrice', function(err, results){
             if(err){
                 callback(err, null);
                 return;

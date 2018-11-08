@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {Button} from 'reactstrap';
+import NumberFormat from 'react-number-format';
+
 class TableListing extends Component {
     render() {        
         let st = 'tableIdx'; 
@@ -16,7 +18,11 @@ class TableListing extends Component {
         return (
             <div className={st}>            
                 <div>Ban so <b>{this.props.data.indexTable}</b></div>
-                <br/>
+                    <div className="price">
+                        {(`${this.props.data.statusTable}` !== `state_order`) &&  
+                            <NumberFormat value={this.props.data.totalPrice} displayType={'text'} thousandSeparator={true} prefix={' '}/>
+                        } 
+                    </div>
                 <div>
                     <Link to={`/table/${this.props.data._id}`}>
                         <Button></Button>
@@ -30,6 +36,7 @@ class TableListing extends Component {
 TableListing.propTypes = {
     data: PropTypes.shape({
         _id: PropTypes.string.isRequired,
+        totalPrice: PropTypes.number.isRequired,
         indexTable: PropTypes.string.isRequired,
         statusTable: PropTypes.string.isRequired
 })
