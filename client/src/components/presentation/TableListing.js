@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import {Button} from 'reactstrap';
 import NumberFormat from 'react-number-format';
+import TableItem from '../containers/TableItem';
 
 class TableListing extends Component {
     render() {        
@@ -23,10 +24,8 @@ class TableListing extends Component {
                             <NumberFormat value={this.props.data.totalPrice} displayType={'text'} thousandSeparator={true} prefix={' '}/>
                         } 
                     </div>
-                <div>
-                    <Link to={`/table/${this.props.data._id}`}>
-                        <Button></Button>
-                    </Link>
+                <div className="btnTable">
+                    <Button onClick={()=>{this.props.selectTableItem(this.props.data._id)}}></Button>                     
                 </div> 
             </div> 
         )

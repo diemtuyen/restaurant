@@ -5,8 +5,14 @@ import { connect } from 'react-redux'
 import { fetchTableItem } from '../../actions/tableActions'
 
 class TableItem extends Component {
-    componentDidMount(){
-        this.props.dispatch(fetchTableItem(this.props.match.params.id));
+    constructor(props){
+        super(props);
+    }
+    // componentDidMount(){
+    //     this.props.dispatch(fetchTableItem(this.props.match.params.id));
+    // }
+    componentWillMount(){
+        this.props.dispatch(fetchTableItem(this.props.idx));
     }
     render(){
         

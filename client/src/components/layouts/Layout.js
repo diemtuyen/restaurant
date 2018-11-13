@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {  Nav, NavItem, NavLink } from 'reactstrap';
-// import classnames from 'classnames';
-// import { Link } from 'react-router-dom';
  
 class Layout extends Component {    
     render() {
@@ -27,7 +25,7 @@ class Layout extends Component {
                     <NavLink href="/log">My profile</NavLink>
                 </NavItem>
                 </Nav>
-                { this.props.children }
+                { this.props.children }                
             </div>
             );
         }

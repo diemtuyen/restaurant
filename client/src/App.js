@@ -9,12 +9,9 @@ import AllTable from './components/layouts/AllTable';
 import OrderTable from './components/layouts/OrderTable';
 import WaitingTable from './components/layouts/WaitingTable';
 import BillingTable from './components/layouts/BillingTable';
-
 import AddTable from './components/containers/AddTable';
-import TableItem from './components/containers/TableItem';
+
 import Authentication from './components/containers/Authentication';
-
-
 
 class App extends Component {
   render() {
@@ -28,7 +25,7 @@ class App extends Component {
               <Route path="/billing" component={BillingTable} />
               <Route path="/log" component={Authentication} />
 
-              <Route path='/table/:id' component={TableItem}/> 
+              {/* <Route path='/table/:id' component={TableItem}/>  */}
               <Route path='/addTable' component={AddTable}/>
           </Layout>
         </BrowserRouter>
