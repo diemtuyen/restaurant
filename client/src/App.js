@@ -1,37 +1,59 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Route,BrowserRouter} from 'react-router-dom';
+import {Route,BrowserRouter,Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import './stylesheet/main.scss';
-import Layout from './components/layouts/Layout';
-import AllTable from './components/layouts/AllTable';
-import OrderTable from './components/layouts/OrderTable';
-import WaitingTable from './components/layouts/WaitingTable';
-import BillingTable from './components/layouts/BillingTable';
-import AddTable from './components/containers/AddTable';
+// import Layout from './components/layouts/Layout';
+// import AllTable from './components/layouts/AllTable';
+// import OrderTable from './components/layouts/OrderTable';
+// import WaitingTable from './components/layouts/WaitingTable';
+// import BillingTable from './components/layouts/BillingTable';
+// import AddTable from './components/containers/AddTable';
 
-import Authentication from './components/containers/Authentication';
+// import Authentication from './components/containers/Authentication';
 
+// class App extends Component {
+//   render() {
+//     return (      
+//       <Provider store={store}>
+//         <BrowserRouter>
+//           <Layout>
+//               <Route exact path="/" component={AllTable} />
+//               <Route path="/order" component={OrderTable} />
+//               <Route path="/waiting" component={WaitingTable} />
+//               <Route path="/billing" component={BillingTable} />
+//               <Route path="/log" component={Authentication} />
+
+//               {/* <Route path='/table/:id' component={TableItem}/>  */}
+//               <Route path='/addTable' component={AddTable}/>
+//           </Layout>
+//         </BrowserRouter>
+//       </Provider>
+//     )
+//   }
+// }
+import {PrivateRoute} from './PrivateRoute';
+import LoginForm from './pages/login.page';
+import HomePage from './pages/home.page';
 class App extends Component {
+  constructor(props, context) {
+    super(props, context);    
+  }
   render() {
     return (      
       <Provider store={store}>
-        <BrowserRouter>
-          <Layout>
-              <Route exact path="/" component={AllTable} />
-              <Route path="/order" component={OrderTable} />
-              <Route path="/waiting" component={WaitingTable} />
-              <Route path="/billing" component={BillingTable} />
-              <Route path="/log" component={Authentication} />
-
-              {/* <Route path='/table/:id' component={TableItem}/>  */}
-              <Route path='/addTable' component={AddTable}/>
-          </Layout>
-        </BrowserRouter>
+        <Router history={this.props.history}>
+            <div>
+                <PrivateRoute exact path="/" component={HomePage} />
+                <Route path="/login" component={LoginForm} />
+            </div>
+        </Router>
       </Provider>
     )
   }
+  componentWillMount(){   
+    console.log(window.location);   
+  }
 }
-
 export default App

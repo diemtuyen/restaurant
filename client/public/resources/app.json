@@ -1,0 +1,11 @@
+{
+    "validate":{
+        "required":"is required"
+    },
+    "loginForm":{
+        "title":"Login",
+        "userName": "User name",
+        "password": "Password",
+        "loginBtn": "Login"
+    }
+}
