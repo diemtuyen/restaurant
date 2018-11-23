@@ -30,5 +30,5 @@ export const fieldMetaPropType = PropTypes.shape({
 
 export const FieldProps = {
     input: fieldInputPropType,
-    //meta: fieldMetaPropType
+    meta: fieldMetaPropType
 };

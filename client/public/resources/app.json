@@ -7,5 +7,13 @@
         "userName": "User name",
         "password": "Password",
         "loginBtn": "Login"
+    },
+    "registerForm":{
+        "title": "Register",
+        "userName": "User name",
+        "password": "Password",
+        "confirmPassword": "Confirm password",
+        "email": "Email",
+        "phoneNumber": "Phone number"
     }
 }

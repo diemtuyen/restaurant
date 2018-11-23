@@ -75,15 +75,20 @@
 // }
 
 // export default connect(mapStateToProps)(LoginForm);
-import React from 'react'
+import React from 'react';
+import {compose} from 'redux';
+import { connect } from "react-redux";
 import { Field, reduxForm } from 'redux-form';
 import _ from 'lodash';
 import { Row, Col } from 'reactstrap';
 import renderInput from  '../controls/input.control';
+import { userActions } from '../actions/user.actions';
+import {required} from '../controls/FieldValidations';
+import { createLoadingSelector } from '../helpers/selectors';
+import commonWrapped from '../hocs/hocs.common';
 class LoginForm extends React.Component {
     constructor(props, context) {
-        super(props, context);
-        
+        super(props, context);        
     }
     render(){
         const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -97,10 +102,11 @@ class LoginForm extends React.Component {
                     <Col xs={3} sm={2}><label htmlFor="username">{_.get(rs,'loginForm.userName')}</label></Col>
                     <Col xs={9} sm={10}>
                         <Field
-                            className='input-area pes-input-group'
+                            className='res-input'
                             name='userName'
                             type='text'
                             component={renderInput}
+                            validate={[required]}
                             showError
                         />
                     </Col>
@@ -109,26 +115,36 @@ class LoginForm extends React.Component {
                     <Col xs={3} sm={2}>{_.get(rs,'loginForm.password')}</Col>
                     <Col xs={9} sm={10}>
                         <Field 
+                            className='res-input'
                             name='password'
                             type='password'
                             component={renderInput}
+                            validate={[required]}
                             showError
                         />
                     </Col>
                 </Row>
                 <Row>
-                    <button type="submit" disabled={submitting}>
-                    {_.get(rs,'loginForm.loginBtn')}
-                    </button>
-                    <button type="button" disabled={pristine || submitting} onClick={reset}>
-                        Clear Values
-                    </button>
+                    <button type="submit" disabled={submitting}>{_.get(rs,'loginForm.loginBtn')}</button>
+                    <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
                 </Row>
             </form>
         )
     }
 }
-
-export default reduxForm({
-    form: 'loginForm' // a unique identifier for this form
-})(LoginForm)
+const loadingSelector = createLoadingSelector(['USERS_LOGIN']);
+const mapStateToProps = (state) => ({ isFetching: loadingSelector(state) });
+// link up desired behavior onSubmit
+// this is a sample alert with the values
+const mapDispatchToProps = dispatch => ({
+    onSubmit: values =>
+      //alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`),
+      dispatch(userActions.login(values.userName, values.password))
+});
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    reduxForm({
+        form: 'loginForm' // a unique identifier for this form
+    }),
+    commonWrapped()
+)(LoginForm);

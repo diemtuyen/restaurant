@@ -33,9 +33,12 @@ import './stylesheet/main.scss';
 //     )
 //   }
 // }
+import { Container } from 'reactstrap';
 import {PrivateRoute} from './PrivateRoute';
 import LoginForm from './pages/login.page';
 import HomePage from './pages/home.page';
+import RegisterPage from './pages/register.page';
+import CookerPage from './pages/cooker.page';
 class App extends Component {
   constructor(props, context) {
     super(props, context);    
@@ -44,10 +47,12 @@ class App extends Component {
     return (      
       <Provider store={store}>
         <Router history={this.props.history}>
-            <div>
-                <PrivateRoute exact path="/" component={HomePage} />
-                <Route path="/login" component={LoginForm} />
-            </div>
+          <Container>
+              <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute exact path="/cooker" component={CookerPage} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterPage} />
+          </Container>
         </Router>
       </Provider>
     )
