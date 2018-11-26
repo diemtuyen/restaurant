@@ -274,7 +274,7 @@ module.exports = {
   externals: {
       // global app config object
       config: JSON.stringify({
-          apiUrl: 'http://localhost/RESTAURANT.API'
+          apiUrl: 'http://localhost:8087'
       })
   }
 };

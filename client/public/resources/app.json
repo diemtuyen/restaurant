@@ -15,5 +15,12 @@
         "confirmPassword": "Confirm password",
         "email": "Email",
         "phoneNumber": "Phone number"
+    },
+    "bookForm":{
+        "title": "Order Food",
+        "tableId": "Select table",
+        "takeAway": "Take away",
+        "submit": "Order",
+        "foodItem": "Food #"
     }
 }

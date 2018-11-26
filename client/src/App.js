@@ -47,7 +47,7 @@ class App extends Component {
     return (      
       <Provider store={store}>
         <Router history={this.props.history}>
-          <Container>
+          <Container fluid>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <Route path="/login" component={LoginForm} />

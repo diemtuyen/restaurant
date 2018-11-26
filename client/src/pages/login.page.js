@@ -36,7 +36,7 @@
 //     render() {
 //         const { loggingIn } = this.props;
 //         const { username, password, submitted } = this.state;
-//         const rs = _.get(window.restaurant,'resuource');
+//         const rs = _.get(window.restaurant,'resource');
 //         return (
 //             <div className="col-md-6 col-md-offset-3">
 //                 <h2>{_.get(rs,'loginForm.title')}</h2>
@@ -92,7 +92,7 @@ class LoginForm extends React.Component {
     }
     render(){
         const { handleSubmit, pristine, reset, submitting } = this.props;
-        const rs = _.get(window.restaurant,'resuource');
+        const rs = _.get(window.restaurant,'resource');
         return(
             <form onSubmit={handleSubmit}>
                 <Row>

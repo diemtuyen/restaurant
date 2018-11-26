@@ -5,6 +5,7 @@ body,html{
 }
 .tienhai{
     @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+    @import '../../node_modules/font-awesome/css/font-awesome.min.css';
     font-family: $font_name;
     font-size: 14px; 
     form{
@@ -14,6 +15,69 @@ body,html{
         .required{
             color: darkred;
             font-weight: bold;
+        }
+        .lstFood{
+            list-style: none;
+            padding: 0;
+            .itemFood{
+                background-image: linear-gradient(#efefef,#eee);
+                margin: 0;
+                padding: 15px;
+                clear: both; 
+                .row{
+                    margin-bottom: 10px;
+                }               
+                &:nth-child(odd) {
+                    background-image: linear-gradient(#dfdfdf,#ddd);
+                }
+                &:first-child {
+                    background-image: none;
+                    text-align: center;
+                    button {
+                        float: none;
+                        white-space: nowrap;
+                        display: inline-block;
+                        border-radius: 5px;
+                        padding: 5px 10px;
+                        font-size: 16px;
+                        color: #fff;
+                        background-image: linear-gradient(#fff,#d5d5d5);
+                        border: 1px solid #d5d5d5;
+                        color: #000;
+                        &:before {
+                            display: inline-block;
+                            font: normal normal normal 14px/1 FontAwesome;
+                            font-size: inherit;
+                            text-rendering: auto;
+                            -webkit-font-smoothing: antialiased;
+                            -moz-osx-font-smoothing: grayscale;
+                            content: '\F067';
+                            margin-right: 5px;
+                        }
+                    }
+                }
+                > button{
+                    float: right;
+                    white-space: nowrap;
+                    display: inline-block;
+                    border-radius: 5px;
+                    padding: 5px 10px;
+                    font-size: 16px;
+                    color: #fff;
+                    background-image: linear-gradient(#e27c79,#c9302c);
+                    border: 1px solid #c9302c;
+                    padding: 5px 8px;
+                    &:before {
+                        display: inline-block;
+                        font: normal normal normal 14px/1 FontAwesome;
+                        font-size: inherit;
+                        text-rendering: auto;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        content: '\F1F8';
+                    }
+                }
+            }
         }
     }
     .logForm{
@@ -31,10 +95,12 @@ body,html{
         height: 30px;
     }
     .row {
-        margin-right: 0;
-        margin-left: 0;
+        margin:{
+			right:0;
+			left: 0;
+		}
     } 
-    #hasOption{
+    #hasOption, #takeAway{
         zoom: 1.7;
         top: 2px;
         left: 5px;
@@ -134,22 +200,30 @@ body,html{
         border-radius: 5px;
         width: 40%;
         padding: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
+        margin:{
+            left: auto;
+            right: auto;
+            top: 30px;
+        }       
         .row{
-            padding-bottom: 5px;
-            padding-top: 5px;
+            padding:{
+                bottom: 5px;
+                top: 5px;
+            }
             input{
                 width: 100%;
             }
         }
     } 
     .price{
-        font-size: 24px;
-        font-weight: bold;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        font:{
+			size: 24px;
+			weight: bold;
+        }
+        margin:{
+            top: 5px;
+            bottom: 5px;
+        }
         color: $price;
         height: 30px;
     }      

@@ -17,8 +17,10 @@ function login(username, password) {
         return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }).join('&');
     let url = `${config.apiUrl}/${ApiEndpoints.login}`;
+    console.log('axios URL');
     return axios.post(url, searchParams).then(res=>{
         if (res.data.access_token) {
+            console.log('axios access token OK');
             localStorage.setItem('user', JSON.stringify(res.data));
             return res.data;
         }
@@ -29,5 +31,6 @@ function login(username, password) {
 
 function logout() {
     // remove user from local storage to log user out
+    console.log('axios logout ');
     localStorage.removeItem('user');
 }

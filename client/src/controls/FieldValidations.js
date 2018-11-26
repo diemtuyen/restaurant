@@ -1,6 +1,6 @@
 import _ from 'lodash';
 const fnGetMessage = (form, name, validateType) => {
-    const rs = _.get(window.restaurant,'resuource');
+    const rs = _.get(window.restaurant,'resource');
     let mess='';
     let path = `${form}.${name}`;
     switch(validateType){

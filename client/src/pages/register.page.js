@@ -15,7 +15,7 @@ class RegisterPage extends React.Component {
     }
     render(){
         const { handleSubmit, pristine, reset, submitting } = this.props;
-        const rs = _.get(window.restaurant,'resuource');
+        const rs = _.get(window.restaurant,'resource');
         return(
             <form onSubmit={handleSubmit}>
                 <Row>

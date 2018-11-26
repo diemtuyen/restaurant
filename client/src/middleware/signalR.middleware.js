@@ -30,7 +30,7 @@ export function signalRStart(store, callback) {
     // function loadResource(){
     //     axios.get('/resources/app.json').then(function(response){
     //         _.assign(window.restaurant, {
-    //             resuource: response.data
+    //             resource: response.data
     //         });
     //         callback();
     //     }).catch(error => console.error('Error:', error));

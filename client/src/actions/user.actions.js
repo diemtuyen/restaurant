@@ -10,14 +10,17 @@ export const userActions = {
 function login(username, password) {
     return dispatch => {
         dispatch(request({ username }));
+        console.log('action dispatch request');
         userService.login(username, password)
             .then(
                 user => {
                     dispatch(success(user));
+                    console.log('action dispatch success');
                     history.push('/');
                 },
                 error => {
                     dispatch(failure(error));
+                    console.log('action dispatch failure');                    
                     //dispatch(alertActions.error(error));
                 }
             );
@@ -30,5 +33,6 @@ function login(username, password) {
 
 function logout() {
     userService.logout();
+    console.log('action logout');
     return { type: userConstants.LOGOUT };
 }
