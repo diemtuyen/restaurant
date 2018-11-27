@@ -40,7 +40,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-const renderFoods = ({ categories, fields, meta: { touched, error, submitFailed } }) => (
+const renderFoods = ({ categories, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed } }) => (
   <ul className="lstFood">
     <li className="itemFood">
       <Button onClick={() => fields.push({})}>Add Food</Button>
@@ -67,7 +67,7 @@ const renderFoods = ({ categories, fields, meta: { touched, error, submitFailed 
             <Field
               name={`${food}.type`}
               component={renderDropdownList}
-              data={['Binh thuong', 'To nho', 'To dac biet' ]}/>
+              data={kinds}/>
           </Col>
           <Col md={4}>
             <label>Nums</label>
@@ -83,7 +83,7 @@ const renderFoods = ({ categories, fields, meta: { touched, error, submitFailed 
             <Field
               name="utility"
               component={renderMultiselect}
-              data={['Thap cam', 'Thit nat', 'Thit gio bo', 'Gio khoanh', ' Xuong', 'Bo', 'Ga', 'Moc', 'Cha' ]}/>
+              data={utilities}/>
           </Col>
         </Row>
         <Row>
@@ -92,7 +92,7 @@ const renderFoods = ({ categories, fields, meta: { touched, error, submitFailed 
             <Field
               name="reject"
               component={renderMultiselect}
-              data={['Hanh la', 'Hanh phi', 'Tieu', 'Dau phong', 'Ngo', ' Rau', 'Ca rot']}/>
+              data={excepts}/>
           </Col>
         </Row>
         <Row>
@@ -111,19 +111,19 @@ const OrderArraysForm = props => {
   const rs = _.get(window.restaurant,'resource');
   const tables = props.tableItems.map(t => t.title);
   const categories = props.categoryItems.map(c => c.title);
+  const kinds = props.kindItems.map(k => k.title);
+  const excepts = props.exceptItems.map(e => e.title);
+  const utilities = props.utilityItems.map(u => u.title);
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="alignC">{_.get(rs,'bookForm.title')}</h2> 
       <Row>
-        <Col sm="6" md="8">
-          <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>
+        <Col sm="12" md="12" className="selectTable">
+          <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
           <Field
             name="table"
             component={renderDropdownList}
-            data={tables}/> 
-        </Col>
-        <Col sm="6" md="4">
-          <br/>
+            data={tables}/>{' '} 
           <label name="takeAway">{_.get(rs,'bookForm.takeAway')}</label>
           <Field
             name="takeAway"
@@ -134,7 +134,7 @@ const OrderArraysForm = props => {
       </Row>
       <Row>
         <Col sm="12" md="12">        
-          <FieldArray name="foods" component={renderFoods} categories={categories} />
+          <FieldArray name="foods" component={renderFoods} categories={categories} kinds={kinds} excepts={excepts} utilities={utilities} />
         </Col>
       </Row>
       <Row>

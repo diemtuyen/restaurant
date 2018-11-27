@@ -20,7 +20,7 @@ class CookerPage extends React.Component {
         return(
             <div>
                 <Row>
-                    <Col sm="8" md="9"><OrderArraysForm tableItems = {this.props.tables} categoryItems = {this.props.categories}/></Col>
+                    <Col sm="8" md="9"><OrderArraysForm tableItems = {this.props.tables} categoryItems = {this.props.categories} kindItems = {this.props.kinds} exceptItems = {this.props.excepts} utilityItems = {this.props.utilities}/></Col>
                     <Col sm="4" md="3">table watting</Col>
                 </Row>
             </div>
@@ -30,7 +30,10 @@ class CookerPage extends React.Component {
 const mapStateToProps = state => {
     return {
         tables: state.bookingReducer.tables,
-        categories: state.bookingReducer.categories
+        categories: state.bookingReducer.categories,
+        kinds: state.bookingReducer.kinds,
+        excepts: state.bookingReducer.excepts,
+        utilities: state.bookingReducer.utilities,
     }
 }
 

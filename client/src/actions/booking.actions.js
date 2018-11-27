@@ -2,6 +2,9 @@ import actionTypes from '../constants/booking.constants';
 import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
 import { categoryService } from  '../services/category.service';
+import { kindService } from  '../services/kind.service';
+import { exceptService } from  '../services/except.service';
+import { utilityService } from  '../services/utility.service';
 
 export const bookingActions = {
     bookingAddTable,
@@ -35,7 +38,12 @@ function failure(error) { return { type: actionTypes.LOGIN_FAILURE, error } }
 function getItems() {
     return dispatch => {
         let action = actionTypes.GET_ITEMS;
-        Promise.all([tableService.getItems(),categoryService.getItems()])
+        Promise.all([
+            tableService.getItems(), 
+            categoryService.getItems(), 
+            kindService.getItems(), 
+            exceptService.getItems(), 
+            utilityService.getItems()])
             .then(
                 obj => {
                     dispatch(success(action, obj));

@@ -3,7 +3,10 @@ import _ from 'lodash';
 
 var initialState = {
   tables: [],
-  categories: []
+  categories: [],
+  kinds: [],
+  excepts: [],
+  utilities:[]
 }
 
 export function bookingReducer(state = initialState, action) {
@@ -17,6 +20,9 @@ export function bookingReducer(state = initialState, action) {
       let updated = Object.assign({}, state)
       updated['tables'] =  action.obj[0];
       updated['categories'] =  action.obj[1];
+      updated['kinds'] =  action.obj[2];
+      updated['excepts'] =  action.obj[3];
+      updated['utilities'] =  action.obj[4];
       return updated;
     default:
       return state

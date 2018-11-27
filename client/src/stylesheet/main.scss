@@ -16,6 +16,13 @@ body,html{
             color: darkred;
             font-weight: bold;
         }
+        .selectTable{
+            text-align: center;
+            > div{
+                display: inline-block;
+                width: 100px;
+            }
+        }
         .lstFood{
             list-style: none;
             padding: 0;

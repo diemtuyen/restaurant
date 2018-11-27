@@ -5,6 +5,8 @@ const ApiEndpoints ={
     status: '/status',
     table: 'api/table',
     category: 'api/category',
-    exception: '/exception',
+    except: 'api/except',
+    kind: 'api/kind',
+    utility: 'api/utility',
 }
 export default ApiEndpoints
