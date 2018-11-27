@@ -3,5 +3,6 @@ const bookingActionType={
     BOOKING_REQUEST: 'BOOKING_REQUEST',
     BOOKING_SUCCESS: 'BOOKING_ADD_TABLE_SUCCESS',
     BOOKING_FAILURE: 'BOOKING_ADD_TABLE_FAILURE',
+    GET_ITEMS: 'GET_ITEMS',
 };
 export default bookingActionType;

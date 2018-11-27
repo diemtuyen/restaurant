@@ -1,8 +1,11 @@
 import actionTypes from '../constants/booking.constants';
 import { bookingService } from  '../services/booking.service';
+import { tableService } from  '../services/table.service';
+import { categoryService } from  '../services/category.service';
 
 export const bookingActions = {
-    bookingAddTable
+    bookingAddTable,
+    getItems
 };
 
 function bookingAddTable(client, key) {
@@ -22,10 +25,24 @@ function bookingAddTable(client, key) {
 }
 function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
 function success(action, obj) {
-    debugger;
     return { 
         type: action, 
         obj 
     } 
 }
 function failure(error) { return { type: actionTypes.LOGIN_FAILURE, error } }
+
+function getItems() {
+    return dispatch => {
+        let action = actionTypes.GET_ITEMS;
+        Promise.all([tableService.getItems(),categoryService.getItems()])
+            .then(
+                obj => {
+                    dispatch(success(action, obj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}

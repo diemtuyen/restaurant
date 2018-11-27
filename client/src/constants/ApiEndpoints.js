@@ -3,7 +3,8 @@ const ApiEndpoints ={
     login: 'token',
     register: '/account/register',
     status: '/status',
-    table: '/table',
+    table: 'api/table',
+    category: 'api/category',
     exception: '/exception',
 }
 export default ApiEndpoints

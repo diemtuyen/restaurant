@@ -40,7 +40,7 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-const renderFoods = ({ fields, meta: { touched, error, submitFailed } }) => (
+const renderFoods = ({ categories, fields, meta: { touched, error, submitFailed } }) => (
   <ul className="lstFood">
     <li className="itemFood">
       <Button onClick={() => fields.push({})}>Add Food</Button>
@@ -60,7 +60,7 @@ const renderFoods = ({ fields, meta: { touched, error, submitFailed } }) => (
             <Field
               name={`${food}.category`}
               component={renderDropdownList}
-              data={[ 'Bun', 'Hu tiu', 'Mien', 'Mi', 'Hu tiu Mi', 'Hu tiu kho', 'Bun thit nuong' ]}/>
+              data={categories}/>
           </Col>
           <Col md={4}>
             <label>Type</label>
@@ -109,6 +109,8 @@ const renderFoods = ({ fields, meta: { touched, error, submitFailed } }) => (
 const OrderArraysForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   const rs = _.get(window.restaurant,'resource');
+  const tables = props.tableItems.map(t => t.title);
+  const categories = props.categoryItems.map(c => c.title);
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="alignC">{_.get(rs,'bookForm.title')}</h2> 
@@ -118,7 +120,7 @@ const OrderArraysForm = props => {
           <Field
             name="table"
             component={renderDropdownList}
-            data={[ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ]}/> 
+            data={tables}/> 
         </Col>
         <Col sm="6" md="4">
           <br/>
@@ -132,7 +134,7 @@ const OrderArraysForm = props => {
       </Row>
       <Row>
         <Col sm="12" md="12">        
-          <FieldArray name="foods" component={renderFoods} />
+          <FieldArray name="foods" component={renderFoods} categories={categories} />
         </Col>
       </Row>
       <Row>
