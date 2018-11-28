@@ -3,7 +3,6 @@ import {FieldProps} from './FieldProps';
 import {withInputError} from './hocs.control';
 
 const renderInput = ({input, meta, showError, showWarn, ...rest}) =>{
-	
 	return (
 			<input
 				{...input}

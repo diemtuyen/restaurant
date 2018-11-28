@@ -2,7 +2,8 @@ import config from 'config';
 import axios from 'axios';
 import ApiEndpoints from '../constants/ApiEndpoints';
 export const bookingService = {
-    bookingAddTable
+    bookingAddTable,
+    addOrder
 };
 
 function bookingAddTable(client, key) {
@@ -22,3 +23,16 @@ function bookingAddTable(client, key) {
         //   reject("failure reason"); // rejected
       });
 }
+
+function addOrder(orderOjb) {
+    console.log(orderOjb); 
+    debugger;
+    let url = `${config.apiUrl}/${ApiEndpoints.order}`;
+    return axios.post(url, orderOjb).then(res=>{ 
+        console.log(res.data.content);       
+        return res.data.content;
+    }).catch(e=>{
+        console.log(e);
+    });
+}
+

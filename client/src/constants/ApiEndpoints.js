@@ -8,5 +8,6 @@ const ApiEndpoints ={
     except: 'api/except',
     kind: 'api/kind',
     utility: 'api/utility',
+    order: 'api/order',
 }
 export default ApiEndpoints

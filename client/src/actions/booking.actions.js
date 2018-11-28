@@ -5,10 +5,12 @@ import { categoryService } from  '../services/category.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
+import { history } from '../helpers/history';
 
 export const bookingActions = {
     bookingAddTable,
-    getItems
+    getItems,
+    addOrder
 };
 
 function bookingAddTable(client, key) {
@@ -21,7 +23,6 @@ function bookingAddTable(client, key) {
                 },
                 error => {
                     dispatch(failure(error));
-                    //dispatch(alertActions.error(error));
                 }
             );
     };
@@ -47,6 +48,31 @@ function getItems() {
             .then(
                 obj => {
                     dispatch(success(action, obj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}
+
+function successOrder(action, orderObj) {
+    debugger;
+    return { 
+        type: action, 
+        tableId: orderObj.table.id,
+        details: orderObj.table.Details
+    } 
+}
+function addOrder(orderObj) {
+    return dispatch => {
+        let action = actionTypes.ADD_ORDER_FOOD;
+        bookingService.addOrder(orderObj)
+            .then(
+                obj => {
+                    debugger;
+                    dispatch(successOrder(action, orderObj));
+                    history.push('/');
                 },
                 error => {
                     console.log('fail');

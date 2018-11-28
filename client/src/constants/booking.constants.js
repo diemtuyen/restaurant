@@ -4,5 +4,6 @@ const bookingActionType={
     BOOKING_SUCCESS: 'BOOKING_ADD_TABLE_SUCCESS',
     BOOKING_FAILURE: 'BOOKING_ADD_TABLE_FAILURE',
     GET_ITEMS: 'GET_ITEMS',
+    ADD_ORDER_FOOD: 'ADD_ORDER_FOOD',
 };
 export default bookingActionType;
