@@ -26,13 +26,11 @@ function bookingAddTable(client, key) {
 
 function addOrder(orderOjb) {
     console.log(orderOjb); 
-    debugger;
     let url = `${config.apiUrl}/${ApiEndpoints.order}`;
-    return axios.post(url, orderOjb).then(res=>{ 
-        console.log(res.data.content);       
-        return res.data.content;
-    }).catch(e=>{
-        console.log(e);
+    return axios.post(url, orderOjb).then(res=>{
+        Promise.resolve(res.data.content);
+    },e=>{
+        Promise.reject(e);
     });
 }
 

@@ -57,11 +57,9 @@ function getItems() {
 }
 
 function successOrder(action, orderObj) {
-    debugger;
     return { 
         type: action, 
-        tableId: orderObj.table.id,
-        details: orderObj.table.Details
+        obj:orderObj
     } 
 }
 function addOrder(orderObj) {
@@ -70,9 +68,7 @@ function addOrder(orderObj) {
         bookingService.addOrder(orderObj)
             .then(
                 obj => {
-                    debugger;
                     dispatch(successOrder(action, orderObj));
-                    history.push('/');
                 },
                 error => {
                     console.log('fail');

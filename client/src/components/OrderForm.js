@@ -27,7 +27,7 @@ class OrderForm extends React.Component {
             <Col sm="12" md="12" className="selectTable">
               <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
               <Field
-                name="table"
+                name="Table"
                 component={renderDropdownList}                
                 data={this.props.tables}/>{' '} 
               <label name="takeAway">{_.get(rs,'bookForm.takeAway')}</label>
@@ -63,8 +63,16 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
-    console.log(values);
-    dispatch(bookingActions.addOrder(values));
+
+    const fields = { Title: 'Order 11111', Status: {ID:1} };
+    const jsonOrder = Object.assign({}, values, fields);
+    
+    _.forEach(jsonOrder.Details, function(i){
+      i.JsonExcept = JSON.stringify(i.JsonExcept);
+      i.JsonUtility = JSON.stringify(i.JsonUtility);
+    });
+    
+    dispatch(bookingActions.addOrder(merged));
   }
     
 });

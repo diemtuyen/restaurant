@@ -17,9 +17,8 @@ export function bookingReducer(state = initialState, action) {
       stateClone.books.push(action.obj);
       return stateClone;
     case bookingActionType.ADD_ORDER_FOOD:
-      debugger;
       stateClone = _.cloneDeep(state);
-      stateClone.books =  Object.assign([], state.books);      
+      stateClone.books =  Object.assign([], state.books); 
       stateClone.books.push(action.obj);
       return stateClone;
     case bookingActionType.GET_ITEMS:
