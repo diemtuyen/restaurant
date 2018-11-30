@@ -70,7 +70,7 @@ const renderFoods = ({categories, kinds, excepts, utilities, fields, meta: { tou
                     <label>Note</label>{' '}
                     <Field
                         className='res-input'
-                        name='note'
+                        name={`${food}.note`}
                         type='text'
                         component={renderInput}
                     />

@@ -39,6 +39,7 @@ import LoginForm from './pages/login.page';
 import HomePage from './pages/home.page';
 import RegisterPage from './pages/register.page';
 import CookerPage from './pages/cooker.page';
+import OrderPage from './pages/order.page';
 class App extends Component {
   constructor(props, context) {
     super(props, context);    
@@ -49,6 +50,7 @@ class App extends Component {
         <Router history={this.props.history}>
           <Container fluid>
               <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute exact path="/order" component={OrderPage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterPage} />

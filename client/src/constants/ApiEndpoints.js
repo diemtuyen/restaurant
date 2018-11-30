@@ -9,5 +9,6 @@ const ApiEndpoints ={
     kind: 'api/kind',
     utility: 'api/utility',
     order: 'api/order',
+    detail: 'api/detail',
 }
 export default ApiEndpoints

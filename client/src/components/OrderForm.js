@@ -64,15 +64,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
 
-    const fields = { Title: 'Order 11111', Status: {ID:1} };
+    const fields = { Title: 'Order', Status: {ID:1} };
     const jsonOrder = Object.assign({}, values, fields);
     
     _.forEach(jsonOrder.Details, function(i){
-      i.JsonExcept = JSON.stringify(i.JsonExcept);
-      i.JsonUtility = JSON.stringify(i.JsonUtility);
+        i.JsonExcept = JSON.stringify(i.JsonExcept);
+        i.JsonUtility = JSON.stringify(i.JsonUtility);
     });
-    
-    dispatch(bookingActions.addOrder(merged));
+
+    dispatch(bookingActions.addOrder(jsonOrder));
   }
     
 });

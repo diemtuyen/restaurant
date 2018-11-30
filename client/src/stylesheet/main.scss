@@ -8,6 +8,23 @@ body,html{
     @import '../../node_modules/font-awesome/css/font-awesome.min.css';
     font-family: $font_name;
     font-size: 14px; 
+      
+    .main {
+        margin: 0 auto;
+        text-align: left;
+        border: 1px solid #d5d5d5;
+    }  
+    .table{
+        margin-bottom: 0px;
+    }
+    .done {
+        color: red;
+        text-decoration: line-through;
+    }      
+    .undone {
+        color: #61DAFB;
+    }
+      
     .rw-widget-picker, .form-control {        
         height: 30px;
     }
@@ -21,6 +38,11 @@ body,html{
         background-image: linear-gradient(#fff, #d5d5d5);
         font-size: 16px;
         padding: 3px 8px;
+        &:hover, &:not(:disabled):not(.disabled):active{
+            border-color: #d5d5d5;
+            background-image: linear-gradient(#fff, #bdbdbd);
+            color:black;
+        }
     }
     form{
         border: 2px dashed skyblue;

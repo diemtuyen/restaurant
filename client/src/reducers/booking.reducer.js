@@ -6,7 +6,9 @@ var initialState = {
   categories: [],
   kinds: [],
   excepts: [],
-  utilities:[]
+  utilities:[],
+  orders:[],
+  details:[]
 }
 
 export function bookingReducer(state = initialState, action) {
@@ -28,6 +30,10 @@ export function bookingReducer(state = initialState, action) {
       updated['kinds'] =  action.obj[2];
       updated['excepts'] =  action.obj[3];
       updated['utilities'] =  action.obj[4];
+      return updated;
+    case bookingActionType.COOKING_GET_ITEMS:
+      updated = Object.assign({}, state)
+      updated['orders'] =  action.obj[0];
       return updated;
     default:
       return state
