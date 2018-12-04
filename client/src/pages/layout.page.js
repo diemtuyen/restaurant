@@ -27,17 +27,11 @@ export default class Layout extends React.Component {
         let headerHeight= this.state.header.clientHeight;
         let footerHeight= this.state.footer.clientHeight;
         console.log(window.outerHeight);
-        debugger;
         this.setState({
-            height: window.outerHeight - headerHeight - footerHeight
+            height: window.innerHeight - headerHeight - footerHeight
         })
     }
-    render() {
-        const styleContent ={
-            minHeight: this.state.height,
-            borderBottom: '1px solid #f5f5f5'
-        };
-        console.log(this.state.height);
+    render() {        
         return (            
             <div>
                 <div ref={ e => { this.state.header = e; } }>
@@ -86,7 +80,7 @@ export default class Layout extends React.Component {
                         {/* </Collapse> */}
                     </Navbar>
                 </div>
-                <div style={{styleContent}}>
+                <div style={{minHeight: this.state.height, borderBottom: '1px solid #f5f5f5'}}>
                     <Row>
                         <Col md='2' className="sidebar">
                             <Nav vertical>
@@ -124,7 +118,7 @@ export default class Layout extends React.Component {
                     </Row>
                 </div>                
                 <div ref={ e => { this.state.footer = e; } }>
-                    <p style={{borderTop: '1px solid #f5f5f5', backgroundColor: '#e8e8e8'}}> Copyright@2018 </p>
+                    <p style={{backgroundColor: '#e8e8e8', padding: 20}}> Copyright@2018 </p>
                 </div>
             </div> 
         );

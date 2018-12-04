@@ -8,22 +8,29 @@ body,html{
     @import '../../node_modules/font-awesome/css/font-awesome.min.css';
     font-family: $font_name;
     font-size: 14px; 
+    .row {
+        margin:{
+			right:0;
+			left: 0;
+		}
+    } 
     .navbar{
         padding: 0;
         border: 1px solid #e7e7e7;
     }
     .sidebar{
         background-color: #f8f8f8;
-        border: 1px solid #e7e7e7;
+        min-height: -webkit-fill-available;
         padding:{
             left: 0px;
             right: 0px;
         }
         .nav-item{
-            margin-left: 15px;
+            //margin-left: 15px;
         }
             .nav-link{
             border-bottom: 1px solid #e7e7e7;
+            border-right: 1px solid #e7e7e7;
             padding:{
                 top: 15px;
                 bottom: 15px;
@@ -203,12 +210,7 @@ body,html{
     select{
         height: 30px;
     }
-    // .row {
-    //     margin:{
-	// 		right:0;
-	// 		left: 0;
-	// 	}
-    // } 
+    
     #hasOption, #takeAway{
         zoom: 1.7;
         top: 3px;
