@@ -10,13 +10,8 @@ class WidgetListOrder extends React.Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount(){ 
-    this.props.dispatch(cookingActions.getItems()); 
-     
-    console.log(this.props.tables) ;     
-  }
   render(){
-    const lstTable = this.props.tables.map( (item, i) => {
+    const lstOrders = this.props.items.map( (item, i) => {
         return ( 
           <NavItem key={i}>
             <NavLink href="#">
@@ -26,18 +21,11 @@ class WidgetListOrder extends React.Component {
     });
     return(
         <Nav vertical>
-          {lstTable} 
+          {lstOrders} 
         </Nav>  
       )
   }
 }
-const mapStateToProps = state => {
-  return {
-      tables: state.bookingReducer.tables
-  }
-}
 
-export default compose(
-  connect(mapStateToProps),
-  commonWrapped()
-)(WidgetListOrder);
+
+export default WidgetListOrder;

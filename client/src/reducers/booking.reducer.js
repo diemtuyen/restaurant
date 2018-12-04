@@ -33,7 +33,7 @@ export function bookingReducer(state = initialState, action) {
       return updated;
     case bookingActionType.COOKING_GET_ITEMS:
       updated = Object.assign({}, state)
-      updated['orders'] =  action.obj[0];
+      updated['orders'] =  action.obj;
       return updated;
     default:
       return state

@@ -22,7 +22,6 @@ class OrderForm extends React.Component {
       const rs = _.get(window.restaurant,'resource');
       return(
         <form onSubmit={handleSubmit}>
-          <h2 className="alignC">{_.get(rs,'bookForm.title')}</h2> 
           <Row>
             <Col sm="12" md="12" className="selectTable">
               <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
@@ -64,14 +63,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
 
-    const fields = { Title: 'Order', Status: {ID:1} };
+    const fields = { Title: 'Order', StatusId: '1' };
     const jsonOrder = Object.assign({}, values, fields);
     
     _.forEach(jsonOrder.Details, function(i){
         i.JsonExcept = JSON.stringify(i.JsonExcept);
         i.JsonUtility = JSON.stringify(i.JsonUtility);
     });
-
     dispatch(bookingActions.addOrder(jsonOrder));
   }
     

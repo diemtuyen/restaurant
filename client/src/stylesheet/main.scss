@@ -8,14 +8,73 @@ body,html{
     @import '../../node_modules/font-awesome/css/font-awesome.min.css';
     font-family: $font_name;
     font-size: 14px; 
-      
+    .navbar{
+        padding: 0;
+        border: 1px solid #e7e7e7;
+    }
+    .sidebar{
+        background-color: #f8f8f8;
+        border: 1px solid #e7e7e7;
+        padding:{
+            left: 0px;
+            right: 0px;
+        }
+        .nav-item{
+            margin-left: 15px;
+        }
+            .nav-link{
+            border-bottom: 1px solid #e7e7e7;
+            padding:{
+                top: 15px;
+                bottom: 15px;
+            }
+        }
+        a{
+            color: #337ab7;
+            &:hover{
+                color: #23527c;
+                background-color: #eeeeee;
+            }
+        }
+        
+        .second-level{
+            padding-left: 40px;
+        }
+    }
+    .panel{        
+        margin-top: 15px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        border-color: #ddd;
+        >div:first-child{
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #e7e7e7;
+            padding: 10px;
+        }
+    }
+    .panel-child{
+        margin-bottom: 0;
+        margin-top: 0;
+        border: unset;
+        box-shadow: unset;
+    }
+    .title{
+        h1{
+            border-bottom: 1px solid #e7e7e7;
+            padding-top: 30px;
+            padding-bottom: 15px;
+            margin-bottom: 0;
+        }
+    } 
     .main {
         margin: 0 auto;
         text-align: left;
-        border: 1px solid #d5d5d5;
     }  
     .table{
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
     .done {
         color: red;
@@ -45,9 +104,8 @@ body,html{
         }
     }
     form{
-        border: 2px dashed skyblue;
-        padding-top: 10px;
-        padding-bottom: 10px;        
+        padding-top: 15px;
+        padding-bottom: 15px;        
         .required{
             color: darkred;
             font-weight: bold;
@@ -63,20 +121,25 @@ body,html{
             list-style: none;
             padding: 0;
             .itemFood{
-                background-image: linear-gradient(#efefef,#eee);
                 margin: 0;
-                padding: 5px;
+                padding-left: 15px;
+                padding-right: 15px;
                 clear: both; 
                 .row{
-                    margin-bottom: 10px;
-                }               
-                &:nth-child(odd) {
-                    background-image: linear-gradient(#eaeaea, #eee);
+                    margin-top: 15px;
+                } 
+                .panel{
+                    .panel-child{
+                        margin-left: 15px;
+                        margin-right: 15px;
+                        .row:last-child{
+                            margin-bottom: 15px;
+                        }
+                    }
                 }
                 &:first-child {
-                    background-image: none;
                     text-align: center;
-                    padding: 10px;
+                    padding-top: 15px;
                     button {
                         float: none;
                         white-space: nowrap;
@@ -125,7 +188,6 @@ body,html{
         }
     }
     .logForm{
-        border: 2px dashed skyblue;
         margin-top: 10px;
     }
     label{
@@ -141,12 +203,12 @@ body,html{
     select{
         height: 30px;
     }
-    .row {
-        margin:{
-			right:0;
-			left: 0;
-		}
-    } 
+    // .row {
+    //     margin:{
+	// 		right:0;
+	// 		left: 0;
+	// 	}
+    // } 
     #hasOption, #takeAway{
         zoom: 1.7;
         top: 3px;
@@ -165,10 +227,6 @@ body,html{
         &:focus{
             box-shadow: unset;
         }
-    }
-    .nav-link {
-        font-size: 18px;
-        color: black;
     }
     .detail{
         text-align: center;
