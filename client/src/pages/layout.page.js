@@ -90,8 +90,14 @@ export default class Layout extends React.Component {
                         <Col md='2' className="sidebar">
                             <Nav vertical>
                                 <NavItem>
-                                    <NavLink href="#">
+                                    <NavLink href="/">
                                         <i class="fa fa-dashboard" aria-hidden="true"></i>{' '}Dashboard
+                                    </NavLink>
+                                    <NavLink href="/order">
+                                        <i class="fa fa-hand-o-right" aria-hidden="true"></i>{' '}Order Management
+                                    </NavLink>
+                                    <NavLink href="/cooker">
+                                        <i class="fa fa-angellist" aria-hidden="true"></i>{' '}Cooker Management
                                     </NavLink>
                                     <NavLink href="#">
                                         <i class="fa fa-bar-chart-o" aria-hidden="true"></i>{' '}Report Management
@@ -102,14 +108,17 @@ export default class Layout extends React.Component {
                                     <NavLink href="#">
                                         <i class="fa fa-wrench" aria-hidden="true"></i>{' '}Settings
                                     </NavLink>
-                                    <NavLink className="second-level" href="#">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i>{' '}Add new
+                                    <NavLink className="second-level" href="/table">
+                                        <i class="fa fa-table" aria-hidden="true"></i>{' '}Table
+                                    </NavLink>
+                                    <NavLink className="second-level" href="/menu">
+                                        <i class="fa fa-bars" aria-hidden="true"></i>{' '}Menu
                                     </NavLink>
                                     <NavLink className="second-level" href="#">
-                                        <i class="fa fa-comment" aria-hidden="true"></i>{' '}Modify
+                                        <i class="fa fa-book" aria-hidden="true"></i>{' '}Category
                                     </NavLink>
                                     <NavLink className="second-level" href="#">
-                                        <i class="fa fa-upload" aria-hidden="true"></i>{' '}Delete
+                                        <i class="fa fa-user-o" aria-hidden="true"></i>{' '}Users
                                     </NavLink>
                                     <NavLink href="#">
                                         <i class="fa fa-dashboard" aria-hidden="true"></i>{' '}Dashboard

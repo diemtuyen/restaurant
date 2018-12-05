@@ -2,6 +2,8 @@ import React from 'react';
 
 class DetailList extends React.Component {
   render () {
+    if (this.props.items == null)
+      return;
     var items = this.props.items.map((item, index) => {
       return (        
         <DetailItem key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
@@ -100,14 +102,16 @@ class OrderItem extends React.Component {
     var todoClass = this.props.item.done ? 
         "done" : "undone";
     console.log('order item ' + this.props.item);
+    if (this.props.item.length <=0)
+      return;
     return(   
       <tr className={todoClass}>
         <td onClick={this.onClickDone}>{this.props.item.id}</td>
         {/* <td>{this.props.item.details.count}</td>
         <td>{this.props.item.details.tableId}</td> */}
-        <td>
+        {/* <td>
           <DetailList items={this.props.item.details} removeItem={this.removeItem} markTodoDone={this.markTodoDone}/>
-        </td>
+        </td> */}
         <td><button type="button" className="close" onClick={this.onClickClose}>&times;</button></td>
       </tr>  
     );

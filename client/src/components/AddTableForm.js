@@ -1,13 +1,47 @@
 import React from 'react'
 import { Field, reduxForm, formValueSelector  } from 'redux-form'
 import { Row, Col, Button } from 'reactstrap';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import renderInput from '../controls/input.control'; 
+
 
 let AddTableForm = props => {
   const { statusTable, noteTable, handleSubmit, pristine, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
-      <Row>  
+      <div className="addNew">
+        <h5>Add new item</h5>
+        <Row>
+          <Col md={2}>
+            <label>Ban so</label>
+          </Col>
+          <Col md={10}>
+            <Field
+                className='res-input'
+                name='indexTable'
+                type='number'
+                component={renderInput}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={2}>
+            <label>Ghi chu</label>
+          </Col>
+          <Col md={10}>
+            <Field
+                className='res-input'
+                name='noteTable'
+                type='text'
+                component={renderInput}
+            />
+          </Col>
+        </Row>
+        <Button type="submit" disabled={pristine || submitting}>
+          Add
+        </Button>
+      </div>
+      {/* <Row>  
           <Col md={3}>
             Ban so: 
           </Col>
@@ -56,7 +90,7 @@ let AddTableForm = props => {
           Them moi
           </Button>
         </Col>
-      </Row>
+      </Row> */}
     </form>
   )
 }

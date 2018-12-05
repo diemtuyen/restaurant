@@ -37,9 +37,9 @@ body,html{
             }
         }
         a{
-            color: #23527c;
+            color: #337ab7;
             &:hover{
-                color: #337ab7;
+                color: #23527c;
                 background-color: #eeeeee;
             }
         }
@@ -54,10 +54,13 @@ body,html{
         }
     }    
     .title{
+        col{
+            padding-right: 0;
+        }
         h2{
             border-bottom: 1px solid $line-gray;
-            padding-top: 10px;
-            padding-bottom: 5px;
+            padding-top: 8px;            
+            margin-left: 15px;
             margin-bottom: 0;
             color: $font-title;
         }
@@ -68,6 +71,39 @@ body,html{
     }  
     .table{
         margin-bottom: 0;
+        thead{
+            tr{
+                th{
+                    border-bottom: unset;
+                    &:nth-last-child(1), &:nth-last-child(2){
+                        width: 70px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        td{
+            vertical-align: middle;
+        }
+        tbody{
+            tr{
+                td{
+                    &:nth-last-child(1){
+                        text-align: center;
+                    }
+                    &:nth-last-child(2){
+                        button{
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+            tr:last-child{
+                td{
+                    border-bottom:  1px solid #dee2e6;
+                }
+            }
+        }
     }
     .done {
         color: red;
@@ -94,6 +130,18 @@ body,html{
             color: #E6E6E6;
         }
     }
+    .dropdown-item{
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .dropdown-menu{
+        padding: 0;
+        margin: 11px 0 0;
+        border-radius: 0;
+    }    
+    .dropdown-divider{
+        margin:0;
+    }
     .res-input{
         input{
             border:{
@@ -110,6 +158,30 @@ body,html{
             border-color: $line-gray;
             background-image: linear-gradient(#fff, #bdbdbd);
             color:$font-title;
+        }
+    }
+    .panel{        
+        margin-top: 15px;
+        background-color: #fff;        
+        >:first-child{
+            background-color: #f5f5f5;
+            padding: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;                       
+        }
+    }
+    .panel-child{
+        .row:last-child{
+            margin-bottom: 15px;
+        }
+        [class*="col-"]{
+            &:first-child, &:last-child{
+                padding:{
+                    left: 0;
+                    right: 0;
+                }
+            }
         }
     }
     form{
@@ -135,32 +207,7 @@ body,html{
                 clear: both; 
                 .row{
                     margin-top: 15px;
-                } 
-                .panel{        
-                    margin-top: 15px;
-                    background-color: #fff;        
-                    >:first-child{
-                        background-color: #f5f5f5;
-                        border-bottom: 1px solid $line-gray;
-                        padding: 5px;
-                        font-weight: bold;
-                        font-size: 16px;
-                        text-align: center;                       
-                    }
-                }
-                .panel-child{
-                    .row:last-child{
-                        margin-bottom: 15px;
-                    }
-                    [class*="col-"]{
-                        &:first-child, &:last-child{
-                            padding:{
-                                left: 0;
-                                right: 0;
-                            }
-                        }
-                    }
-                }
+                }                 
                 &:first-child {
                     text-align: center;
                     padding-top: 15px;
@@ -204,6 +251,15 @@ body,html{
                 }
             }
         }
+        .addNew{
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+            text-align: center;
+            >*{
+                margin-bottom: 10px;
+            }
+        }
     }
     .logForm{
         margin-top: 10px;
@@ -241,6 +297,11 @@ body,html{
     .btn{
         &:focus{
             box-shadow: unset;
+        }
+        &.disabled, &:disabled {
+            opacity: 0.4;
+            color: unset;
+            border-color: #E7E7E7;
         }
     }
     .detail{
