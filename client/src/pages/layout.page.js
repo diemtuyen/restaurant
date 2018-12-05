@@ -15,7 +15,9 @@ export default class Layout extends React.Component {
         isOpen: false,
         height: 0,
         header: null,
-        footer: null
+        footer: null,
+        userName: null
+
       };
     }
     toggle() {
@@ -26,7 +28,10 @@ export default class Layout extends React.Component {
     componentDidMount(){
         let headerHeight= this.state.header.clientHeight;
         let footerHeight= this.state.footer.clientHeight;
-        console.log(window.outerHeight);
+        if (localStorage.getItem('user') != null) 
+        this.setState({
+           userName: JSON.parse(localStorage.getItem('user')).userName
+        })
         this.setState({
             height: window.innerHeight - headerHeight - footerHeight
         })
@@ -61,7 +66,7 @@ export default class Layout extends React.Component {
                                 </UncontrolledDropdown> 
                                 <UncontrolledDropdown nav inNavbar>
                                     <DropdownToggle nav caret>
-                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        {this.state.userName ? this.state.userName :<i class="fa fa-user" aria-hidden="true"></i>}
                                     </DropdownToggle>
                                     <DropdownMenu right>
                                         <DropdownItem>
@@ -112,13 +117,13 @@ export default class Layout extends React.Component {
                                 </NavItem>                    
                             </Nav>
                         </Col>
-                        <Col md='10'>
+                        <Col md='10' className="content">
                             {this.props.children}
                         </Col>
                     </Row>
                 </div>                
                 <div ref={ e => { this.state.footer = e; } }>
-                    <p style={{backgroundColor: '#e8e8e8', padding: 20}}> Copyright@2018 </p>
+                    <p style={{backgroundColor: '#f8f8f8', padding: 20}}> Copyright@2018 </p>
                 </div>
             </div> 
         );

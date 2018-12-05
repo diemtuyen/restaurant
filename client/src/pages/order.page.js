@@ -15,17 +15,12 @@ class OrderPage extends React.Component {
             <div>
                 <Row className="title">                    
                     <Col>
-                        <h1>Order Food</h1>
+                        <h2>Order Food</h2>
                     </Col>
                 </Row>
                 <Row>
                     <Col sm="8" md="9">
-                        <div className="panel">
-                            <div>Order Food</div>
-                            <div className="panel-child">
-                                <OrderForm/>
-                            </div>
-                        </div>                        
+                        <OrderForm/>                        
                     </Col>
                     <Col sm="4" md="3">{panelOrder}</Col>
                 </Row>
