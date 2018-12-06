@@ -6,5 +6,9 @@ const bookingActionType={
     GET_ITEMS: 'GET_ITEMS',
     COOKING_GET_ITEMS: 'COOKING_GET_ITEMS',
     ADD_ORDER_FOOD: 'ADD_ORDER_FOOD',
+
+    TABLE_ADD_NEW: 'TABLE_ADD_NEW',
+    TABLE_UPDATE: 'TABLE_UPDATE',
+    TABLE_DELETE: 'TABLE_DELETE',
 };
 export default bookingActionType;

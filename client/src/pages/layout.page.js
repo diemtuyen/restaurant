@@ -17,7 +17,6 @@ export default class Layout extends React.Component {
         header: null,
         footer: null,
         userName: null
-
       };
     }
     toggle() {

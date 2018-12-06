@@ -1,111 +1,76 @@
-import React from 'react'
-import { Field, reduxForm, formValueSelector  } from 'redux-form'
+import React from 'react';
+import {compose} from 'redux';
+import { Field, reduxForm, formValueSelector  } from 'redux-form';
 import { Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import renderInput from '../controls/input.control'; 
-
+import {adminActions} from '../actions/admin.actions';
+import commonWrapped from '../hocs/hocs.common';
+import _ from 'lodash';
 
 let AddTableForm = props => {
-  const { statusTable, noteTable, handleSubmit, pristine, submitting } = props
+  const { handleSubmit, pristine, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
       <div className="addNew">
         <h5>Add new item</h5>
         <Row>
-          <Col md={2}>
+          <Col md={4}>
             <label>Ban so</label>
           </Col>
-          <Col md={10}>
+          <Col md={8}>
             <Field
                 className='res-input'
-                name='indexTable'
+                name='title'
                 type='number'
                 component={renderInput}
             />
           </Col>
         </Row>
         <Row>
-          <Col md={2}>
+          <Col md={4}>
             <label>Ghi chu</label>
           </Col>
-          <Col md={10}>
+          <Col md={8}>
             <Field
                 className='res-input'
-                name='noteTable'
+                name='note'
                 type='text'
                 component={renderInput}
             />
           </Col>
         </Row>
-        <Button type="submit" disabled={pristine || submitting}>
-          Add
-        </Button>
-      </div>
-      {/* <Row>  
-          <Col md={3}>
-            Ban so: 
-          </Col>
-          <Col md={9}>
-            <Field name="indexTable" component="select">
-              <option />              
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-            </Field>
-          </Col>
-      </Row>
-      <Row>  
-          <Col md={3}>
-            Trang thai:
-          </Col>
-          <Col md={9}>
-            <Field name="statusTable" component="select">
-              <option />
-              <option value="state_order">Con trong</option>
-              <option value="state_waiting">Cho phuc vu</option>
-              <option value="state_billing">Cho thanh toan</option>
-            </Field>
-          </Col>
-      </Row>
-      <Row>  
-          <Col md={3}>
-          Ghi chu:
-          </Col>
-          <Col md={9}>
-            <Field name="noteTable" component="input" type="text" fullWidth/>
-          </Col>
-      </Row>
-      <Row>
-        <Col md={{ size: 2, offset: 5 }}>          
+        <div className="alignC">
           <Button type="submit" disabled={pristine || submitting}>
-          Them moi
+            Add
           </Button>
-        </Col>
-      </Row> */}
+        </div>
+      </div>
     </form>
   )
 }
 
-export default reduxForm({
-  form: 'addTableForm' // a unique identifier for this form
-})(AddTableForm)
-
-const selector = formValueSelector('addTableForm') // <-- same as form name
-AddTableForm = connect(
-  state => {
-    const { statusTable, noteTable } = selector(state, 'statusTable', 'noteTable')
-    return {
-      statusTable,
-      noteTable
-    }
+const mapStateToProps = state => {
+  return {
+      tables: state.bookingReducer.tables,
+      categories: state.bookingReducer.categories,
+      kinds: state.bookingReducer.kinds,
+      excepts: state.bookingReducer.excepts,
+      utilities: state.bookingReducer.utilities,
   }
-)(AddTableForm)
+}
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: values => {    
+    values.title= 'Ban ' + values.title;
+    dispatch(adminActions.addTable(values));
+  }
+    
+});
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+      form: 'addTableForm'
+  }),
+  commonWrapped()
+)(AddTableForm);

@@ -5,6 +5,7 @@ import {compose} from 'redux';
 import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
+import {adminActions} from '../actions/admin.actions';
 import AddTableForm from '../components/AddTableForm';
 
 class TableList extends React.Component {
@@ -15,7 +16,7 @@ class TableList extends React.Component {
     render () {
         var items = this.props.items.map((item, index) => {
             return (        
-                <TableItem key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
+                <TableItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
             );
         });
         return (
@@ -42,54 +43,41 @@ class TableList extends React.Component {
 class TableItem extends React.Component {
     constructor(props) {
         super(props);
-        this.onClickClose = this.onClickClose.bind(this);
-        this.onClickDone = this.onClickDone.bind(this);
+        this.onClickEdit = this.onClickEdit.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
     }
-    onClickClose() {
-      var index = parseInt(this.props.index);
-      this.props.removeItem(index);
+    onClickEdit() {
+        
     }
-    onClickDone() {
-      var index = parseInt(this.props.index);
-      this.props.markTodoDone(index);
+    onClickDelete() {
+        this.props.removeItem(this.props.item); 
     }
     render () {        
         if (this.props.item.length <=0)
             return;
         return(   
             <tr>
-                <td onClick={this.onClickDone}>{this.props.item.id}</td>
-                <td onClick={this.onClickDone}>{this.props.item.title}</td>
-                <td onClick={this.onClickDone}>{this.props.item.note}</td>
-                <td onClick={this.onClickDone}>{this.props.item.createdBy}</td>
-                <td onClick={this.onClickDone}>{this.props.item.modifiedBy}</td>                
-                <td><button type="button" className="close" onClick={this.onClickClose}><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-                <td><button type="button" className="close" onClick={this.onClickClose}>&times;</button></td>
+                <td>{this.props.item.id}</td>
+                <td>{this.props.item.title}</td>
+                <td>{this.props.item.note}</td>
+                <td>{this.props.item.createdBy}</td>
+                <td>{this.props.item.modifiedBy}</td>                
+                <td><button type="button" className="close" onClick={this.onClickEdit}><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                <td><button type="button" className="close" onClick={this.onClickDelete}>&times;</button></td>
             </tr>  
         );
     }
-  }
+}
 class TablePage extends React.Component {    
     constructor (props) {
         super(props);
         this.removeItem = this.removeItem.bind(this);
-        this.markTodoDone = this.markTodoDone.bind(this);
-        this.state = {items: this.props.tables};
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getItems());      
-        console.log(this.props.tables) ;
+        this.props.dispatch(bookingActions.getItems()); 
     }
-    removeItem (itemIndex) {
-        this.props.tables.splice(itemIndex, 1);
-        this.setState({items: this.props.tables});
-    }
-    markTodoDone(itemIndex) {
-        var todo = this.props.items[itemIndex];
-        this.props.tables.splice(itemIndex, 1);
-        todo.done = !todo.done;
-        todo.done ? this.props.tables.push(todo) : this.props.tables.unshift(todo);
-        this.setState({items: this.props.tables});  
+    removeItem (item) { 
+        this.props.dispatch(adminActions.deleteTable(item));        
     }
     render(){ 
         console.log(this.props.tables);
@@ -99,7 +87,7 @@ class TablePage extends React.Component {
                     <h2>Table Management</h2>
                 </div>
                <AddTableForm />
-               <TableList items={this.props.tables} removeItem={this.removeItem} markTodoDone={this.markTodoDone}/>          
+               <TableList items={this.props.tables} removeItem={this.removeItem}/>          
             </div>
         )
     }
