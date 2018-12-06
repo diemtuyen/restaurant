@@ -110,11 +110,11 @@ export default class Layout extends React.Component {
                                     <NavLink className="second-level" href="/table">
                                         <i class="fa fa-table" aria-hidden="true"></i>{' '}Table
                                     </NavLink>
-                                    <NavLink className="second-level" href="/menu">
-                                        <i class="fa fa-bars" aria-hidden="true"></i>{' '}Menu
+                                    <NavLink className="second-level" href="/category">
+                                        <i class="fa fa-bars" aria-hidden="true"></i>{' '}Category
                                     </NavLink>
-                                    <NavLink className="second-level" href="#">
-                                        <i class="fa fa-book" aria-hidden="true"></i>{' '}Category
+                                    <NavLink className="second-level" href="/utility">
+                                        <i class="fa fa-book" aria-hidden="true"></i>{' '}Menu
                                     </NavLink>
                                     <NavLink className="second-level" href="#">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>{' '}Users

@@ -8,14 +8,14 @@ import {adminActions} from '../actions/admin.actions';
 import commonWrapped from '../hocs/hocs.common';
 import _ from 'lodash';
 
-let AddTableForm = props => {
+let TableForm = props => {
   const { handleSubmit, pristine, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
       <div className="addNew">
         <h5>Add new item</h5>
         <Row>
-          <Col md={4}>
+          <Col md={4} className="txtAddNew">
             <label>Ban so</label>
           </Col>
           <Col md={8}>
@@ -28,7 +28,7 @@ let AddTableForm = props => {
           </Col>
         </Row>
         <Row>
-          <Col md={4}>
+          <Col md={4} className="txtAddNew">
             <label>Ghi chu</label>
           </Col>
           <Col md={8}>
@@ -52,11 +52,6 @@ let AddTableForm = props => {
 
 const mapStateToProps = state => {
   return {
-      tables: state.bookingReducer.tables,
-      categories: state.bookingReducer.categories,
-      kinds: state.bookingReducer.kinds,
-      excepts: state.bookingReducer.excepts,
-      utilities: state.bookingReducer.utilities,
   }
 }
 
@@ -70,7 +65,7 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-      form: 'addTableForm'
+      form: 'tableForm'
   }),
   commonWrapped()
-)(AddTableForm);
+)(TableForm);

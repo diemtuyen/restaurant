@@ -21,6 +21,10 @@
         "tableId": "Select table",
         "takeAway": "Take away",
         "submit": "Order",
-        "foodItem": "Food #"
+        "foodItemfoodItem": "Food #"
+    },
+    "adminPage":{
+        "addNew":"Add new item"
+
     }
 }

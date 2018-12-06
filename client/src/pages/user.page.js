@@ -6,7 +6,7 @@ import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
-import TableForm from '../components/TableForm';
+import AddTableForm from '../components/AddTableForm';
 
 class TableList extends React.Component {
     constructor(props) {
@@ -53,6 +53,8 @@ class TableItem extends React.Component {
         this.props.removeItem(this.props.item); 
     }
     render () {        
+        if (this.props.item.length <=0)
+            return;
         return(   
             <tr>
                 <td>{this.props.item.id}</td>
@@ -83,11 +85,9 @@ class TablePage extends React.Component {
             <div>
                 <div className="title">
                     <h2>Table Management</h2>
-                </div> 
-                <TableForm/>
-                {(this.props.tables.length > 0) ?
-                    <TableList items={this.props.tables} removeItem={this.removeItem}/>: 
-                    <div className="alignC">There are no items in list</div>}
+                </div>
+               <AddTableForm />
+               <TableList items={this.props.tables} removeItem={this.removeItem}/>          
             </div>
         )
     }

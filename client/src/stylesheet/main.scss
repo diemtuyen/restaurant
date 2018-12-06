@@ -124,6 +124,7 @@ body,html{
     }
     .form-control {        
         height: 30px;
+        font-size: 14px;
         .res-input{
             input{
                 border:{
@@ -266,16 +267,20 @@ body,html{
             }
         }
         .addNew{
-            // margin-left: auto;
-            // margin-right: auto;
-            // text-align: center;
-            width: 40%;
-            
+            width: 40%;            
             >*{
                 margin-bottom: 10px;
             }
             >h5{
                 text-align: center;
+            }
+            .row{
+                .txtAddNew{
+                    padding-left: 40px;
+                    >label{
+                        margin-top: 8px;
+                    }
+                }
             }
         }
     }

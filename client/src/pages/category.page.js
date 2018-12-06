@@ -6,17 +6,16 @@ import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
-import TableForm from '../components/TableForm';
+import CategoryForm from '../components/CategoryForm';
 
-class TableList extends React.Component {
+class CategoryList extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
     render () {
         var items = this.props.items.map((item, index) => {
             return (        
-                <TableItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
+                <CategoryItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
             );
         });
         return (
@@ -40,7 +39,7 @@ class TableList extends React.Component {
     }
   }
     
-class TableItem extends React.Component {
+class CategoryItem extends React.Component {
     constructor(props) {
         super(props);
         this.onClickEdit = this.onClickEdit.bind(this);
@@ -66,7 +65,7 @@ class TableItem extends React.Component {
         );
     }
 }
-class TablePage extends React.Component {    
+class CategoryPage extends React.Component {    
     constructor (props) {
         super(props);
         this.removeItem = this.removeItem.bind(this);
@@ -75,18 +74,17 @@ class TablePage extends React.Component {
         this.props.dispatch(bookingActions.getItems()); 
     }
     removeItem (item) { 
-        this.props.dispatch(adminActions.deleteTable(item));        
+        this.props.dispatch(adminActions.deleteCategory(item));        
     }
     render(){ 
-        console.log(this.props.tables);
         return(
             <div>
                 <div className="title">
-                    <h2>Table Management</h2>
-                </div> 
-                <TableForm/>
-                {(this.props.tables.length > 0) ?
-                    <TableList items={this.props.tables} removeItem={this.removeItem}/>: 
+                    <h2>Category Management</h2>
+                </div>
+                <CategoryForm />
+                {(this.props.categories.length > 0) ?
+                    <CategoryList items={this.props.categories} removeItem={this.removeItem}/>: 
                     <div className="alignC">There are no items in list</div>}
             </div>
         )
@@ -95,11 +93,11 @@ class TablePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tables: state.bookingReducer.tables
+        categories: state.bookingReducer.categories
     }
   }
   
 export default compose(
     connect(mapStateToProps),
     commonWrapped()
-  )(TablePage);
+  )(CategoryPage);

@@ -31,6 +31,22 @@ export function bookingReducer(state = initialState, action) {
       stateClone = _.cloneDeep(state);
       _.remove(stateClone.tables, table => table.id === action.obj.id);
       return stateClone;
+    case bookingActionType.CATEGORY_ADD_NEW:
+      stateClone = _.cloneDeep(state);
+      stateClone.categories.push(action.obj);
+      return stateClone;
+    case bookingActionType.KIND_ADD_NEW:
+      stateClone = _.cloneDeep(state);
+      stateClone.kinds.push(action.obj);
+      return stateClone;
+    case bookingActionType.EXCEPT_ADD_NEW:
+      stateClone = _.cloneDeep(state);
+      stateClone.excepts.push(action.obj);
+      return stateClone;
+    case bookingActionType.UTILITY_ADD_NEW:
+      stateClone = _.cloneDeep(state);
+      stateClone.utilities.push(action.obj);
+      return stateClone;
     case bookingActionType.GET_ITEMS:
       let updated = Object.assign({}, state)
       updated['tables'] =  action.obj[0];

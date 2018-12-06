@@ -6,9 +6,9 @@ import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
-import TableForm from '../components/TableForm';
+import AddKindForm from '../components/AddKindForm';
 
-class TableList extends React.Component {
+class KindList extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
@@ -16,7 +16,7 @@ class TableList extends React.Component {
     render () {
         var items = this.props.items.map((item, index) => {
             return (        
-                <TableItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
+                <KindItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
             );
         });
         return (
@@ -40,7 +40,7 @@ class TableList extends React.Component {
     }
   }
     
-class TableItem extends React.Component {
+class KindItem extends React.Component {
     constructor(props) {
         super(props);
         this.onClickEdit = this.onClickEdit.bind(this);
@@ -53,6 +53,8 @@ class TableItem extends React.Component {
         this.props.removeItem(this.props.item); 
     }
     render () {        
+        if (this.props.item.length <=0)
+            return;
         return(   
             <tr>
                 <td>{this.props.item.id}</td>
@@ -66,7 +68,7 @@ class TableItem extends React.Component {
         );
     }
 }
-class TablePage extends React.Component {    
+class KindPage extends React.Component {    
     constructor (props) {
         super(props);
         this.removeItem = this.removeItem.bind(this);
@@ -75,19 +77,17 @@ class TablePage extends React.Component {
         this.props.dispatch(bookingActions.getItems()); 
     }
     removeItem (item) { 
-        this.props.dispatch(adminActions.deleteTable(item));        
+        this.props.dispatch(adminActions.deleteKind(item));        
     }
     render(){ 
-        console.log(this.props.tables);
+        console.log(this.props.kinds);
         return(
             <div>
                 <div className="title">
-                    <h2>Table Management</h2>
-                </div> 
-                <TableForm/>
-                {(this.props.tables.length > 0) ?
-                    <TableList items={this.props.tables} removeItem={this.removeItem}/>: 
-                    <div className="alignC">There are no items in list</div>}
+                    <h2>Kind Management</h2>
+                </div>
+               <AddKindForm />
+               <KindList items={this.props.kinds} removeItem={this.removeItem}/>          
             </div>
         )
     }
@@ -95,11 +95,11 @@ class TablePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        tables: state.bookingReducer.tables
+        kinds: state.bookingReducer.kinds
     }
   }
   
 export default compose(
     connect(mapStateToProps),
     commonWrapped()
-  )(TablePage);
+  )(KindPage);

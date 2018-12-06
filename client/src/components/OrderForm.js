@@ -35,7 +35,7 @@ class OrderForm extends React.Component {
               component="input"
               type="checkbox" />
           </div>
-          <FieldArray name="Details" component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
+          <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
           <div className="alignC">
               <Button type="submit" disabled={submitting}>{_.get(rs,'bookForm.submit')}</Button> 
           </div>

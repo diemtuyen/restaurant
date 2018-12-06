@@ -4,7 +4,11 @@ import axios from 'axios';
 import ApiEndpoints from '../constants/ApiEndpoints';
 export const userService = {
     login,
-    logout
+    logout,
+    getItems,
+    addItem,
+    deleteItem,
+    updateItem
 };
 
 function login(username, password) {
@@ -33,4 +37,39 @@ function logout() {
     // remove user from local storage to log user out
     console.log('axios logout ');
     localStorage.removeItem('user');
+}
+function getItems() {
+    let url = `${config.apiUrl}/${ApiEndpoints.user}/items`;
+    return axios.get(url).then(res=>{        
+        return res.data.content.items;
+    }).catch(e=>{
+        console.log(e);
+    });
+}
+function addItem(obj) {
+    console.log(obj); 
+    let url = `${config.apiUrl}/${ApiEndpoints.user}`;
+    return axios.post(url, obj).then(res=>{
+        console.log(res.data.content);
+        Promise.resolve(res.data.content);
+    },e=>{
+        Promise.reject(e);
+    });
+}
+function deleteItem(obj) {
+    console.log(obj); 
+    let url = `${config.apiUrl}/${ApiEndpoints.user}`;
+    return axios.delete(url, { data: { id: obj.id } }).then(res=>{
+        console.log(res.data.content);
+    });
+}
+function updateItem(obj) {
+    console.log(obj); 
+    let url = `${config.apiUrl}/${ApiEndpoints.user}`;
+    return axios.put(url, { data: { obj } }).then(res=>{
+        console.log(res.data.content);
+        Promise.resolve(res.data.content);
+    },e=>{
+        Promise.reject(e);
+    });
 }

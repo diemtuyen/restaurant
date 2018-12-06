@@ -8,7 +8,7 @@ import {required} from '../controls/FieldValidations';
 import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
 
-const renderFoods = ({categories, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed }, showError, showWarn, ...rest}) =>{
+const renderFoods = ({rs, categories, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed }, showError, showWarn, ...rest}) =>{
 	return (        
         <ul className="lstFood">
             <li className="itemFood">
@@ -21,7 +21,7 @@ const renderFoods = ({categories, kinds, excepts, utilities, fields, meta: { tou
                         title="Remove Food"
                         onClick={() => fields.remove(index)} />
                     <div className="panel">
-                        <div>Food {index + 1}</div>
+                        <div>{rs.bookForm.foodItem}{index + 1}</div>
                         <div className="panel-child">
                             <Row>  
                                 <Col md={4}>
