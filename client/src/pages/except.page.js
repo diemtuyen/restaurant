@@ -6,12 +6,11 @@ import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
-import AddExceptForm from '../components/AddExceptForm';
+import ExceptForm from '../components/ExceptForm';
 
 class ExceptList extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
     render () {
         var items = this.props.items.map((item, index) => {
@@ -80,14 +79,15 @@ class ExceptPage extends React.Component {
         this.props.dispatch(adminActions.deleteExcept(item));        
     }
     render(){ 
-        console.log(this.props.excepts);
         return(
             <div>
                 <div className="title">
                     <h2>Except Management</h2>
                 </div>
-               <AddExceptForm />
-               <ExceptList items={this.props.excepts} removeItem={this.removeItem}/>          
+               <ExceptForm />
+               {(this.props.excepts.length > 0) ?
+                    <ExceptList items={this.props.excepts} removeItem={this.removeItem}/>: 
+                    <div className="alignC">There are no items in list</div>}                         
             </div>
         )
     }

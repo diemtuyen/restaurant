@@ -93,7 +93,7 @@ export default class Layout extends React.Component {
                                         <i class="fa fa-dashboard" aria-hidden="true"></i>{' '}Dashboard
                                     </NavLink>
                                     <NavLink href="/order">
-                                        <i class="fa fa-hand-o-right" aria-hidden="true"></i>{' '}Order Management
+                                        <i class="fa fa-cutlery" aria-hidden="true"></i>{' '}Order Management
                                     </NavLink>
                                     <NavLink href="/cooker">
                                         <i class="fa fa-angellist" aria-hidden="true"></i>{' '}Cooker Management
@@ -115,6 +115,12 @@ export default class Layout extends React.Component {
                                     </NavLink>
                                     <NavLink className="second-level" href="/utility">
                                         <i class="fa fa-book" aria-hidden="true"></i>{' '}Menu
+                                    </NavLink>
+                                    <NavLink className="second-level" href="/except">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>{' '}Except
+                                    </NavLink>
+                                    <NavLink className="second-level" href="/kind">
+                                        <i class="fa fa-server" aria-hidden="true"></i>{' '}Kind
                                     </NavLink>
                                     <NavLink className="second-level" href="#">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>{' '}Users

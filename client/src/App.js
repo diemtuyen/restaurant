@@ -44,6 +44,8 @@ import OrderPage from './pages/order.page';
 import Layout from './pages/layout.page';
 import CategoryPage from './pages/category.page';
 import UtilityPage from './pages/utility.page';
+import ExceptPage from './pages/except.page';
+import KindPage from './pages/kind.page';
 
 class App extends Component {
   constructor(props, context) {
@@ -60,6 +62,8 @@ class App extends Component {
               <PrivateRoute exact path="/table" component={TablePage} />
               <PrivateRoute exact path="/category" component={CategoryPage} />
               <PrivateRoute exact path="/utility" component={UtilityPage} />
+              <PrivateRoute exact path="/except" component={ExceptPage} />
+              <PrivateRoute exact path="/kind" component={KindPage} />
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterPage} />
           </Layout>

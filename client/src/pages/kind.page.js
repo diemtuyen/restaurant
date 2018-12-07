@@ -6,12 +6,11 @@ import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
-import AddKindForm from '../components/AddKindForm';
+import KindForm from '../components/KindForm';
 
 class KindList extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props);
     }
     render () {
         var items = this.props.items.map((item, index) => {
@@ -53,8 +52,6 @@ class KindItem extends React.Component {
         this.props.removeItem(this.props.item); 
     }
     render () {        
-        if (this.props.item.length <=0)
-            return;
         return(   
             <tr>
                 <td>{this.props.item.id}</td>
@@ -80,14 +77,15 @@ class KindPage extends React.Component {
         this.props.dispatch(adminActions.deleteKind(item));        
     }
     render(){ 
-        console.log(this.props.kinds);
         return(
             <div>
                 <div className="title">
                     <h2>Kind Management</h2>
                 </div>
-               <AddKindForm />
-               <KindList items={this.props.kinds} removeItem={this.removeItem}/>          
+               <KindForm />
+               {(this.props.kinds.length > 0) ?
+                    <KindList items={this.props.kinds} removeItem={this.removeItem}/> : 
+                    <div className="alignC">There are no items in list</div>} 
             </div>
         )
     }

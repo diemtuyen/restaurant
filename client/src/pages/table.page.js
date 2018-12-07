@@ -16,7 +16,7 @@ class TableList extends React.Component {
     render () {
         var items = this.props.items.map((item, index) => {
             return (        
-                <TableItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
+                <TableItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} />
             );
         });
         return (

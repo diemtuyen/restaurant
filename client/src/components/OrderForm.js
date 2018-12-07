@@ -37,7 +37,7 @@ class OrderForm extends React.Component {
           </div>
           <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
           <div className="alignC">
-              <Button type="submit" disabled={submitting}>{_.get(rs,'bookForm.submit')}</Button> 
+              <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button> 
           </div>
         </form>  
       )
