@@ -2,7 +2,7 @@ import React from 'react';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand,
     UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, 
     Nav, NavItem, NavLink, NavDropdown,    
-    Row, Col} from 'reactstrap';  
+    Row, Col, Button} from 'reactstrap';  
 import logo from '../images/logo.jpg';
 import $ from 'jquery';
 
@@ -97,6 +97,7 @@ export default class Layout extends React.Component {
                                         </DropdownItem>
                                         </DropdownMenu>
                                 </UncontrolledDropdown>
+                                <a class="btn btn-light" href="/login" role="button">Log in</a>
                             </Nav>
                         {/* </Collapse> */}
                     </Navbar>
@@ -111,6 +112,9 @@ export default class Layout extends React.Component {
                                     </NavLink>
                                     <NavLink href="/order">
                                         <i class="fa fa-cutlery" aria-hidden="true"></i>{' '}Order Management
+                                    </NavLink>
+                                    <NavLink href="/book">
+                                        <i class="fa fa-hand-o-right" aria-hidden="true"></i>{' '}Book Management
                                     </NavLink>
                                     <NavLink href="/cooker">
                                         <i class="fa fa-angellist" aria-hidden="true"></i>{' '}Cooker Management

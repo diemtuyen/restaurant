@@ -39,8 +39,9 @@ import LoginForm from './pages/login.page';
 import HomePage from './pages/home.page';
 import RegisterPage from './pages/register.page';
 import TablePage from './pages/table.page';
-import CookerPage from './pages/cooker.page';
 import OrderPage from './pages/order.page';
+import CookerPage from './pages/cooker.page';
+import BookPage from './pages/book.page';
 import Layout from './pages/layout.page';
 import CategoryPage from './pages/category.page';
 import UtilityPage from './pages/utility.page';
@@ -58,6 +59,7 @@ class App extends Component {
           <Layout>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute exact path="/order" component={OrderPage} />
+              <PrivateRoute exact path="/book" component={BookPage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <PrivateRoute exact path="/table" component={TablePage} />
               <PrivateRoute exact path="/category" component={CategoryPage} />
