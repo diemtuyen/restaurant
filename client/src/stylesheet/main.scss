@@ -26,6 +26,9 @@ body,html{
             left: 0px;
             right: 0px;
         }
+        .collapsein{
+            display: none;
+        }
         .nav-link{
             border:{
                 bottom: 1px solid $line-gray;
@@ -34,6 +37,11 @@ body,html{
             padding:{
                 top: 15px;
                 bottom: 15px;
+            }
+            &#clickable{
+                [class*="fa-angle-"]{
+                    float: right;
+                }
             }
         }
         a{

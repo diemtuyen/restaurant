@@ -8,21 +8,21 @@ import $ from 'jquery';
 
 export default class Layout extends React.Component {
     constructor(props) {
-      super(props);
-  
-      this.toggle = this.toggle.bind(this);
-      this.state = {
-        isOpen: false,
-        height: 0,
-        header: null,
-        footer: null,
-        userName: null
-      };
+        super(props);
+    
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false,
+            height: 0,
+            header: null,
+            footer: null,
+            userName: null
+        };
     }
     toggle() {
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
     }
     componentDidMount(){
         let headerHeight= this.state.header.clientHeight;
@@ -34,6 +34,23 @@ export default class Layout extends React.Component {
         this.setState({
             height: window.innerHeight - headerHeight - footerHeight
         })
+
+        $( document ).ready(function() {
+            $('#clickable').on("click", function (e) {                
+                if ($(this).hasClass('panel-collapsed')) {
+                    $('#lstSecond').slideDown();
+                    $(this).removeClass('panel-collapsed');
+                    $(this.lastChild).removeClass('fa-angle-left');
+                    $(this.lastChild).addClass('fa-angle-down');
+                }
+                else {
+                    $('#lstSecond').slideUp();
+                    $(this).addClass('panel-collapsed');
+                    $(this.lastChild).removeClass('fa-angle-down');
+                    $(this.lastChild).addClass('fa-angle-left');
+                }
+            });
+        });
     }
     render() {        
         return (            
@@ -104,9 +121,12 @@ export default class Layout extends React.Component {
                                     <NavLink href="#">
                                         <i class="fa fa-edit" aria-hidden="true"></i>{' '}Finance Management
                                     </NavLink>
-                                    <NavLink href="#">
+                                    <NavLink href="#" id="clickable" className="panel-collapsed">
                                         <i class="fa fa-wrench" aria-hidden="true"></i>{' '}Settings
+                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
                                     </NavLink>
+                                </NavItem>
+                                <NavItem id="lstSecond" className="collapsein">
                                     <NavLink className="second-level" href="/table">
                                         <i class="fa fa-table" aria-hidden="true"></i>{' '}Table
                                     </NavLink>
@@ -125,9 +145,6 @@ export default class Layout extends React.Component {
                                     <NavLink className="second-level" href="#">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>{' '}Users
                                     </NavLink>
-                                    <NavLink href="#">
-                                        <i class="fa fa-dashboard" aria-hidden="true"></i>{' '}Dashboard
-                                    </NavLink> 
                                 </NavItem>                    
                             </Nav>
                         </Col>
