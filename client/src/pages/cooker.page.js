@@ -18,7 +18,7 @@ class CookerPage extends React.Component {
       console.log(this.props.orders) ;     
     }
     render(){ 
-        console.log(this.props.orders)   
+        console.log(this.props.orders);
         return(
             <div>
                 <Row>

@@ -3,6 +3,7 @@ const ApiEndpoints ={
     login: 'token',
     register: '/account/register',
     status: '/status',
+    user: '/user',
     table: 'api/table',
     category: 'api/category',
     except: 'api/except',

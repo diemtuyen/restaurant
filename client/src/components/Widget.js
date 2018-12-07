@@ -1,21 +1,16 @@
 import React from 'react';
+import panelComponent from '../components/Panel'; 
 
 class Widget extends React.Component {      
     render(){      
         return(
-            <div className="panel">
-                <div>title</div>
-                <div className="panel-child">
-                    <ul>
-                        <li>title 1</li>
-                        <li>title 2</li>
-                        <li>title 3</li>
-                    </ul>
-                </div>
-            </div> 
-              
+            <ul>
+                <li>title 1</li>
+                <li>title 2</li>
+                <li>title 3</li>
+            </ul>  
         )
     }        
 }
    
-export default Widget;
+export default panelComponent(Widget);

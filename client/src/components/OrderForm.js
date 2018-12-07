@@ -22,31 +22,23 @@ class OrderForm extends React.Component {
       const rs = _.get(window.restaurant,'resource');
       return(
         <form onSubmit={handleSubmit}>
-          <Row>
-            <Col sm="12" md="12" className="selectTable">
-              <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
-              <Field
-                name="Table"
-                component={renderDropdownList}                
-                data={this.props.tables}/>{' '} 
-              <label name="takeAway">{_.get(rs,'bookForm.takeAway')}</label>
-              <Field
-                name="takeAway"
-                id="takeAway"
-                component="input"
-                type="checkbox" />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="12" md="12">        
-              <FieldArray name="Details" component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="12" md="12" className="alignC"> 
-              <Button type="submit" disabled={submitting}>{_.get(rs,'bookForm.submit')}</Button> 
-            </Col>
-          </Row>
+          <div className="selectTable">
+            <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
+            <Field
+              name="Table"
+              component={renderDropdownList}                
+              data={this.props.tables}/>{' '} 
+            <label name="takeAway">{_.get(rs,'bookForm.takeAway')}</label>
+            <Field
+              name="takeAway"
+              id="takeAway"
+              component="input"
+              type="checkbox" />
+          </div>
+          <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
+          <div className="alignC">
+              <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button> 
+          </div>
         </form>  
       )
   }
