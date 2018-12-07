@@ -15,7 +15,7 @@ httpService.setupInterceptors(store,history);
 signalRStart(store, () => {
     axios.get('/resources/app.json').then(function(response){
         _.assign(window.restaurant, {
-            resource: response.data
+            resuource: response.data
         });
         ReactDOM.render(<App history={history}/>, document.getElementById('tienhai_app'));
     }).catch(error => console.error('Error:', error));
