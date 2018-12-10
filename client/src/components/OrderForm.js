@@ -1,10 +1,10 @@
 import React from 'react';
 import {compose} from 'redux';
 import { connect } from "react-redux";
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm, change } from 'redux-form';
 import renderDropdownList from '../controls/dropdown.control';
 import renderFoods from '../controls/foods.control';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import 'react-widgets/dist/css/react-widgets.css'
 import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
@@ -13,31 +13,48 @@ import commonWrapped from '../hocs/hocs.common';
 class OrderForm extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.addDetail = this.addDetail.bind(this);
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getItems());        
+  }
+  addDetail =(e)=>{
+    this.props.dispatch(change(this.props.form, 'Details', [{id: 1}, {id: 2}]));
   }
   render(){
       const { handleSubmit, pristine, reset, submitting } = this.props;
       const rs = _.get(window.restaurant,'resource');
       return(
         <form onSubmit={handleSubmit}>
-          <div className="selectTable">
-            <label htmlFor="table">{_.get(rs,'bookForm.tableId')}</label>{' '}
-            <Field
-              name="Table"
-              component={renderDropdownList}                
-              data={this.props.tables}/>{' '} 
-            <label name="takeAway">{_.get(rs,'bookForm.takeAway')}</label>
-            <Field
-              name="takeAway"
-              id="takeAway"
-              component="input"
-              type="checkbox" />
-          </div>
+          <Row className="order-food-header">
+              <Col xs={5}>
+                  <FormGroup row>
+                      <Label for="table">{_.get(rs,'bookForm.tableId')}</Label>
+                      <Col sm={12} className="order-food-header-col-input">
+                        <Field
+                          name="Table"
+                          component={renderDropdownList}                
+                          data={this.props.tables}/>
+                      </Col>
+                  </FormGroup>
+              </Col>
+              <Col xs={2}>
+                  <FormGroup takeAway>
+                    <Label takeAway>
+                      <Field
+                        name="takeAway"
+                        id="takeAway"
+                        component="input"
+                        type="checkbox" />{' '}
+                        {_.get(rs,'bookForm.takeAway')}
+                      </Label>
+                  </FormGroup>
+              </Col>
+              <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
+          </Row>
           <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
-          <div className="alignC">
-              <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button> 
+          <div className="alignR submit">
+              <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button>
           </div>
         </form>  
       )
@@ -54,8 +71,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
-
-    const fields = { Title: 'Order', StatusId: '1' };
+    debugger;
+    const fields = {Status: { Title: 'Order', id: '1' }};
     const jsonOrder = Object.assign({}, values, fields);
     
     _.forEach(jsonOrder.Details, function(i){

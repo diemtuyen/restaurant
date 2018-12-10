@@ -17,11 +17,16 @@
         "phoneNumber": "Phone number"
     },
     "bookForm":{
-        "title": "Order Food",
+        "title": "Đặt món",
         "tableId": "Select table",
-        "takeAway": "Take away",
+        "takeAway": "Mang về",
         "submit": "Order",
-        "foodItemfoodItem": "Food #"
+        "no": "No",
+        "foodItemfoodItem": "Food #",
+        "menu": "Thực đơn",
+        "type": "Loại",
+        "sum": "Số lượng",
+        "note": "Ghi chú"
     },
     "adminPage":{
         "addNew":"Add new item"

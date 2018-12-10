@@ -65,12 +65,11 @@ body,html{
         col{
             padding-right: 0;
         }
-        h2{
-            border-bottom: 1px solid $line-gray;
-            padding-top: 8px;            
+        h2{      
             margin-left: 15px;
             margin-bottom: 0;
             color: $font-title;
+            font-size: 20px;
         }
     } 
     .main {
@@ -187,13 +186,13 @@ body,html{
     .panel{        
         margin-top: 15px;
         background-color: #fff;        
-        >:first-child{
-            background-color: #f5f5f5;
-            padding: 5px;
-            font-weight: bold;
-            font-size: 16px;
-            text-align: center;                       
-        }
+        // >:first-child{
+        //     background-color: #f5f5f5;
+        //     padding: 5px;
+        //     font-weight: bold;
+        //     font-size: 16px;
+        //     text-align: center;                       
+        // }
     }
     .panel-child{
         .row:last-child{
@@ -214,13 +213,13 @@ body,html{
             color: darkred;
             font-weight: bold;
         }
-        .selectTable{
-            text-align: center;
-            > div{
-                display: inline-block;
-                width: 100px;
-            }
-        }
+        // .selectTable{
+        //     text-align: left;
+        //     > div{
+        //         display: inline-block;
+        //         width: 100px;
+        //     }
+        // }
         .lstFood{
             list-style: none;
             padding: 0;
@@ -228,35 +227,40 @@ body,html{
                 margin: 0;
                 padding-left: 0;
                 padding-right: 0;
-                clear: both; 
+                clear: both;
+                background-color: #fff;
+                margin-top: 1px;
+                display: inline-block;
+                width: 100%;
+                border-bottom: 1px solid #888;
                 .row{
-                    margin-top: 15px;
+                    margin-top: 5px;
                 }                 
-                &:first-child {
-                    text-align: center;
-                    padding-top: 15px;
-                    button {
-                        float: none;
-                        white-space: nowrap;
-                        display: inline-block;
-                        border-radius: 5px;
-                        padding: 3px 8px;
-                        font-size: 14px;
-                        background-image: linear-gradient(#fff,$line-gray);
-                        border: 1px solid $line-gray;
-                        color: #000;
-                        &:before {
-                            display: inline-block;
-                            font: normal normal normal 14px/1 FontAwesome;
-                            font-size: inherit;
-                            text-rendering: auto;
-                            -webkit-font-smoothing: antialiased;
-                            -moz-osx-font-smoothing: grayscale;
-                            content: '\F067';
-                            margin-right: 5px;
-                        }
-                    }
-                }
+                // &:first-child {
+                //     text-align: center;
+                //     padding-top: 15px;
+                    // button {
+                    //     float: none;
+                    //     white-space: nowrap;
+                    //     display: inline-block;
+                    //     border-radius: 5px;
+                    //     padding: 3px 8px;
+                    //     font-size: 14px;
+                    //     background-image: linear-gradient(#fff,$line-gray);
+                    //     border: 1px solid $line-gray;
+                    //     color: #000;
+                    //     &:before {
+                    //         display: inline-block;
+                    //         font: normal normal normal 14px/1 FontAwesome;
+                    //         font-size: inherit;
+                    //         text-rendering: auto;
+                    //         -webkit-font-smoothing: antialiased;
+                    //         -moz-osx-font-smoothing: grayscale;
+                    //         //content: '\F067';
+                    //         margin-right: 5px;
+                    //     }
+                    // }
+                // }
                 > button{
                     float: right;
                     background-image: unset;
@@ -270,7 +274,8 @@ body,html{
                         text-rendering: auto;
                         -webkit-font-smoothing: antialiased;
                         -moz-osx-font-smoothing: grayscale;
-                        content: '\F1F8';
+                        //content: '\F1F8';
+                        content: 'Delete'
                     }
                 }
             }
@@ -292,6 +297,48 @@ body,html{
                 }
             }
         }
+        
+    }
+    .order-food-form{
+        ul{
+            margin-bottom: 0;
+        }
+        .title{
+            border-bottom: 1px solid $line-gray;
+            //height: 30px;
+            margin-top: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .number_no{
+            margin-top: 10px;
+            position: absolute;
+            top: 5px;
+            right: 25px;
+        }
+        .order-food{
+            background: #f5f5f5;
+        }
+        .order-food-header{
+            label{position: absolute;top:5px}
+            .order-food-header-col-input{
+                padding-left: 80px;
+            }
+        }
+        .row-note{
+            .res-input{padding-left: 80px;}
+            label{position: absolute; top: 5px;}
+        }
+        .row-info{
+            label{position: absolute; top: 5px;}
+            .control-input{padding-left: 80px}
+        }
+        .action{text-align: right;}
+        input.form-control{border-radius: 0}
+        .submit{
+            height: 35px;
+            padding-top: 3px;
+        }
     }
     .logForm{
         margin-top: 10px;
@@ -304,9 +351,8 @@ body,html{
     }
     
     #hasOption, #takeAway{
-        zoom: 1.7;
+        zoom: 1.2;
         top: 3px;
-        left: 5px;
         position: relative;
         height: auto;
     } 
