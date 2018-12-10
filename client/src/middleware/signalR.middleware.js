@@ -19,6 +19,7 @@ export function signalRStart(store, callback) {
     //     console.log(message);
     // });
     window.restaurant._hub.on('addOrder', function(client, key) {
+        debugger;
         store.dispatch(bookingActions.bookingAddTable(client, key));
     });
     window.restaurant._hub.on('completeCookForAOrder', function(client, key) {
