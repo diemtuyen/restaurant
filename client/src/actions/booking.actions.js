@@ -8,15 +8,16 @@ import { utilityService } from  '../services/utility.service';
 import { history } from '../helpers/history';
 
 export const bookingActions = {
-    bookingAddTable,
-    getItems,
-    addOrder
+    getOrder,
+    getCategories,
+    addOrder,
+    getOrders
 };
 
-function bookingAddTable(client, key) {
+function getOrder(client, key) {
     return dispatch => {
         let action = actionTypes.BOOKING_SUCCESS;
-        bookingService.bookingAddTable(client, key)
+        bookingService.getOrder(client, key)
             .then(
                 obj => {                  
                     dispatch(success(action, obj));
@@ -36,7 +37,7 @@ function success(action, obj) {
 }
 function failure(error) { return { type: actionTypes.LOGIN_FAILURE, error } }
 
-function getItems() {
+function getCategories() {
     return dispatch => {
         let action = actionTypes.GET_ITEMS;
         Promise.all([
@@ -69,6 +70,26 @@ function addOrder(orderObj) {
             .then(
                 obj => {
                     dispatch(successOrder(action, orderObj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}
+function success(action, obj) {
+    return { 
+        type: action, 
+        obj
+    }
+}
+function getOrders() {
+    return dispatch => {
+        let action = actionTypes.COOKING_GET_ITEMS;       
+        bookingService.getItems()
+            .then(
+                obj => {
+                    dispatch(success(action, obj));
                 },
                 error => {
                     console.log('fail');

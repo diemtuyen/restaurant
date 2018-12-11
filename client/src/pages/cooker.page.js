@@ -27,7 +27,7 @@ class CookerPage extends React.Component {
                         <WidgetDetailOfOrder items={this.props.orders}/>
                     </Col>
                     <Col sm="4" md="3">
-                        <h1>List of Table</h1>
+                        <h1>List of Orders</h1>
                         <WidgetListOrder items={this.props.orders}/>
                     </Col>
                 </Row>
@@ -38,8 +38,7 @@ class CookerPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        orders: state.bookingReducer.orders,
-        tables: state.bookingReducer.tables
+        orders: state.bookingReducer.orders
     }
   }
   

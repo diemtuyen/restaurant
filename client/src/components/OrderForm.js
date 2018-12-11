@@ -15,14 +15,14 @@ class OrderForm extends React.Component {
     super(props, context);
     this.addDetail = this.addDetail.bind(this);
   }
-  componentDidMount(){ 
-    this.props.dispatch(bookingActions.getItems());        
-  }
+  // componentDidMount(){ 
+  //   this.props.dispatch(bookingActions.getItems());        
+  // }
   addDetail =(e)=>{
     this.props.dispatch(change(this.props.form, 'Details', [{id: 1}, {id: 2}]));
   }
   render(){
-      const { handleSubmit, pristine, reset, submitting } = this.props;
+      const { tables,categories,kinds,excepts,utilities, handleSubmit, pristine, reset, submitting } = this.props;
       const rs = _.get(window.restaurant,'resource');
       return(
         <form onSubmit={handleSubmit}>
@@ -34,7 +34,7 @@ class OrderForm extends React.Component {
                         <Field
                           name="Table"
                           component={renderDropdownList}                
-                          data={this.props.tables}/>
+                          data={tables}/>
                       </Col>
                   </FormGroup>
               </Col>
@@ -52,7 +52,7 @@ class OrderForm extends React.Component {
               </Col>
               <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
           </Row>
-          <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
+          <FieldArray name="Details" rs={rs} component={renderFoods} categories={categories} kinds={kinds} excepts={excepts} utilities={utilities} />
           <div className="alignR submit">
               <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button>
           </div>
@@ -60,21 +60,20 @@ class OrderForm extends React.Component {
       )
   }
 }
-const mapStateToProps = state => {
-  return {
-      tables: state.bookingReducer.tables,
-      categories: state.bookingReducer.categories,
-      kinds: state.bookingReducer.kinds,
-      excepts: state.bookingReducer.excepts,
-      utilities: state.bookingReducer.utilities,
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//       tables: state.bookingReducer.tables,
+//       categories: state.bookingReducer.categories,
+//       kinds: state.bookingReducer.kinds,
+//       excepts: state.bookingReducer.excepts,
+//       utilities: state.bookingReducer.utilities,
+//   }
+// }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
-    debugger;
-    const fields = {Status: { Title: 'Order', id: '1' }};
+    let title = Date.now().toString();
+    const fields = {Title: title, Status: { Title: 'Order', id: '1' }};
     const jsonOrder = Object.assign({}, values, fields);
-    
     _.forEach(jsonOrder.Details, function(i){
         i.JsonExcept = JSON.stringify(i.JsonExcept);
         i.JsonUtility = JSON.stringify(i.JsonUtility);
@@ -84,7 +83,7 @@ const mapDispatchToProps = dispatch => ({
     
 });
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
   reduxForm({
       form: 'orderForm'
   }),

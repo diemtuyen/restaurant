@@ -12,16 +12,19 @@ var initialState = {
 }
 
 export function bookingReducer(state = initialState, action) {
+  let stateClone = _.cloneDeep(state);
   switch (action.type) {
     case bookingActionType.BOOKING_SUCCESS:
-      let stateClone = _.cloneDeep(state);
-      stateClone.books =  Object.assign([], state.books);
-      stateClone.books.push(action.obj);
+      stateClone.orders =  Object.assign([], state.orders);
+      stateClone.orders.push(action.obj);
       return stateClone;
     case bookingActionType.ADD_ORDER_FOOD:
-      stateClone = _.cloneDeep(state);
-      stateClone.books =  Object.assign([], state.books); 
-      stateClone.books.push(action.obj);
+      // stateClone = _.cloneDeep(state);
+      // stateClone.books =  Object.assign([], state.books); 
+      // stateClone.books.push(action.obj);
+      // return stateClone;
+      stateClone.orders =  Object.assign([], state.orders);
+      stateClone.orders.push(action.obj);
       return stateClone;
     case bookingActionType.TABLE_ADD_NEW:
       stateClone = _.cloneDeep(state);
