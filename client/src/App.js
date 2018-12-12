@@ -47,6 +47,7 @@ import CategoryPage from './pages/category.page';
 import UtilityPage from './pages/utility.page';
 import ExceptPage from './pages/except.page';
 import KindPage from './pages/kind.page';
+// import WidgetDetailOfOrder from './components/WidgetDetailOfOrder';
 
 class App extends Component {
   constructor(props, context) {
@@ -59,6 +60,7 @@ class App extends Component {
           <Layout>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute exact path="/order" component={OrderPage} />
+              {/* <PrivateRoute exact path="/order/id" component={WidgetDetailOfOrder} /> */}
               <PrivateRoute exact path="/book" component={BookPage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <PrivateRoute exact path="/table" component={TablePage} />

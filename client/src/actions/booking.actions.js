@@ -11,12 +11,41 @@ export const bookingActions = {
     getOrder,
     getCategories,
     addOrder,
-    getOrders
+    getOrders,
+    markDone,
+    getServed
 };
-
+function getServed() {
+    return dispatch => {
+        let action = actionTypes.GET_SERVED;       
+        bookingService.getServed()
+            .then(
+                obj => {
+                    dispatch(success(action, obj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}
+function markDone(client, key) {
+    return dispatch => {
+        let action = actionTypes.MARK_DONE;
+        bookingService.markDone(client, key)
+            .then(
+                obj => {                  
+                    dispatch(success(action, obj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}
 function getOrder(client, key) {
     return dispatch => {
-        let action = actionTypes.BOOKING_SUCCESS;
+        let action = actionTypes.ADD_ORDER;
         bookingService.getOrder(client, key)
             .then(
                 obj => {                  
@@ -39,7 +68,7 @@ function failure(error) { return { type: actionTypes.LOGIN_FAILURE, error } }
 
 function getCategories() {
     return dispatch => {
-        let action = actionTypes.GET_ITEMS;
+        let action = actionTypes.GET_CATEGORIES;
         Promise.all([
             tableService.getItems(), 
             categoryService.getItems(), 
@@ -65,7 +94,7 @@ function successOrder(action, orderObj) {
 }
 function addOrder(orderObj) {
     return dispatch => {
-        let action = actionTypes.ADD_ORDER_FOOD;
+        let action = actionTypes.ADD_ORDER;
         bookingService.addOrder(orderObj)
             .then(
                 obj => {
@@ -85,7 +114,7 @@ function success(action, obj) {
 }
 function getOrders() {
     return dispatch => {
-        let action = actionTypes.COOKING_GET_ITEMS;       
+        let action = actionTypes.GET_ORDERS;       
         bookingService.getItems()
             .then(
                 obj => {

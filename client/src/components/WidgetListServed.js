@@ -6,20 +6,20 @@ import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 
-class WidgetListOrder extends React.Component {
+class WidgetListServed extends React.Component {
   constructor(props) {
     super(props);
   }
   componentDidMount(){ 
-      this.props.dispatch(bookingActions.getOrders());      
-      console.log(this.props.orders);
+      this.props.dispatch(bookingActions.getServed());      
+      console.log(this.props.served);
   }
   render(){
-    if (this.props.orders == undefined)
+    if (this.props.served == undefined)
       return(
         <p> No items </p>
       )
-    const lstOrders = this.props.orders.map( (item, i) => {
+    const lstOrders = this.props.served.map( (item, i) => {
         return ( 
           <NavItem key={i}>
             <NavLink href="#">
@@ -37,11 +37,11 @@ class WidgetListOrder extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-      orders: state.bookingReducer.orders
+    served: state.bookingReducer.served
   }
 }
 export default compose(
   connect(mapStateToProps),
   commonWrapped()
-)(WidgetListOrder);
+)(WidgetListServed);
 
