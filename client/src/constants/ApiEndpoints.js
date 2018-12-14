@@ -5,7 +5,7 @@ const ApiEndpoints ={
     status: '/status',
     user: '/user',
     table: 'api/table',
-    category: 'api/category',
+    food: 'api/food',
     except: 'api/except',
     kind: 'api/kind',
     utility: 'api/utility',

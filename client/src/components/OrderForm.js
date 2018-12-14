@@ -23,6 +23,7 @@ class OrderForm extends React.Component {
     this.props.dispatch(change(this.props.form, 'Details', [{id: 1}, {id: 2}]));
   }
   render(){
+    debugger;
       const {handleSubmit, pristine, reset, submitting } = this.props;
       const rs = _.get(window.restaurant,'resource');
       return(
@@ -53,7 +54,7 @@ class OrderForm extends React.Component {
               </Col>
               <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
           </Row>
-          <FieldArray name="Details" rs={rs} component={renderFoods} categories={this.props.categories} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
+          <FieldArray name="Details" rs={rs} component={renderFoods} foods={this.props.foods} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
           <div className="alignR submit">
               <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button>
           </div>
@@ -64,7 +65,7 @@ class OrderForm extends React.Component {
 const mapStateToProps = state => {
   return {
       tables: state.bookingReducer.tables,
-      categories: state.bookingReducer.categories,
+      foods: state.bookingReducer.foods,
       kinds: state.bookingReducer.kinds,
       excepts: state.bookingReducer.excepts,
       utilities: state.bookingReducer.utilities,

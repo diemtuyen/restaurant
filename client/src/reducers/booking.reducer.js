@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 var initialState = {
   tables: [],
-  categories: [],
+  //categories: [],
+  foods:[],
   kinds: [],
   excepts: [],
   utilities:[],
@@ -58,9 +59,10 @@ export function bookingReducer(state = initialState, action) {
       stateClone.utilities.push(action.obj);
       return stateClone;
     case bookingActionType.GET_CATEGORIES:
+    debugger;
       let updated = Object.assign({}, state)
       updated['tables'] =  action.obj[0];
-      updated['categories'] =  action.obj[1];
+      updated['foods'] =  action.obj[1];
       updated['kinds'] =  action.obj[2];
       updated['excepts'] =  action.obj[3];
       updated['utilities'] =  action.obj[4];

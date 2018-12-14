@@ -1,7 +1,8 @@
 import actionTypes from '../constants/booking.constants';
 import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
-import { categoryService } from  '../services/category.service';
+//import { categoryService } from  '../services/category.service';
+import { foodService } from  '../services/food.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
@@ -71,7 +72,7 @@ function getCategories() {
         let action = actionTypes.GET_CATEGORIES;
         Promise.all([
             tableService.getItems(), 
-            categoryService.getItems(), 
+            foodService.getItems(), 
             kindService.getItems(), 
             exceptService.getItems(), 
             utilityService.getItems()])

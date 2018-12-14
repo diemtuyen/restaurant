@@ -1,7 +1,7 @@
 import actionTypes from '../constants/booking.constants';
 import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
-import { categoryService } from  '../services/category.service';
+import { foodService } from  '../services/food.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
@@ -68,7 +68,7 @@ function updateTable(orderObj) {
 function addCategory(orderObj) {
     return dispatch => {
         let action = actionTypes.CATEGORY_ADD_NEW;
-        categoryService.addItem(orderObj)
+        foodService.addItem(orderObj)
             .then(
                 obj => {
                     dispatch(success(action, orderObj));

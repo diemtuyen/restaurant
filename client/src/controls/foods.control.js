@@ -9,7 +9,7 @@ import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
 import _ from 'lodash';
 
-const renderFoods = ({rs, categories, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed }, showError, showWarn, ...rest}) =>{
+const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed }, showError, showWarn, ...rest}) =>{
 	return (        
         <ul className="lstFood">
             {/* <li className="itemFood">
@@ -33,9 +33,9 @@ const renderFoods = ({rs, categories, kinds, excepts, utilities, fields, meta: {
                                 <label>{_.get(rs,'bookForm.menu')}</label>
                                 <Field
                                     className='control-input'
-                                    name={`${food}.Category`}
+                                    name={`${food}.food`}
                                     component={renderDropdownList}
-                                    data={categories}/>
+                                    data={foods}/>
                                 </Col>
                                 <Col md={4}>
                                 <label>{_.get(rs,'bookForm.type')}</label>
