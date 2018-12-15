@@ -11,8 +11,7 @@ class WidgetListOrder extends React.Component {
     super(props);
   }
   componentDidMount(){ 
-      this.props.dispatch(bookingActions.getOrders());      
-      console.log(this.props.orders);
+      this.props.dispatch(bookingActions.getOrders());
   }
   render(){
     if (this.props.orders == undefined)
@@ -28,9 +27,12 @@ class WidgetListOrder extends React.Component {
           </NavItem> );
     });
     return(
-      <Nav vertical>
-        {lstOrders} 
-      </Nav> 
+      <div className='order-list'>
+        <h2>Order of list</h2>
+        <Nav vertical>
+          {lstOrders}
+        </Nav>
+      </div>
     )
     
   }

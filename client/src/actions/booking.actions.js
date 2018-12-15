@@ -3,6 +3,7 @@ import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
 //import { categoryService } from  '../services/category.service';
 import { foodService } from  '../services/food.service';
+import { foodGroupService } from  '../services/foodgroup.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
@@ -71,7 +72,8 @@ function getCategories() {
     return dispatch => {
         let action = actionTypes.GET_CATEGORIES;
         Promise.all([
-            tableService.getItems(), 
+            tableService.getItems(),
+            foodGroupService.getItems(),
             foodService.getItems(), 
             kindService.getItems(), 
             exceptService.getItems(), 

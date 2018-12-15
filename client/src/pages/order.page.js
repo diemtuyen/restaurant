@@ -23,8 +23,7 @@ class OrderPage extends React.Component {
                             <OrderForm/>
                         </div>                     
                     </Col>
-                    <Col sm="4" md="3">
-                        <h1>List of Orders</h1>
+                    <Col sm="4" md="3">                      
                         <WidgetListOrder/>
                     </Col>
                 </Row>

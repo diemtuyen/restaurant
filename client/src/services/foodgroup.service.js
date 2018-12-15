@@ -1,7 +1,7 @@
 import config from 'config';
 import axios from 'axios';
 import ApiEndpoints from '../constants/ApiEndpoints';
-export const foodService = {
+export const foodGroupService = {
     getItems,
     addItem,
     deleteItem,
@@ -9,7 +9,7 @@ export const foodService = {
 };
 
 function getItems() {
-    let url = `${config.apiUrl}/${ApiEndpoints.food}/items`;
+    let url = `${config.apiUrl}/${ApiEndpoints.foodgroup}/items`;
     return new Promise((resolve, reject) => {
         axios.get(url).then(res=>{
             resolve(res.data.content.items);
@@ -19,7 +19,7 @@ function getItems() {
     });
 }
 function addItem(obj) {
-    let url = `${config.apiUrl}/${ApiEndpoints.food}`;
+    let url = `${config.apiUrl}/${ApiEndpoints.foodgroup}`;
     return new Promise((resolve,reject)=>{
         axios.post(url, obj).then(res=>{
             resolve(res.data.content);
@@ -29,7 +29,7 @@ function addItem(obj) {
     });
 }
 function deleteItem(obj) {
-    let url = `${config.apiUrl}/${ApiEndpoints.food}`;
+    let url = `${config.apiUrl}/${ApiEndpoints.foodgroup}`;
     return new Promise((resolve, reject)=>{
         axios.delete(url, { data: { id: obj.id } }).then(res=>{
             resolve(res.data.content);
@@ -39,7 +39,7 @@ function deleteItem(obj) {
     });
 }
 function updateItem(obj) {
-    let url = `${config.apiUrl}/${ApiEndpoints.food}`;
+    let url = `${config.apiUrl}/${ApiEndpoints.foodgroup}`;
     return new Promise((resolve, reject)=>{
         axios.put(url, { data: { obj } }).then(res=>{
             resolve(res.data.content);

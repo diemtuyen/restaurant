@@ -7,18 +7,20 @@ import renderDropdownList from '../controls/dropdown.control';
 import {required} from '../controls/FieldValidations';
 import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
+import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-
-const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, meta: { touched, error, submitFailed }, showError, showWarn, ...rest}) =>{
+const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, ...rest, fnShowNoteSuggest}) =>{
 	return (        
         <ul className="lstFood">
             {/* <li className="itemFood">
                 <Button onClick={() => fields.push({})}>Add Food</Button>
             </li> */}
-            {fields.map((food, index) => (
+            {fields.map((food, index) => {
+                debugger;
+                const openNote = fields.get(index).openNote;
+                return (
                 <li className="itemFood" key={index}>
                     <div className="panel">
-                        {/* <div>{rs.bookForm.foodItem}{index + 1}</div> */}
                         <div className="panel-child">
                             <div className="action">
                                 <Button
@@ -35,6 +37,7 @@ const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, meta: { touc
                                     className='control-input'
                                     name={`${food}.food`}
                                     component={renderDropdownList}
+                                    groupBy='groupName'
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
@@ -54,42 +57,44 @@ const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, meta: { touc
                                     data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 
-                            {/* <Row>            
-                                <Col md={12}>
-                                <label>Utility</label>
-                                <Field
-                                    component={renderMultiselect}
-                                    name={`${food}.JsonUtility`}
-                                    data={utilities}
-                                    validate={[required]}
-                                    showError
-                                    />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={12}>
-                                <label>Exception</label>
-                                <Field
-                                    name={`${food}.JsonExcept`}
-                                    component={renderMultiselect}
-                                    data={excepts}/>
-                                </Col>
-                            </Row> */}
                             <Row className="row-note">
                                 <Col md={12}>
-                                <label>{_.get(rs,'bookForm.note')}</label>{' '}
-                                <Field
-                                    className='res-input'
-                                    name={`${food}.note`}
-                                    type='textarea'
-                                    component={renderInput}
-                                />
+                                    <label>{_.get(rs,'bookForm.note')}</label>{' '}
+                                    {!openNote && <Field
+                                        className='res-input'
+                                        name={`${food}.note`}
+                                        type='textarea'
+                                        component={renderInput}
+                                    />}
+                                    {openNote && <Multiselect
+                                        className='suggestion-note'
+                                        name={`${food}.noteSuggestion`}
+                                        open={openNote}
+                                        data={foods}
+                                        valueField='id'
+                                        textField='title'
+                                        onToggle={()=>fnShowNoteSuggest(food, index)}
+                                    />}
+                                    <Button
+                                        className='bt-suggestion-note'
+                                        type="button"
+                                        title="Add Note"
+                                        onClick={()=>fnShowNoteSuggest(food, index)}>
+                                        {openNote ? 'Close' : 'Add Note'} 
+                                    </Button>
+                                    <div style={{display:'none'}}>
+                                        <Field name={`${food}.openNote`}
+                                        id={`${food}.openNote`}
+                                        component="input"
+                                        type="checkbox" />{' '}
+                                        {_.get(rs,'bookForm.takeAway')}
+                                    </div>
                                 </Col>
-                            </Row>
+                            </Row>                          
                         </div>
                     </div>                       
                 </li>
-            ))}
+            )})}
         </ul>
 	);
 }

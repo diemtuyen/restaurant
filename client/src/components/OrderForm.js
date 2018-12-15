@@ -1,7 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
 import { connect } from "react-redux";
-import { Field, FieldArray, reduxForm, change } from 'redux-form';
+import { formValueSelector, Field, FieldArray, reduxForm, change } from 'redux-form';
 import renderDropdownList from '../controls/dropdown.control';
 import renderFoods from '../controls/foods.control';
 import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
@@ -9,25 +9,32 @@ import 'react-widgets/dist/css/react-widgets.css'
 import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
 import commonWrapped from '../hocs/hocs.common';
-
+import $ from 'jquery';
 class OrderForm extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state={
+      openNoteSuggest:false
+    }
     this.addDetail = this.addDetail.bind(this);
+    this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getCategories());
-    console.log(this.props)       
   }
   addDetail =(e)=>{
-    this.props.dispatch(change(this.props.form, 'Details', [{id: 1}, {id: 2}]));
+    this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false}, {id: 2, openNote: false}]));
+  }
+  fnShowNoteSuggest = (item, idx) => {
+    var id = `${item}.openNote`;
+    id = $.escapeSelector(id);    
+    $(`#${id}`).trigger("click");    
   }
   render(){
-    debugger;
       const {handleSubmit, pristine, reset, submitting } = this.props;
       const rs = _.get(window.restaurant,'resource');
       return(
-        <form onSubmit={handleSubmit}>
+        <form className='form-order' onSubmit={handleSubmit}>
           <Row className="order-food-header">
               <Col xs={5}>
                   <FormGroup row>
@@ -54,7 +61,14 @@ class OrderForm extends React.Component {
               </Col>
               <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
           </Row>
-          <FieldArray name="Details" rs={rs} component={renderFoods} foods={this.props.foods} kinds={this.props.kinds} excepts={this.props.excepts} utilities={this.props.utilities} />
+          <FieldArray name="Details" 
+                rs={rs} 
+                component={renderFoods} 
+                foods={this.props.foods} 
+                kinds={this.props.kinds} 
+                excepts={this.props.excepts} 
+                utilities={this.props.utilities}
+                fnShowNoteSuggest={this.fnShowNoteSuggest}/>
           <div className="alignR submit">
               <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button>
           </div>
@@ -62,6 +76,7 @@ class OrderForm extends React.Component {
       )
   }
 }
+const selector = formValueSelector('orderForm');
 const mapStateToProps = state => {
   return {
       tables: state.bookingReducer.tables,
@@ -69,6 +84,7 @@ const mapStateToProps = state => {
       kinds: state.bookingReducer.kinds,
       excepts: state.bookingReducer.excepts,
       utilities: state.bookingReducer.utilities,
+      Details: selector(state, `Details`)
   }
 }
 const mapDispatchToProps = dispatch => ({
@@ -84,6 +100,7 @@ const mapDispatchToProps = dispatch => ({
   }
     
 });
+
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({

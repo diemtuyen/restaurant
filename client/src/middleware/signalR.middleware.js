@@ -18,7 +18,7 @@ export function signalRStart(store, callback) {
     // window.restaurant._hub.on('hello', function(message) {
     //     console.log(message);
     // });
-    window.restaurant._hub.on('addOrder', function(client, key) {
+    window.restaurant._hub.on('addOrder', function(client, username, key) {
         store.dispatch(bookingActions.getOrder(client, key));
     });
     window.restaurant._hub.on('markDone', function(client, key) {

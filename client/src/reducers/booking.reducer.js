@@ -20,7 +20,6 @@ export function bookingReducer(state = initialState, action) {
     //   stateClone.orders.push(action.obj);
     //   return stateClone;
     case bookingActionType.MARK_DONE:
-      debugger;
       stateClone.orders =  Object.assign([], state.orders);
       _.remove(stateClone.orders, function (e) {
           return e.hp <= 0;
@@ -59,16 +58,29 @@ export function bookingReducer(state = initialState, action) {
       stateClone.utilities.push(action.obj);
       return stateClone;
     case bookingActionType.GET_CATEGORIES:
-    debugger;
-      let updated = Object.assign({}, state)
+      /*let updated = Object.assign({}, state);
       updated['tables'] =  action.obj[0];
       updated['foods'] =  action.obj[1];
       updated['kinds'] =  action.obj[2];
       updated['excepts'] =  action.obj[3];
       updated['utilities'] =  action.obj[4];
-      return updated;
+      return updated;*/
+      let foodGroup = action.obj[1];
+      let foods = action.obj[2];
+      _.each(foods, function(f,i){
+        let gr = _.find(foodGroup, ['id', f.foodGroupId]);
+        f.groupName = _.isUndefined(gr) ? '' : gr.title;
+      })
+      return Object.assign(state,{
+        tables: action.obj[0],
+        foodGroup,
+        foods,
+        kinds: action.obj[3],
+        excepts: action.obj[4],
+        utilities: action.obj[0]
+      });
     case bookingActionType.GET_ORDERS:
-      updated = Object.assign({}, state)
+      let updated = Object.assign({}, state)
       updated['orders'] =  action.obj;
       return updated;
     case bookingActionType.GET_SERVED:
