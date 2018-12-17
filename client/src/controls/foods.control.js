@@ -9,15 +9,15 @@ import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
 import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, ...rest, fnShowNoteSuggest}) =>{
+const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>{
 	return (        
         <ul className="lstFood">
             {/* <li className="itemFood">
                 <Button onClick={() => fields.push({})}>Add Food</Button>
             </li> */}
             {fields.map((food, index) => {
-                debugger;
                 const openNote = fields.get(index).openNote;
+                const selectedNote = fields.get(index).selectedNote;
                 return (
                 <li className="itemFood" key={index}>
                     <div className="panel">
@@ -41,20 +41,20 @@ const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, ...rest, fnS
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs,'bookForm.type')}</label>
-                                <Field
-                                    className='control-input'
-                                    name={`${food}.Kind`}
-                                    component={renderDropdownList}                        
-                                    data={kinds}/>
+                                    <label>{_.get(rs,'bookForm.type')}</label>
+                                    <Field
+                                        className='control-input'
+                                        name={`${food}.Kind`}
+                                        component={renderDropdownList}                        
+                                        data={kinds}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs,'bookForm.sum')}</label>
-                                <Field
-                                    className='control-input'
-                                    name={`${food}.Count`}
-                                    component={renderDropdownList}
-                                    data={[ '1', '2', '3', '4', '5', '6' ]}/> 
+                                    <label>{_.get(rs,'bookForm.sum')}</label>
+                                    <Field
+                                        className='control-input'
+                                        name={`${food}.Count`}
+                                        component={renderDropdownList}
+                                        data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 
                             <Row className="row-note">
@@ -70,9 +70,14 @@ const renderFoods = ({rs, foods, kinds, excepts, utilities, fields, ...rest, fnS
                                         className='suggestion-note'
                                         name={`${food}.noteSuggestion`}
                                         open={openNote}
-                                        data={foods}
-                                        valueField='id'
+                                        data={suggestNote}
+                                        valueField='newId'
                                         textField='title'
+                                        groupBy='group'
+                                        onChange={value => {
+                                            fnAddSuggestNote(food, index, value);
+                                        }}
+                                        value={selectedNote}
                                         onToggle={()=>fnShowNoteSuggest(food, index)}
                                     />}
                                     <Button

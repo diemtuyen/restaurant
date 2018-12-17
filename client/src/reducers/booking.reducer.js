@@ -68,16 +68,34 @@ export function bookingReducer(state = initialState, action) {
       let foodGroup = action.obj[1];
       let foods = action.obj[2];
       _.each(foods, function(f,i){
-        let gr = _.find(foodGroup, ['id', f.foodGroupId]);
-        f.groupName = _.isUndefined(gr) ? '' : gr.title;
-      })
+          let gr = _.find(foodGroup, ['id', f.foodGroupId]);
+          f.groupName = _.isUndefined(gr) ? '' : gr.title;
+      });
+      let suggestNote = _.map(action.obj[5],function(itm){
+        return{
+          ...itm,
+          newId: itm.id,
+          groupId: 1,
+          group:'Bỏ thêm'
+        }
+      });
+      const n = suggestNote.length+1;
+      suggestNote = _.concat(suggestNote, _.map(action.obj[4], function(itm){
+          return{
+            ...itm,
+            newId: n + itm.id,
+            groupId: 2,
+            group: 'Không thêm'
+          }
+      }));
       return Object.assign(state,{
         tables: action.obj[0],
         foodGroup,
         foods,
         kinds: action.obj[3],
         excepts: action.obj[4],
-        utilities: action.obj[0]
+        utilities: action.obj[5],
+        suggestNote
       });
     case bookingActionType.GET_ORDERS:
       let updated = Object.assign({}, state)

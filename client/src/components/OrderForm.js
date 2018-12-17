@@ -18,17 +18,24 @@ class OrderForm extends React.Component {
     }
     this.addDetail = this.addDetail.bind(this);
     this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
+    this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getCategories());
   }
   addDetail =(e)=>{
-    this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false}, {id: 2, openNote: false}]));
+    this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false, selectedNote:[]}, {id: 2, openNote: false,  selectedNote:[]}]));
   }
   fnShowNoteSuggest = (item, idx) => {
     var id = `${item}.openNote`;
     id = $.escapeSelector(id);    
     $(`#${id}`).trigger("click");    
+  }
+  fnAddSuggestNote = (food, index, value)=>{
+    let item = _.get(this.props, food);
+    item.selectedNote = value;
+    debugger;
+    this.props.dispatch(change(this.props.form, food, {selectedNote: value, id: item.id, openNote: item.openNote, refresh: new Date().toString()}));
   }
   render(){
       const {handleSubmit, pristine, reset, submitting } = this.props;
@@ -65,10 +72,12 @@ class OrderForm extends React.Component {
                 rs={rs} 
                 component={renderFoods} 
                 foods={this.props.foods} 
-                kinds={this.props.kinds} 
-                excepts={this.props.excepts} 
+                // kinds={this.props.kinds} 
+                // excepts={this.props.excepts} 
+                suggestNote={this.props.suggestNote}
                 utilities={this.props.utilities}
-                fnShowNoteSuggest={this.fnShowNoteSuggest}/>
+                fnShowNoteSuggest={this.fnShowNoteSuggest}
+                fnAddSuggestNote={this.fnAddSuggestNote}/>
           <div className="alignR submit">
               <Button type="submit" disabled={pristine || submitting}>{_.get(rs,'bookForm.submit')}</Button>
           </div>
@@ -82,8 +91,9 @@ const mapStateToProps = state => {
       tables: state.bookingReducer.tables,
       foods: state.bookingReducer.foods,
       kinds: state.bookingReducer.kinds,
-      excepts: state.bookingReducer.excepts,
-      utilities: state.bookingReducer.utilities,
+      // excepts: state.bookingReducer.excepts,
+      // utilities: state.bookingReducer.utilities,
+      suggestNote: state.bookingReducer.suggestNote,
       Details: selector(state, `Details`)
   }
 }
