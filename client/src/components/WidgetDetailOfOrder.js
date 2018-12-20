@@ -10,7 +10,6 @@ class OrderItem extends React.Component {
     this.onClickDone = this.onClickDone.bind(this);
   }
   onClickDone() {
-    debugger
     this.props.markDone(this.props.item.rowGuid);
   }
   render () {

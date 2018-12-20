@@ -8,14 +8,15 @@ import $ from 'jquery';
 
 export default class Layout extends React.Component {
     constructor(props) {
-        super(props);
-    
+        super(props);    
         this.toggle = this.toggle.bind(this);
+        this.toggleMenu = this.toggleMenu.bind(this);
         this.state = {
             isOpen: false,
             height: 0,
             header: null,
             footer: null,
+            isShown: true,
             userName: null
         };
     }
@@ -23,6 +24,17 @@ export default class Layout extends React.Component {
         this.setState({
             isOpen: !this.state.isOpen
         });
+    }
+    toggleMenu(){
+        this.setState({ isShown: !this.state.isShown });  
+
+        if(this.state.isShown){
+            $(".sidebar").css({"width": "60px"}); 
+            $(".content").css({"width": "calc(100% - 60px)"}); 
+        } else {
+            $(".sidebar").css({"width": "220px"}); 
+            $(".content").css({"width": "calc(100% - 220px)"});      
+        }
     }
     componentDidMount(){
         let headerHeight= this.state.header.clientHeight;
@@ -36,8 +48,9 @@ export default class Layout extends React.Component {
         })
 
         $( document ).ready(function() {
-            $('#clickable').on("click", function (e) {                
-                if ($(this).hasClass('panel-collapsed')) {
+            $('#clickable').on("click", function (e) {  
+                //this.setState({ this.state.isShown: true });            
+                if ($(this).hasClass('panel-collapsed')) {                    
                     $('#lstSecond').slideDown();
                     $(this).removeClass('panel-collapsed');
                     $(this.lastChild).removeClass('fa-angle-left');
@@ -103,59 +116,62 @@ export default class Layout extends React.Component {
                     </Navbar>
                 </div>
                 <div style={{minHeight: this.state.height, borderBottom: '1px solid #f5f5f5'}}>
-                    <Row>
-                        <Col md='2' className="sidebar">
+                    <div>
+                        <div className="sidebar">                        
                             <Nav vertical>
                                 <NavItem>
+                                    <NavLink className="arrows-alt-menu" onClick={this.toggleMenu}>
+                                        <i className="fa fa-arrows-alt" aria-hidden="true"></i>{' '}
+                                    </NavLink>
                                     <NavLink href="/">
-                                        <i className="fa fa-dashboard" aria-hidden="true"></i>{' '}Dashboard
+                                        <i className="fa fa-dashboard" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Dashboard': ''}
                                     </NavLink>
                                     <NavLink href="/order">
-                                        <i className="fa fa-cutlery" aria-hidden="true"></i>{' '}Order Management
+                                        <i className="fa fa-cutlery" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Order Management': ''}
                                     </NavLink>
                                     <NavLink href="/book">
-                                        <i className="fa fa-hand-o-right" aria-hidden="true"></i>{' '}Book Management
+                                        <i className="fa fa-hand-o-right" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Book Management': ''}
                                     </NavLink>
                                     <NavLink href="/cooker">
-                                        <i className="fa fa-angellist" aria-hidden="true"></i>{' '}Cooker Management
+                                        <i className="fa fa-angellist" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Cooker Management': ''}
                                     </NavLink>
                                     <NavLink href="#">
-                                        <i className="fa fa-bar-chart-o" aria-hidden="true"></i>{' '}Report Management
+                                        <i className="fa fa-bar-chart-o" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Report Management': ''}
                                     </NavLink>
                                     <NavLink href="#">
-                                        <i className="fa fa-edit" aria-hidden="true"></i>{' '}Finance Management
+                                        <i className="fa fa-edit" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Finance Management': ''}
                                     </NavLink>
                                     <NavLink href="#" id="clickable" className="panel-collapsed">
-                                        <i className="fa fa-wrench" aria-hidden="true"></i>{' '}Settings
+                                        <i className="fa fa-wrench" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Settings': ''}
                                         <i className="fa fa-angle-left" aria-hidden="true"></i>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem id="lstSecond" className="collapsein">
                                     <NavLink className="second-level" href="/table">
-                                        <i className="fa fa-table" aria-hidden="true"></i>{' '}Table
+                                        <i className="fa fa-table" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Table': ''}
                                     </NavLink>
                                     <NavLink className="second-level" href="/category">
-                                        <i className="fa fa-bars" aria-hidden="true"></i>{' '}Category
+                                        <i className="fa fa-bars" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Category': ''}
                                     </NavLink>
                                     <NavLink className="second-level" href="/utility">
-                                        <i className="fa fa-book" aria-hidden="true"></i>{' '}Menu
+                                        <i className="fa fa-book" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Menu': ''}
                                     </NavLink>
                                     <NavLink className="second-level" href="/except">
-                                        <i className="fa fa-ban" aria-hidden="true"></i>{' '}Except
+                                        <i className="fa fa-ban" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Except': ''}
                                     </NavLink>
                                     <NavLink className="second-level" href="/kind">
-                                        <i className="fa fa-server" aria-hidden="true"></i>{' '}Kind
+                                        <i className="fa fa-server" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Kind': ''}
                                     </NavLink>
                                     <NavLink className="second-level" href="#">
-                                        <i className="fa fa-user-o" aria-hidden="true"></i>{' '}Users
+                                        <i className="fa fa-user-o" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Users': ''}
                                     </NavLink>
                                 </NavItem>                    
                             </Nav>
-                        </Col>
-                        <Col md='10' className="content">
+                        </div>
+                        <div className="content">
                             {this.props.children}
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                 </div>                
                 <div ref={ e => { this.state.footer = e; } }>
                     <p style={{backgroundColor: '#f8f8f8', padding: 20}}> Copyright@2018 </p>

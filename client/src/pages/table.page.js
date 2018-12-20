@@ -72,13 +72,13 @@ class TablePage extends React.Component {
         this.removeItem = this.removeItem.bind(this);
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getCategories()); 
+        //this.props.dispatch(bookingActions.getCategories()); 
+        console.log(this.props.tables);
     }
     removeItem (item) { 
         this.props.dispatch(adminActions.deleteTable(item));        
     }
     render(){ 
-        console.log(this.props.tables);
         return(
             <div>
                 <div className="title">
@@ -94,12 +94,13 @@ class TablePage extends React.Component {
 }
 
 const mapStateToProps = state => {
+    debugger;
     return {
         tables: state.bookingReducer.tables
     }
   }
   
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps,null),
     commonWrapped()
   )(TablePage);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import {compose} from 'redux';
-import _ from 'lodash';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
@@ -10,6 +9,7 @@ class WidgetListOrder extends React.Component {
   constructor(props) {
     super(props);
   }
+  
   componentDidMount(){ 
       this.props.dispatch(bookingActions.getOrders());
   }
@@ -22,17 +22,14 @@ class WidgetListOrder extends React.Component {
         return ( 
           <NavItem key={i}>
             <NavLink href="#">
-              {item.title}
+              <i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title}
             </NavLink>
           </NavItem> );
     });
-    return(
-      <div className='order-list'>
-        <h2>Order of list</h2>
-        <Nav vertical>
-          {lstOrders}
-        </Nav>
-      </div>
+    return( 
+      <Nav vertical>
+      {lstOrders}
+      </Nav>
     )
     
   }

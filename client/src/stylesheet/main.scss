@@ -21,13 +21,24 @@ body,html{
     }
     .sidebar{
         background-color: #f8f8f8;
-        min-height: -webkit-fill-available;
+        //min-height: -webkit-fill-available;
         padding:{
             left: 0px;
             right: 0px;
         }
+        display: inline-block;
+        width: 220px;
+        float: left;
         .collapsein{
             display: none;
+        }
+        .arrows-alt-menu{
+            &:hover {
+                .fa-arrows-alt{
+                    transition: all 3s;
+                    transform: rotate(90deg);
+                }
+            }
         }
         .nav-link{
             border:{
@@ -56,6 +67,8 @@ body,html{
         }
     }
     .content{
+        display: inline-block;
+        width: calc(100% - 220px);
         padding:{
             left: 0;
             right: 0;
@@ -206,11 +219,12 @@ body,html{
                 }
             }
         }
-    }
+    }    
     .order-list{
-        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
+        // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
         padding-left: 15px;
         padding-right: 15px;
+        height: 100%;
         .nav-link{
             padding: 8px 0;
         }
@@ -231,6 +245,12 @@ body,html{
         .lstFood{
             list-style: none;
             padding: 0;
+            position: relative;
+            .addFood{
+                position: absolute;
+                top: -64px;
+                right: 5px;
+            }
             .itemFood{
                 margin: 0;
                 padding-left: 0;
@@ -312,17 +332,22 @@ body,html{
     }
     form.form-order{
         padding-top: 0;
-        margin-bottom: 2.5px;
+        margin-bottom: 2.5px;        
     }
     .order-food-form{
+        height: 100%;
+        position: relative;
+        >.row{
+            height: 100%;
+        }
         ul{
             margin-bottom: 0;
             margin-top: 2.5px;
         }
         .title{
             border-bottom: 1px solid $line-gray;
-            //height: 30px;
-            margin-top: 5px;
+            position: relative;
+            //margin-top: 5px;
             padding-top: 5px;
             padding-bottom: 5px;
             background: #f5f5f5;
@@ -336,6 +361,41 @@ body,html{
         // .order-food{
         //     background: #f5f5f5;
         // }
+        .angle-double{
+            float: right;
+            height: 100%;
+            width: 12px;
+            position: relative;
+            background-color: $line-gray;
+            >span{
+                position: absolute;
+                top: 50%;
+            }
+            &:hover{
+                cursor: pointer;
+                color: #00a6ac;
+            }
+        }
+        .widget-main{ 
+            display: inline-block;
+            width: calc(100% - 12px);
+            height: 100%;   
+            float: left;
+        }
+        .widget-lstOrder{ 
+            float: left;
+            box-shadow: inset 10px 0px 20px rgba(0, 0, 0, 0.22);
+            width: 188px; 
+            display: none; 
+            position: relative;
+            height: 100%;         
+            >div{
+                height: 100%;
+                >ul{
+                    text-align: center;
+                }
+            }
+        }
         .order-food-header{
             box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
             padding: 15px;

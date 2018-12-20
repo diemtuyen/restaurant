@@ -22,7 +22,6 @@ export function signalRStart(store, callback) {
         store.dispatch(bookingActions.getOrder(client, key));
     });
     window.restaurant._hub.on('markDone', function(client, key) {
-        debugger
         store.dispatch(bookingActions.getServed(client, key));
     });
     window.restaurant._hub.on('getBill', function(client, key) {

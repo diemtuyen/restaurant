@@ -11,10 +11,8 @@ import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
 const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>{
 	return (        
-        <ul className="lstFood">
-            {/* <li className="itemFood">
-                <Button onClick={() => fields.push({})}>Add Food</Button>
-            </li> */}
+        <ul className="lstFood">            
+            <Button className="addFood" type="button" onClick={() => fields.push({})}>Add Food</Button>
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
@@ -41,20 +39,20 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                    <label>{_.get(rs,'bookForm.type')}</label>
-                                    <Field
-                                        className='control-input'
-                                        name={`${food}.Kind`}
-                                        component={renderDropdownList}                        
-                                        data={kinds}/>
+                                <label>{_.get(rs,'bookForm.type')}</label>
+                                <Field
+                                    className='control-input'
+                                    name={`${food}.Kind`}
+                                    component={renderDropdownList}                        
+                                    data={kinds}/>
                                 </Col>
                                 <Col md={4}>
-                                    <label>{_.get(rs,'bookForm.sum')}</label>
-                                    <Field
-                                        className='control-input'
-                                        name={`${food}.Count`}
-                                        component={renderDropdownList}
-                                        data={[ '1', '2', '3', '4', '5', '6' ]}/> 
+                                <label>{_.get(rs,'bookForm.sum')}</label>
+                                <Field
+                                    className='control-input'
+                                    name={`${food}.Count`}
+                                    component={renderDropdownList}
+                                    data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 
                             <Row className="row-note">

@@ -71,7 +71,7 @@ class CategoryPage extends React.Component {
         this.removeItem = this.removeItem.bind(this);
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getItems()); 
+        this.props.dispatch(bookingActions.getCategories()); 
     }
     removeItem (item) { 
         this.props.dispatch(adminActions.deleteCategory(item));        
@@ -83,8 +83,8 @@ class CategoryPage extends React.Component {
                     <h2>Category Management</h2>
                 </div>
                 <CategoryForm />
-                {(this.props.categories.length > 0) ?
-                    <CategoryList items={this.props.categories} removeItem={this.removeItem}/>: 
+                {(this.props.foods.length > 0) ?
+                    <CategoryList items={this.props.foods} removeItem={this.removeItem}/>: 
                     <div className="alignC">There are no items in list</div>}
             </div>
         )
@@ -93,7 +93,7 @@ class CategoryPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        categories: state.bookingReducer.categories
+        foods: state.bookingReducer.foods
     }
   }
   

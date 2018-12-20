@@ -76,7 +76,7 @@ export function bookingReducer(state = initialState, action) {
           ...itm,
           newId: itm.id,
           groupId: 1,
-          group:'Bá» thÃªm'
+          group:'B? thêm'
         }
       });
       const n = suggestNote.length+1;
@@ -85,7 +85,7 @@ export function bookingReducer(state = initialState, action) {
             ...itm,
             newId: n + itm.id,
             groupId: 2,
-            group: 'KhÃ´ng thÃªm'
+            group: 'Không thêm'
           }
       }));
       return Object.assign(state,{

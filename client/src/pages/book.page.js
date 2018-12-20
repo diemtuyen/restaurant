@@ -18,7 +18,7 @@ class BookPage extends React.Component {
         }
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getItems()); 
+        this.props.dispatch(bookingActions.getCategories()); 
     }
     render(){ 
         return(

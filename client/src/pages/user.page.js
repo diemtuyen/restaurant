@@ -74,7 +74,7 @@ class TablePage extends React.Component {
         this.removeItem = this.removeItem.bind(this);
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getItems()); 
+        this.props.dispatch(bookingActions.getCategories()); 
     }
     removeItem (item) { 
         this.props.dispatch(adminActions.deleteTable(item));        
