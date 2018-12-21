@@ -9,27 +9,19 @@ var initialState = {
   excepts: [],
   utilities:[],
   orders:[],
-  details:[]
+  orderItem:null,
+  serves:[]
 }
 
 export function bookingReducer(state = initialState, action) {
   let stateClone = _.cloneDeep(state);
   switch (action.type) {
-    // case bookingActionType.BOOKING_SUCCESS:
-    //   stateClone.orders =  Object.assign([], state.orders);
-    //   stateClone.orders.push(action.obj);
-    //   return stateClone;
     case bookingActionType.MARK_DONE:
-      stateClone.orders =  Object.assign([], state.orders);
-      _.remove(stateClone.orders, function (e) {
-          return e.hp <= 0;
-        });
+      stateClone.serves =  Object.assign([], state.serves);
+      stateClone.serves.push(action.obj);
+      _.remove(stateClone.orders, order => order.rowGuid === action.obj.rowGuid);
       return stateClone;
     case bookingActionType.ADD_ORDER:
-      // stateClone = _.cloneDeep(state);
-      // stateClone.books =  Object.assign([], state.books); 
-      // stateClone.books.push(action.obj);
-      // return stateClone;
       stateClone.orders =  Object.assign([], state.orders);
       stateClone.orders.push(action.obj);
       return stateClone;
@@ -76,7 +68,7 @@ export function bookingReducer(state = initialState, action) {
           ...itm,
           newId: itm.id,
           groupId: 1,
-          group:'B? thêm'
+          group:'B? thï¿½m'
         }
       });
       const n = suggestNote.length+1;
@@ -85,7 +77,7 @@ export function bookingReducer(state = initialState, action) {
             ...itm,
             newId: n + itm.id,
             groupId: 2,
-            group: 'Không thêm'
+            group: 'Khï¿½ng thï¿½m'
           }
       }));
       return Object.assign(state,{
@@ -101,6 +93,11 @@ export function bookingReducer(state = initialState, action) {
       let updated = Object.assign({}, state)
       updated['orders'] =  action.obj;
       return updated;
+      //return Object.assign(state, {orders: action.obj});
+    case bookingActionType.GET_ORDER:
+      updated = Object.assign({}, state)
+      updated['orderItem'] =  action.obj;
+      return updated;  
     case bookingActionType.GET_SERVED:
       stateClone = _.cloneDeep(state);
       stateClone.served =  action.obj;

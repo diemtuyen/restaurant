@@ -12,14 +12,14 @@ class WidgetListServed extends React.Component {
   }
   componentDidMount(){ 
       this.props.dispatch(bookingActions.getServed());      
-      console.log(this.props.served);
+      console.log(this.props.serves);
   }
   render(){
-    if (this.props.served == undefined)
+    if (this.props.serves == undefined)
       return(
         <p> No items </p>
       )
-    const lstOrders = this.props.served.map( (item, i) => {
+    const lstOrders = this.props.serves.map( (item, i) => {
         return ( 
           <NavItem key={i}>
             <NavLink href="#">
@@ -37,7 +37,7 @@ class WidgetListServed extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    served: state.bookingReducer.served
+    serves: state.bookingReducer.serves
   }
 }
 export default compose(

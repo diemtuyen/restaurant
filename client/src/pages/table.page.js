@@ -94,7 +94,6 @@ class TablePage extends React.Component {
 }
 
 const mapStateToProps = state => {
-    debugger;
     return {
         tables: state.bookingReducer.tables
     }

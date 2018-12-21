@@ -1,66 +1,61 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 import { connect } from "react-redux";
 import {compose} from 'redux';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
+import _ from 'lodash'
 
-class OrderItem extends React.Component {
+class DetailItem extends React.Component {
   constructor(props) {
     super(props);
-    this.onClickDone = this.onClickDone.bind(this);
-  }
-  onClickDone() {
-    this.props.markDone(this.props.item.rowGuid);
   }
   render () {
-    var todoClass = this.props.item.done ? 
-        "done" : "undone";
-    console.log('order item ' + this.props.item);
     return(   
-      <tr className={todoClass}>		
+      <tr>		
         <td>{this.props.index + 1}</td>
-        <td onClick={this.onClickDone}>{this.props.item.title}</td>
-        <td>{this.props.item.tableId}</td>
-        <td>{this.props.item.category}</td>
-        <td>{this.props.item.kind}</td>
         <td>{this.props.item.count}</td>
-        <td>{this.props.item.note}</td>
-        <td><button type="button" className="close">&times;</button></td>
+        <td>{this.props.item.foodId}</td>
+        <td>{this.props.item.kindId}</td>
+        <td>{this.props.item.isTakeAway}</td>
       </tr>  
     );
   }
 }
 
-class OrderList extends React.Component {
+class DetailList extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
   render () {
-    var items = this.props.items.map((item, index) => {
-      return (        
-        <OrderItem key={index} item={item} index={index} markDone={this.props.markDone}/>
+    if( !_.isUndefined(this.props.orderItem) && !_.isNull(this.props.orderItem)){
+      var detail = this.props.orderItem.details.map((item, index) => {
+        return (        
+          <DetailItem key={index} item={item} index={index}/>
+        );
+      });
+      return (
+        <div>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Nums</th>
+                <th>Food ID</th>
+                <th>Kind ID</th>
+                <th>Take away</th>
+              </tr>
+            </thead>
+            <tbody>{detail}</tbody>
+          </table>
+        </div>
       );
-    });
-    return (
-      <div>
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>Title</th>
-              <th>Table ID</th>
-              <th>Category</th>
-              <th>Kind</th>
-              <th>Count</th>
-              <th>Note</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>{items}</tbody>
-        </table>
-      </div>
-    );
+    }
+    else{
+      return(
+        <div>no item</div>
+      )
+    }
   }
 }
   
@@ -70,27 +65,30 @@ class WidgetDetailOfOrder extends React.Component {
     super(props);
     this.markDone = this.markDone.bind(this);
   }
-  markDone(itemIndex) {
-    this.props.dispatch(bookingActions.markDone(null, itemIndex));  
+  componentDidMount(){
+    //this.props.dispatch(bookingActions.getOrder(this.props.orderItem.rowGuid));
   }
-  componentDidMount(){ 
-    this.props.dispatch(bookingActions.getOrders());      
-    console.log(this.props.orders);
+  componentWillReceiveProps(){
+    
+  }
+  markDone() {
+    this.props.dispatch(bookingActions.markDone(this.props.orderItem));  
   }
   render() {
     return (
       <div className="main">
-        <OrderList items={this.props.orders} markDone = {this.markDone}/>
+        <DetailList orderItem={this.props.orderItem}/>
+        <Button type="button" onClick={this.markDone}>Done</Button>
       </div>
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
-      orders: state.bookingReducer.orders
+      orderItem: state.bookingReducer.orderItem      
   }
 }
+
 export default compose(
   connect(mapStateToProps),
   commonWrapped()

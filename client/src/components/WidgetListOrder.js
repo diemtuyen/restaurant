@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import {compose} from 'redux';
+import {Link} from 'react-router-dom';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
@@ -8,8 +9,12 @@ import {bookingActions} from '../actions/booking.actions';
 class WidgetListOrder extends React.Component {
   constructor(props) {
     super(props);
+    this.selectOrderItem = this.selectOrderItem.bind(this);
+    
   }
-  
+  selectOrderItem(id){
+    this.props.dispatch(bookingActions.getOrder(id));
+  }
   componentDidMount(){ 
       this.props.dispatch(bookingActions.getOrders());
   }
@@ -20,11 +25,15 @@ class WidgetListOrder extends React.Component {
       )
     const lstOrders = this.props.orders.map( (item, i) => {
         return ( 
-          <NavItem key={i}>
-            <NavLink href="#">
-              <i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title}
-            </NavLink>
-          </NavItem> );
+          // <NavItem key={i}>
+          //   <NavLink href={`/cooker/${item.rowGuid}`}>
+          //     <i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} 
+          //   </NavLink>
+          // </NavItem> );
+          <div onClick={() => this.selectOrderItem(item.rowGuid)} key={i}>
+            <Link to ='/cooker'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>
+               
+          </div> );
     });
     return( 
       <Nav vertical>
@@ -36,7 +45,7 @@ class WidgetListOrder extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-      orders: state.bookingReducer.orders
+      orders: state.bookingReducer.orders     
   }
 }
 export default compose(

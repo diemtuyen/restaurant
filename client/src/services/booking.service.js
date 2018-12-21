@@ -8,10 +8,10 @@ export const bookingService = {
     getServed,
     markDone
 };
-function markDone(orderOjb) {
-    let url = `${config.apiUrl}/${ApiEndpoints.order}`;
+function markDone(client, key) {
+    let url = `${config.apiUrl}/${ApiEndpoints.order}/items/${key}`;
     return new Promise((resolve, reject) => {
-        axios.post(url, orderOjb).then(res=>{
+        axios.delete(url).then(res=>{
             resolve(res.data.content);
         },e=>{
             reject(e);
@@ -28,11 +28,11 @@ function getServed(client, key) {
         });
     });
 }
-function getOrder(client, key) {
+function getOrder(key) {
     let url = `${config.apiUrl}/${ApiEndpoints.order}/items/${key}`;
-    
     return new Promise((resolve, reject) => {
         axios.get(url).then(res=>{
+
             resolve(res.data.content.item);
         },function(e){
             reject(e);
@@ -51,6 +51,7 @@ function addOrder(orderOjb) {
     let url = `${config.apiUrl}/${ApiEndpoints.order}`;
     return new Promise((resolve, reject) => {
         axios.post(url, orderOjb).then(res=>{
+            console.log('aaaaaaaaaaa ' + res.data.content);
             resolve(res.data.content);
         },e=>{
             reject(e);

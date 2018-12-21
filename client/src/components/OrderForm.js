@@ -41,7 +41,6 @@ class OrderForm extends React.Component {
   fnAddSuggestNote = (food, index, value)=>{
     let item = _.get(this.props, food);
     item.selectedNote = value;
-    debugger;
     this.props.dispatch(change(this.props.form, food, {selectedNote: value, id: item.id, openNote: item.openNote, refresh: new Date().toString()}));
   }
   render(){
@@ -73,7 +72,7 @@ class OrderForm extends React.Component {
                       </Label>
                   </FormGroup>
               </Col>
-              <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
+              {/* <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col> */}
           </Row>
           <FieldArray name="Details" 
                 rs={rs} 
