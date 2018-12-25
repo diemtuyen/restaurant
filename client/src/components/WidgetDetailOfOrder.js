@@ -28,8 +28,8 @@ class DetailList extends React.Component {
     super(props);
   }
   render () {
-    if( !_.isUndefined(this.props.orderItem) && !_.isNull(this.props.orderItem)){
-      var detail = this.props.orderItem.details.map((item, index) => {
+    if( !_.isUndefined(this.props.details) && !_.isNull(this.props.details)){
+      var detail = this.props.details.map((item, index) => {
         return (        
           <DetailItem key={index} item={item} index={index}/>
         );
@@ -64,20 +64,32 @@ class WidgetDetailOfOrder extends React.Component {
   constructor (props) {
     super(props);
     this.markDone = this.markDone.bind(this);
+    this.state = {
+      details: null
+    }
   }
   componentDidMount(){
-    //this.props.dispatch(bookingActions.getOrder(this.props.orderItem.rowGuid));
+    console.log(this.props.selectOrder)
+    if(this.props.selectOrder != null)
+    this.setState({
+      details: this.props.dispatch(bookingActions.getOrder(this.props.selectOrder))
+    })    
   }
-  componentWillReceiveProps(){
-    
+  componentWillReceiveProps(nextProps){
+    this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder))
+    if(nextProps.selectOrder.details != undefined){
+      this.setState({
+        details: nextProps.selectOrder.details
+     })
+    }    
   }
   markDone() {
-    this.props.dispatch(bookingActions.markDone(this.props.orderItem));  
+    this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
   }
   render() {
     return (
       <div className="main">
-        <DetailList orderItem={this.props.orderItem}/>
+        <DetailList details={this.state.details}/>
         <Button type="button" onClick={this.markDone}>Done</Button>
       </div>
     );
@@ -85,7 +97,7 @@ class WidgetDetailOfOrder extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-      orderItem: state.bookingReducer.orderItem      
+    selectOrder: state.bookingReducer.selectOrder      
   }
 }
 

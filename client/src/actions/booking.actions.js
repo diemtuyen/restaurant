@@ -11,6 +11,7 @@ import { history } from '../helpers/history';
 
 export const bookingActions = {
     getOrder,
+    setSelectOrder,
     getCategories,
     addOrder,
     getOrders,
@@ -60,9 +61,15 @@ function getOrder(key) {
                     dispatch(success(action, obj));
                 },
                 error => {
-                    dispatch(failure(error));
+                    console.log('cannot get data ' + error)
                 }
             );
+    };
+}
+function setSelectOrder(id) {
+    return dispatch => {
+        let action = actionTypes.SET_SELECT_ORDER;
+        dispatch(success(action, id));
     };
 }
 function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
