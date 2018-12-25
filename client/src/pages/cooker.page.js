@@ -1,35 +1,45 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
 import WidgetDetailOfOrder from '../components/WidgetDetailOfOrder';
 import WidgetListOrder from '../components/WidgetListOrder';
+import $ from 'jquery';
 import WidgetListServed from '../components/WidgetListServed';
 
 class CookerPage extends React.Component {
     constructor(props) {
-        super(props);        
+        super(props); 
+        this.toggleList = this.toggleList.bind(this);    
+        this.state = {
+            isShown: false
+        }        
+    }
+    toggleList(){
+        this.setState({ isShown: !this.state.isShown });  
+
+        if(this.state.isShown){
+            $(".widget-main").css({"width": "calc(100% - 12px)"});
+            $(".widget-lstOrder").css({"display": "none"});
+            
+        } else {
+            $(".widget-main").css({"width": "calc(100% - 200px)"}); 
+            $(".widget-lstOrder").css({"display": "inline-block"});       
+        }        
     }
     render(){ 
         return(
-            <div>
-                <Row>
-                    <Col sm="8" md="9">
-                        <h1>List of Order</h1>
-                        <WidgetDetailOfOrder/>
-                    </Col>
-                    <Col sm="4" md="3">
-                        <Row>
-                            <h4>List of Orders</h4>
-                            <WidgetListOrder/>
-                        </Row>
-                        <Row>
-                            <h4>List of Server</h4>
-                            <WidgetListServed/>
-                        </Row>
-                    </Col>
-                </Row>
+            <div>                
+                <div className="angle-double" onClick={this.toggleList}>
+                    <span>
+                        <i className="fa fa-navicon" aria-hidden="true" />
+                    </span>                    
+                </div>
+                <div className="widget-main">
+                    <WidgetDetailOfOrder />                  
+                </div>
+                <div className="widget-lstOrder">  
+                    {this.state.isShown ? [<WidgetListOrder/>, <WidgetListServed/>] : ''}
+                </div>
             </div>
         )
     }
 }
-
-export default CookerPage;
+export default CookerPage

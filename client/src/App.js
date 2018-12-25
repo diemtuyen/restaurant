@@ -41,13 +41,11 @@ import RegisterPage from './pages/register.page';
 import TablePage from './pages/table.page';
 import OrderPage from './pages/order.page';
 import CookerPage from './pages/cooker.page';
-import BookPage from './pages/book.page';
 import Layout from './pages/layout.page';
 import CategoryPage from './pages/category.page';
 import UtilityPage from './pages/utility.page';
 import ExceptPage from './pages/except.page';
 import KindPage from './pages/kind.page';
-// import WidgetDetailOfOrder from './components/WidgetDetailOfOrder';
 
 class App extends Component {
   constructor(props, context) {
@@ -60,8 +58,6 @@ class App extends Component {
           <Layout>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute exact path="/order" component={OrderPage} />
-              {/* <PrivateRoute exact path="/order/id" component={WidgetDetailOfOrder} /> */}
-              <PrivateRoute exact path="/book" component={BookPage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <PrivateRoute exact path="/table" component={TablePage} />
               <PrivateRoute exact path="/category" component={CategoryPage} />

@@ -15,10 +15,8 @@ class OrderForm extends React.Component {
     super(props, context);
     this.state={
       openNoteSuggest:false
-      // numFood: 0,
-      // details:[]
     }
-    // this.addDetail = this.addDetail.bind(this);
+    this.addDetail = this.addDetail.bind(this);
     this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
     this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
   }
@@ -29,7 +27,6 @@ class OrderForm extends React.Component {
     this.setState({
       numFood: this.state.numFood + 1
     });
-    debugger;
     let Details = _.cloneDeep(this.props.Details) || [];
     Details.push({openNote: false});
     this.props.dispatch(change(this.props.form, 'Details',  Details));
@@ -43,7 +40,6 @@ class OrderForm extends React.Component {
   fnAddSuggestNote = (food, index, value)=>{
     let item = _.cloneDeep( _.get(this.props, food)) || {};
     item.selectedNote = value;
-    debugger;
     //this.props.dispatch(change(this.props.form, food, {selectedNote: value, id: item.id, openNote: item.openNote, refresh: new Date().toString()}));
     this.props.dispatch(change(this.props.form, food, {...item, refresh: new Date().toString()}));
   }

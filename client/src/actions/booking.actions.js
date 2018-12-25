@@ -11,6 +11,7 @@ import { history } from '../helpers/history';
 
 export const bookingActions = {
     getOrder,
+    setSelectOrder,
     getCategories,
     addOrder,
     getOrders,
@@ -31,21 +32,13 @@ function getServed() {
             );
     };
 }
-function markDone(client, key) {
+function markDone(obj) {
     return dispatch => {
         let action = actionTypes.MARK_DONE;
-        bookingService.markDone(client, key)
-            .then(
-                obj => {                  
-                    dispatch(success(action, obj));
-                },
-                error => {
-                    console.log('fail');
-                }
-            );
+        dispatch(success(action, obj));
     };
 }
-function getOrder(client, key) {
+function addOrder(client, key) {
     return dispatch => {
         let action = actionTypes.ADD_ORDER;
         bookingService.getOrder(client, key)
@@ -57,6 +50,26 @@ function getOrder(client, key) {
                     dispatch(failure(error));
                 }
             );
+    };
+}
+function getOrder(key) {
+    return dispatch => {
+        let action = actionTypes.GET_ORDER;
+        bookingService.getOrder(key)
+            .then(
+                obj => {                  
+                    dispatch(success(action, obj));
+                },
+                error => {
+                    console.log('cannot get data ' + error)
+                }
+            );
+    };
+}
+function setSelectOrder(id) {
+    return dispatch => {
+        let action = actionTypes.SET_SELECT_ORDER;
+        dispatch(success(action, id));
     };
 }
 function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
