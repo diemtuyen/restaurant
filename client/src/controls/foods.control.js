@@ -12,7 +12,7 @@ import _ from 'lodash';
 const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>{
 	return (        
         <ul className="lstFood">            
-            <Button className="addFood" type="button" onClick={() => fields.push({})}>Add Food</Button>
+            {/* <Button className="addFood" type="button" onClick={() => fields.push({})}>Add Food</Button> */}
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;

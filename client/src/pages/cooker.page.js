@@ -1,9 +1,4 @@
 import React from 'react';
-// import { Row, Col } from 'reactstrap';
-// import { connect } from "react-redux";
-// import {compose} from 'redux';
-// import commonWrapped from '../hocs/hocs.common';
-// import {bookingActions} from '../actions/booking.actions';
 import WidgetDetailOfOrder from '../components/WidgetDetailOfOrder';
 import WidgetListOrder from '../components/WidgetListOrder';
 import $ from 'jquery';
@@ -17,11 +12,6 @@ class CookerPage extends React.Component {
             isShown: false
         }        
     }
-    // componentDidMount(){
-    //     debugger
-    //     if(this.props.match.params.id != undefined)
-    //         this.props.dispatch(bookingActions.getOrder(null, this.props.match.params.id));
-    // }
     toggleList(){
         this.setState({ isShown: !this.state.isShown });  
 
@@ -46,16 +36,10 @@ class CookerPage extends React.Component {
                     <WidgetDetailOfOrder />                  
                 </div>
                 <div className="widget-lstOrder">  
-                    {this.state.isShown ? [<WidgetListOrder/>, <WidgetListServed/>] : ''}   
+                    {this.state.isShown ? [<WidgetListOrder/>, <WidgetListServed/>] : ''}
                 </div>
             </div>
         )
     }
 }
-
-// export default compose(
-//     connect(mapStateToProps),
-//     commonWrapped()
-// )(CookerPage)
-
 export default CookerPage

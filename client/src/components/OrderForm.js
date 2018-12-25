@@ -15,24 +15,17 @@ class OrderForm extends React.Component {
     super(props, context);
     this.state={
       openNoteSuggest:false
-      // numFood: 0,
-      // details:[]
     }
-    // this.addDetail = this.addDetail.bind(this);
+    this.addDetail = this.addDetail.bind(this);
     this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
     this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getCategories());
   }
-  /*addDetail =(e)=>{
-    this.setState({
-      numFood: this.state.numFood + 1
-    });
-    this.state.details.push({id: this.state.numFood, openNote: false})
-    this.props.dispatch(change(this.props.form, 'Details', this.state.details));
-    // this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false}]));
-  }*/
+  addDetail =(e)=>{    
+    this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false}]));
+  }
   fnShowNoteSuggest = (item, idx) => {
     var id = `${item}.openNote`;
     id = $.escapeSelector(id);    
@@ -72,7 +65,7 @@ class OrderForm extends React.Component {
                       </Label>
                   </FormGroup>
               </Col>
-              {/* <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col> */}
+              <Col xs={2}><Button type="button" onClick={this.addDetail}>Add Food</Button></Col>
           </Row>
           <FieldArray name="Details" 
                 rs={rs} 
