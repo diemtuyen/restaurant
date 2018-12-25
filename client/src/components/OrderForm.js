@@ -25,24 +25,27 @@ class OrderForm extends React.Component {
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getCategories());
   }
-  /*addDetail =(e)=>{
+  addDetail =(e)=>{
     this.setState({
       numFood: this.state.numFood + 1
     });
-    this.state.details.push({id: this.state.numFood, openNote: false})
-    this.props.dispatch(change(this.props.form, 'Details', this.state.details));
+    debugger;
+    let Details = _.cloneDeep(this.props.Details) || [];
+    Details.push({openNote: false});
+    this.props.dispatch(change(this.props.form, 'Details',  Details));
     // this.props.dispatch(change(this.props.form, 'Details', [{id: 1, openNote: false}]));
-  }*/
+  }
   fnShowNoteSuggest = (item, idx) => {
     var id = `${item}.openNote`;
     id = $.escapeSelector(id);    
     $(`#${id}`).trigger("click");    
   }
   fnAddSuggestNote = (food, index, value)=>{
-    let item = _.get(this.props, food);
+    let item = _.cloneDeep( _.get(this.props, food)) || {};
     item.selectedNote = value;
     debugger;
-    this.props.dispatch(change(this.props.form, food, {selectedNote: value, id: item.id, openNote: item.openNote, refresh: new Date().toString()}));
+    //this.props.dispatch(change(this.props.form, food, {selectedNote: value, id: item.id, openNote: item.openNote, refresh: new Date().toString()}));
+    this.props.dispatch(change(this.props.form, food, {...item, refresh: new Date().toString()}));
   }
   render(){
       const {handleSubmit, pristine, reset, submitting } = this.props;
