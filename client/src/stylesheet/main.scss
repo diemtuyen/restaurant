@@ -381,20 +381,24 @@ body,html{
             .res-input, .suggestion-note{padding-left: 80px; padding-right: 80px}
             label{position: absolute; top: 5px;}
             button.bt-suggestion-note{position: absolute; top: 0; right: 0; width: 75px}
-            div{
-                :last-child{
-                    font-weight: bold;
-                    margin-left: 10px;
+            &.display{
+                div{
+                    :last-child{
+                        font-weight: bold;
+                        margin-left: 10px;
+                    }
                 }
-            }
+            }            
         }
         .row-info{
             label{position: absolute; top: 5px;}
             .control-input{padding-left: 80px}
-            div{
-                :last-child{
-                    font-weight: bold;
-                    margin-left: 10px;
+            &.display{
+                div{
+                    :last-child{
+                        font-weight: bold;
+                        margin-left: 10px;
+                    }
                 }
             }
         }

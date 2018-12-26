@@ -19,21 +19,21 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
                 <li className="itemFood" key={index}>
                     <div className="panel">
                         <div className="panel-child">                           
-                            <Row className="row-info">  
+                            <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pagetype}.menu`)}:</span>
-                                <span>{fields.get(index).foodId}</span>
+                                <span>{_.find(foods, function(f) { return f.id == fields.get(index).foodId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pagetype}.type`)}:</span>
-                                <span>{fields.get(index).kindId}</span>
+                                <span>{_.find(kinds, function(k) { return k.id == fields.get(index).kindId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pagetype}.sum`)}:</span>
                                 <span>{fields.get(index).count}</span>
                                 </Col>
                             </Row> 
-                            <Row className="row-note">
+                            <Row className="row-note display">
                                 <Col md={12}>
                                     <span>{_.get(rs, `widgetOrder.${pagetype}.note`)}:</span>
                                     <span>{fields.get(index).note}</span>

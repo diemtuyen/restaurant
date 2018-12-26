@@ -16,7 +16,8 @@ class WidgetOrder extends React.Component{
         super(props);
         this.state={
             openNoteSuggest:false,
-            orderItem: null
+            orderItem: null,
+            tableName: null
         }
         this.addDetail = this.addDetail.bind(this);
         this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
@@ -25,15 +26,15 @@ class WidgetOrder extends React.Component{
 
     }
     componentDidMount(){ 
-        if (this.props.pagetype == 'order')
-            this.props.dispatch(bookingActions.getCategories());
+        this.props.dispatch(bookingActions.getCategories());
     }
     componentWillReceiveProps(nextProps){
         if (this.props.pagetype == 'cooker'){            
             this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));
             if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){
                 this.setState({
-                    orderItem: nextProps.selectOrder
+                    orderItem: nextProps.selectOrder,
+                    tableName: _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).title
                 });
                 this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
             } 
@@ -83,7 +84,7 @@ class WidgetOrder extends React.Component{
                                         <Field
                                         name="Table"
                                         component={renderDropdownList}                
-                                        data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.orderItem.tableId}</span>)}
+                                        data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.tableName}</span>)}
                                     </Col>
                                 </FormGroup>
                             </Col>
@@ -111,6 +112,7 @@ class WidgetOrder extends React.Component{
                             rs={rs}
                             pagetype={this.props.pagetype}
                             component={renderFoods} 
+                            kinds={this.props.kinds} 
                             foods={this.props.foods} 
                             suggestNote={this.props.suggestNote}
                             utilities={this.props.utilities}
