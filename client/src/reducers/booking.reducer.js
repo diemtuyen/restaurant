@@ -90,8 +90,15 @@ export function bookingReducer(state = initialState, action) {
         suggestNote
       });
     case bookingActionType.GET_ORDERS:
-      let updated = Object.assign({}, state)
-      updated['orders'] =  action.obj;
+      let updated = Object.assign({}, state);
+      updated = Object.assign(updated, {
+        orders: action.obj
+      });
+      if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder))&&action.obj.length>0){
+        updated = Object.assign(updated, {
+          selectOrder: action.obj[0]
+        });
+      }
       return updated;
       //return Object.assign(state, {orders: action.obj});
     case bookingActionType.GET_ORDER:
@@ -99,9 +106,11 @@ export function bookingReducer(state = initialState, action) {
       updated['selectOrder'] =  action.obj;
       return updated;  
     case bookingActionType.SET_SELECT_ORDER:
-      updated = Object.assign({}, state)
-      updated['selectOrder'] =  action.obj;
-      return updated;
+      stateClone = _.cloneDeep(state);
+      stateClone = Object.assign(stateClone, {
+        selectOrder: action.obj
+      });
+      return stateClone;
     case bookingActionType.GET_SERVED:
       stateClone = _.cloneDeep(state);
       stateClone.served =  action.obj;

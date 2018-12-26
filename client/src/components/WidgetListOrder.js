@@ -13,18 +13,18 @@ class WidgetListOrder extends React.Component {
     this.selectOrderItem = this.selectOrderItem.bind(this);
     
   }
-  selectOrderItem(id){
-    this.props.dispatch(bookingActions.setSelectOrder(id));
+  selectOrderItem(item){
+    this.props.dispatch(bookingActions.setSelectOrder(item));
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getOrders());
   }
-  componentWillReceiveProps(nextProps){ 
-    if(nextProps.orders.length >0){
-      let firstItem = _.first(nextProps.orders)
-      this.props.dispatch(bookingActions.setSelectOrder(firstItem.rowGuid));
-    }    
-  }
+  // componentWillReceiveProps(nextProps){ 
+  //   if(nextProps.orders.length >0){
+  //     let firstItem = _.first(nextProps.orders)
+  //     this.props.dispatch(bookingActions.setSelectOrder(firstItem.rowGuid));
+  //   }    
+  // }
   render(){
     if (this.props.orders == undefined)
       return(
@@ -37,7 +37,7 @@ class WidgetListOrder extends React.Component {
           //     <i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} 
           //   </NavLink>
           // </NavItem> );
-          <div onClick={() => this.selectOrderItem(item.rowGuid)} key={i}>
+          <div onClick={() => this.selectOrderItem(item)} key={i}>
             <Link to ='/cooker'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>               
           </div> );
     });

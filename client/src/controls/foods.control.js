@@ -9,10 +9,46 @@ import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
 import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>{
-	return (        
+const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>
+{
+    const _renderDisplay = (fields) =>{
+        return(
+            <ul className="lstFood">            
+            {fields.map((food, index) => {
+                return (
+                <li className="itemFood" key={index}>
+                    <div className="panel">
+                        <div className="panel-child">                           
+                            <Row className="row-info">  
+                                <Col md={4}>
+                                <span>{_.get(rs, `widgetOrder.${pagetype}.menu`)}:</span>
+                                <span>{fields.get(index).foodId}</span>
+                                </Col>
+                                <Col md={4}>
+                                <span>{_.get(rs, `widgetOrder.${pagetype}.type`)}:</span>
+                                <span>{fields.get(index).kindId}</span>
+                                </Col>
+                                <Col md={4}>
+                                <span>{_.get(rs, `widgetOrder.${pagetype}.sum`)}:</span>
+                                <span>{fields.get(index).count}</span>
+                                </Col>
+                            </Row> 
+                            <Row className="row-note">
+                                <Col md={12}>
+                                    <span>{_.get(rs, `widgetOrder.${pagetype}.note`)}:</span>
+                                    <span>{fields.get(index).note}</span>
+                                </Col>
+                            </Row>                          
+                        </div>
+                    </div>                       
+                </li>
+            )})}
+        </ul>
+        )
+    }
+    const _renderEdit = (fields)=>{
+        return(
         <ul className="lstFood">            
-            {/* <Button className="addFood" type="button" onClick={() => fields.push({})}>Add Food</Button> */}
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
@@ -30,7 +66,7 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                             </div>
                             <Row className="row-info">  
                                 <Col md={4}>
-                                <label>{_.get(rs,'bookForm.menu')}</label>
+                                <label>{_.get(rs, `widgetOrder.${pagetype}.menu`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.food`}
@@ -39,7 +75,7 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs,'bookForm.type')}</label>
+                                <label>{_.get(rs, `widgetOrder.${pagetype}.type`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.Kind`}
@@ -47,7 +83,7 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                                     data={kinds}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs,'bookForm.sum')}</label>
+                                <label>{_.get(rs, `widgetOrder.${pagetype}.sum`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.Count`}
@@ -57,7 +93,7 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                             </Row> 
                             <Row className="row-note">
                                 <Col md={12}>
-                                    <label>{_.get(rs,'bookForm.note')}</label>{' '}
+                                    <label>{_.get(rs, `widgetOrder.${pagetype}.note`)}</label>{' '}
                                     {!openNote && <Field
                                         className='res-input'
                                         name={`${food}.note`}
@@ -90,7 +126,7 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                                         id={`${food}.openNote`}
                                         component="input"
                                         type="checkbox" />{' '}
-                                        {_.get(rs,'bookForm.takeAway')}
+                                        {_.get(rs, `widgetOrder.${pagetype}.takeAway`)}
                                     </div>
                                 </Col>
                             </Row>                          
@@ -98,9 +134,15 @@ const renderFoods = ({rs, foods, kinds, suggestNote, fields, ...rest, fnShowNote
                     </div>                       
                 </li>
             )})}
-        </ul>
-	);
-}
+        </ul>);
+    }
+    return (
+        <div>
+            {pagetype==='order'&&_renderEdit(fields)}
+            {pagetype!=='order'&&_renderDisplay(fields)}
+        </div>
+    )  
+};
 
 renderFoods.propTypes = {
 	...FieldProps

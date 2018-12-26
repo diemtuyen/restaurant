@@ -1,7 +1,7 @@
 import React from 'react';
-import WidgetDetailOfOrder from '../components/WidgetDetailOfOrder';
-import WidgetListOrder from '../components/WidgetListOrder';
 import $ from 'jquery';
+import WidgetOrder from '../components/WidgetOrder';
+import WidgetListOrder from '../components/WidgetListOrder';
 import WidgetListServed from '../components/WidgetListServed';
 
 class CookerPage extends React.Component {
@@ -9,7 +9,8 @@ class CookerPage extends React.Component {
         super(props); 
         this.toggleList = this.toggleList.bind(this);    
         this.state = {
-            isShown: false
+            isShown: false,
+            pageType: 'cooker'
         }        
     }
     toggleList(){
@@ -33,10 +34,11 @@ class CookerPage extends React.Component {
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <WidgetDetailOfOrder />                  
+                    <WidgetOrder pagetype= {this.state.pageType}/>
                 </div>
                 <div className="widget-lstOrder">  
-                    {this.state.isShown ? [<WidgetListOrder/>, <WidgetListServed/>] : ''}
+                    <WidgetListOrder/>
+                    {/* <WidgetListServed/> */}
                 </div>
             </div>
         )

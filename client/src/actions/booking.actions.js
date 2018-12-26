@@ -66,10 +66,10 @@ function getOrder(key) {
             );
     };
 }
-function setSelectOrder(id) {
+function setSelectOrder(item) {
     return dispatch => {
         let action = actionTypes.SET_SELECT_ORDER;
-        dispatch(success(action, id));
+        dispatch(success(action, item));
     };
 }
 function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }

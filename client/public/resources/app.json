@@ -16,17 +16,33 @@
         "email": "Email",
         "phoneNumber": "Phone number"
     },
-    "bookForm":{
-        "title": "Đặt món",
-        "tableId": "Select table",
-        "takeAway": "Mang về",
-        "submit": "Order",
-        "no": "No",
-        "foodItemfoodItem": "Food #",
-        "menu": "Thực đơn",
-        "type": "Loại",
-        "sum": "Số lượng",
-        "note": "Ghi chú"
+    "widgetOrder":{
+        "order":{
+            "name": "Order Page",
+            "title": "No: 20181225-001",
+            "tableId": "Chọn bàn",
+            "takeAway": "Mang về",
+            "submit": "Order",
+            "addFood": "Add Food",
+            "foodItemfoodItem": "Food #",
+            "menu": "Thực đơn",
+            "type": "Loại",
+            "sum": "Số lượng",
+            "note": "Ghi chú"
+        },
+        "cooker":{
+            "name": "Cooker Page",
+            "title": "No: ",
+            "tableId": "Bàn số:",
+            "takeAway": "Mang về",
+            "submit": "Ok",
+            "addFood": "Add Food",
+            "foodItemfoodItem": "Food #",
+            "menu": "Thực đơn",
+            "type": "Loại",
+            "sum": "Số lượng",
+            "note": "Ghi chú"
+        }
     },
     "adminPage":{
         "addNew":"Add new item"

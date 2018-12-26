@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import OrderForm from '../components/OrderForm';
+import WidgetOrder from '../components/WidgetOrder';
 import WidgetListOrder from '../components/WidgetListOrder';
 import $ from 'jquery';
 
@@ -9,7 +9,8 @@ class OrderPage extends React.Component {
         super(props);   
         this.toggleList = this.toggleList.bind(this);    
         this.state = {
-            isShown: false
+            isShown: false,
+            pageType: 'order'
         } 
     }
     toggleList(){
@@ -27,20 +28,14 @@ class OrderPage extends React.Component {
     render(){
         const rs = _.get(window.restaurant,'resource'); 
         return(
-            <div className="order-food-form">                
+            <div>                
                 <div className="angle-double" onClick={this.toggleList}>
                     <span>
                         <i className="fa fa-navicon" aria-hidden="true" />
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <div className='order-food'>
-                        <div className="title">
-                            <h2>{_.get(rs, 'bookForm.title')}</h2>
-                            <label className='number_no'>{`${_.get(rs,'bookForm.no')}: 20180712/............`}</label>
-                        </div>
-                        <OrderForm/>
-                    </div>                     
+                    <WidgetOrder pagetype= {this.state.pageType}/>
                 </div>
                 <div className="widget-lstOrder">  
                     {this.state.isShown ? <WidgetListOrder/> : ''} 

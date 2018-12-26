@@ -129,9 +129,6 @@ export default class Layout extends React.Component {
                                     <NavLink href="/order">
                                         <i className="fa fa-cutlery" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Order Management': ''}
                                     </NavLink>
-                                    <NavLink href="/book">
-                                        <i className="fa fa-hand-o-right" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Book Management': ''}
-                                    </NavLink>
                                     <NavLink href="/cooker">
                                         <i className="fa fa-angellist" aria-hidden="true"></i>{' '}{this.state.isShown ? 'Cooker Management': ''}
                                     </NavLink>
