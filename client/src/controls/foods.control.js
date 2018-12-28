@@ -9,7 +9,7 @@ import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
 import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>
+const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>
 {
     const _renderDisplay = (fields) =>{
         return(
@@ -21,21 +21,21 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
                         <div className="panel-child">                           
                             <Row className="row-info display">  
                                 <Col md={4}>
-                                <span>{_.get(rs, `widgetOrder.${pagetype}.menu`)}:</span>
+                                <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
                                 <span>{_.find(foods, function(f) { return f.id == fields.get(index).foodId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
-                                <span>{_.get(rs, `widgetOrder.${pagetype}.type`)}:</span>
+                                <span>{_.get(rs, `widgetOrder.${pageType}.type`)}:</span>
                                 <span>{_.find(kinds, function(k) { return k.id == fields.get(index).kindId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
-                                <span>{_.get(rs, `widgetOrder.${pagetype}.sum`)}:</span>
+                                <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
                                 <span>{fields.get(index).count}</span>
                                 </Col>
                             </Row> 
                             <Row className="row-note display">
                                 <Col md={12}>
-                                    <span>{_.get(rs, `widgetOrder.${pagetype}.note`)}:</span>
+                                    <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
                                     <span>{fields.get(index).note}</span>
                                 </Col>
                             </Row>                          
@@ -52,6 +52,9 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
+                const menuId = _.find(foods, function(f) { return f.id == fields.get(index).foodId;}).id;
+                const kindId = _.find(kinds, function(k) { return k.id == fields.get(index).kindId;}).id;
+                const countId = fields.get(index).count;
                 return (
                 <li className="itemFood" key={index}>
                     <div className="panel">
@@ -66,34 +69,37 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
                             </div>
                             <Row className="row-info">  
                                 <Col md={4}>
-                                <label>{_.get(rs, `widgetOrder.${pagetype}.menu`)}</label>
+                                <label>{_.get(rs, `widgetOrder.${pageType}.menu`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.food`}
                                     component={renderDropdownList}
                                     groupBy='groupName'
+                                    value={menuId}
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs, `widgetOrder.${pagetype}.type`)}</label>
+                                <label>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.Kind`}
                                     component={renderDropdownList}                        
+                                    value={kindId}                        
                                     data={kinds}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs, `widgetOrder.${pagetype}.sum`)}</label>
+                                <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.Count`}
                                     component={renderDropdownList}
+                                    value={countId}
                                     data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 
                             <Row className="row-note">
                                 <Col md={12}>
-                                    <label>{_.get(rs, `widgetOrder.${pagetype}.note`)}</label>{' '}
+                                    <label>{_.get(rs, `widgetOrder.${pageType}.note`)}</label>{' '}
                                     {!openNote && <Field
                                         className='res-input'
                                         name={`${food}.note`}
@@ -126,7 +132,7 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
                                         id={`${food}.openNote`}
                                         component="input"
                                         type="checkbox" />{' '}
-                                        {_.get(rs, `widgetOrder.${pagetype}.takeAway`)}
+                                        {_.get(rs, `widgetOrder.${pageType}.takeAway`)}
                                     </div>
                                 </Col>
                             </Row>                          
@@ -138,8 +144,8 @@ const renderFoods = ({rs, pagetype, foods, kinds, suggestNote, fields, ...rest, 
     }
     return (
         <div>
-            {pagetype==='order'&&_renderEdit(fields)}
-            {pagetype!=='order'&&_renderDisplay(fields)}
+            {pageType!=='cooker' && _renderEdit(fields)}
+            {pageType==='cooker' && _renderDisplay(fields)}
         </div>
     )  
 };

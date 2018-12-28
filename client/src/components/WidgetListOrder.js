@@ -10,43 +10,39 @@ import {bookingActions} from '../actions/booking.actions';
 class WidgetListOrder extends React.Component {
   constructor(props) {
     super(props);
-    this.selectOrderItem = this.selectOrderItem.bind(this);
-    
+    this.handleClick = this.handleClick.bind(this);    
   }
-  selectOrderItem(item){
+  handleClick(item){
     this.props.dispatch(bookingActions.setSelectOrder(item));
+    if (this.props.pageType === 'order')
+      this.props.handlePageType('alter');
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getOrders());
   }
-  // componentWillReceiveProps(nextProps){ 
-  //   if(nextProps.orders.length >0){
-  //     let firstItem = _.first(nextProps.orders)
-  //     this.props.dispatch(bookingActions.setSelectOrder(firstItem.rowGuid));
-  //   }    
-  // }
+  componentWillReceiveProps(nextProps){ 
+    // if(nextProps.orders.length >0){
+    //   let firstItem = _.first(nextProps.orders)
+    //   this.props.dispatch(bookingActions.setSelectOrder(firstItem.rowGuid));
+    // }    
+  }
   render(){
     if (this.props.orders == undefined)
       return(
         <p> No items </p>
       )
     const lstOrders = this.props.orders.map( (item, i) => {
-        return ( 
-          // <NavItem key={i}>
-          //   <NavLink href={`/cooker/${item.rowGuid}`}>
-          //     <i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} 
-          //   </NavLink>
-          // </NavItem> );
-          <div onClick={() => this.selectOrderItem(item)} key={i}>
-            <Link to ='/cooker'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>               
-          </div> );
-    });
+        return (
+          <div className="nav-link" onClick={() => this.handleClick(item)} key={i}>
+            {this.props.pageType !== 'cooker' && <Link to ='/order'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>}
+            {this.props.pageType === 'cooker' && <Link to ='/cooker'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>}
+          </div>
+        )});
     return( 
-      <Nav vertical>
-      {lstOrders}
-      </Nav>
-    )
-    
+      <div className="sidebar">
+        {lstOrders}  
+      </div>
+    )    
   }
 }
 const mapStateToProps = state => {

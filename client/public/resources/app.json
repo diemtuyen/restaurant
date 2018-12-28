@@ -30,13 +30,26 @@
             "sum": "Số lượng",
             "note": "Ghi chú"
         },
+        "alter":{
+            "name": " Alter Page",
+            "title": "No: ",
+            "tableId": "Bàn số:",
+            "takeAway": "Mang về",
+            "submit": "Ok",
+            "addFood": "Add Food",
+            "foodItemfoodItem": "Food #",
+            "menu": "Thực đơn",
+            "type": "Loại",
+            "sum": "Số lượng",
+            "note": "Ghi chú"
+        },
         "cooker":{
             "name": "Cooker Page",
             "title": "No: ",
             "tableId": "Bàn số:",
             "takeAway": "Mang về",
             "submit": "Ok",
-            "addFood": "Add Food",
+            "addFood": "Edit",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "type": "Loại",

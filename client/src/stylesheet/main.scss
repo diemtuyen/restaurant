@@ -54,12 +54,17 @@ body,html{
                     float: right;
                 }
             }
+            a:hover{
+                text-decoration: none;
+            }
+            &:hover{
+                background-color: #eeeeee;
+            }
         }
         a{
             color: #337ab7;
             &:hover{
                 color: #23527c;
-                background-color: #eeeeee;
             }
         }
         .second-level{

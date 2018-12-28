@@ -34,11 +34,11 @@ class CookerPage extends React.Component {
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <WidgetOrder pagetype= {this.state.pageType}/>
+                    <WidgetOrder pageType= {this.state.pageType}/>
                 </div>
                 <div className="widget-lstOrder">  
-                    <WidgetListOrder/>
-                    {/* <WidgetListServed/> */}
+                    <WidgetListOrder pageType= {this.state.pageType}/>
+                    <WidgetListServed/>
                 </div>
             </div>
         )

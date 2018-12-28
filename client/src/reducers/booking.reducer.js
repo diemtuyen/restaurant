@@ -3,24 +3,27 @@ import _ from 'lodash';
 
 var initialState = {
   tables: [],
-  //categories: [],
   foods:[],
   kinds: [],
   excepts: [],
   utilities:[],
   orders:[],
-  selectOrder: null,
-  serves:[]
+  served:[],
+  selectOrder: null
 }
 
 export function bookingReducer(state = initialState, action) {
   let stateClone = _.cloneDeep(state);
   switch (action.type) {
     case bookingActionType.MARK_DONE:
-      stateClone.serves =  Object.assign([], state.serves);
-      stateClone.serves.push(action.obj);
-      _.remove(stateClone.orders, order => order.rowGuid === action.obj.rowGuid);
-      return stateClone;
+      let updated = Object.assign({}, state);
+      updated = Object.assign(updated, {
+        orders: _.map(updated.orders, order => order.rowGuid === action.obj.rowGuid ? _.assign({}, order, { statusId: 2 }) : order )
+      }); 
+      updated.served.push(_.find(updated.orders, {'statusId': 2}));
+      updated.orders =_.filter(updated.orders, { 'statusId': 1 });   
+      updated.selectOrder = _.first(updated.orders);
+      return updated;
     case bookingActionType.ADD_ORDER:
       stateClone.orders =  Object.assign([], state.orders);
       stateClone.orders.push(action.obj);
@@ -50,13 +53,6 @@ export function bookingReducer(state = initialState, action) {
       stateClone.utilities.push(action.obj);
       return stateClone;
     case bookingActionType.GET_CATEGORIES:
-      /*let updated = Object.assign({}, state);
-      updated['tables'] =  action.obj[0];
-      updated['foods'] =  action.obj[1];
-      updated['kinds'] =  action.obj[2];
-      updated['excepts'] =  action.obj[3];
-      updated['utilities'] =  action.obj[4];
-      return updated;*/
       let foodGroup = action.obj[1];
       let foods = action.obj[2];
       _.each(foods, function(f,i){
@@ -90,13 +86,14 @@ export function bookingReducer(state = initialState, action) {
         suggestNote
       });
     case bookingActionType.GET_ORDERS:
-      let updated = Object.assign({}, state);
+      updated = Object.assign({}, state);      
       updated = Object.assign(updated, {
         orders: action.obj
       });
-      if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder))&&action.obj.length>0){
+      updated.orders =_.filter(updated.orders, { 'statusId': 1 });
+      if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder)) && action.obj.length>0){
         updated = Object.assign(updated, {
-          selectOrder: action.obj[0]
+          selectOrder: updated.orders[0]
         });
       }
       return updated;
@@ -112,9 +109,12 @@ export function bookingReducer(state = initialState, action) {
       });
       return stateClone;
     case bookingActionType.GET_SERVED:
-      stateClone = _.cloneDeep(state);
-      stateClone.served =  action.obj;
-      return stateClone;
+      updated = Object.assign({}, state);      
+      updated = Object.assign(updated, {
+        served: action.obj
+      });
+      updated.served =_.filter(updated.served, { 'statusId': 2 });
+      return updated;
     default:
       return state
   }

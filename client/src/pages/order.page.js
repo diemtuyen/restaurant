@@ -8,10 +8,16 @@ class OrderPage extends React.Component {
     constructor(props) {
         super(props);   
         this.toggleList = this.toggleList.bind(this);    
+        this.handlePageType = this.handlePageType.bind(this);    
         this.state = {
             isShown: false,
             pageType: 'order'
         } 
+    }
+    handlePageType(type){
+        this.setState({
+            pageType: type
+        });
     }
     toggleList(){
         this.setState({ isShown: !this.state.isShown });  
@@ -35,10 +41,10 @@ class OrderPage extends React.Component {
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <WidgetOrder pagetype= {this.state.pageType}/>
+                    <WidgetOrder pageType= {this.state.pageType}/>
                 </div>
                 <div className="widget-lstOrder">  
-                    {this.state.isShown ? <WidgetListOrder/> : ''} 
+                    {this.state.isShown ? <WidgetListOrder pageType= {this.state.pageType} handlePageType={this.handlePageType}/> : ''} 
                 </div>
             </div>
         )

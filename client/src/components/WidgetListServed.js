@@ -1,43 +1,46 @@
 import React from 'react';
 import { connect } from "react-redux";
 import {compose} from 'redux';
-import _ from 'lodash';
+import {Link} from 'react-router-dom';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
+import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
 
 class WidgetListServed extends React.Component {
   constructor(props) {
     super(props);
+    this.selectServedItem = this.selectServedItem.bind(this);
+    
+  }
+  selectServedItem(item){
+    this.props.dispatch(bookingActions.setSelectOrder(item));
   }
   componentDidMount(){ 
-      this.props.dispatch(bookingActions.getServed());      
-      console.log(this.props.serves);
+      this.props.dispatch(bookingActions.getServed()); 
   }
   render(){
-    if (this.props.serves == undefined)
+    if (this.props.served == undefined)
       return(
         <p> No items </p>
       )
-    const lstOrders = this.props.serves.map( (item, i) => {
+    const lstOrders = this.props.served.map( (item, i) => {
         return ( 
-          <NavItem key={i}>
-            <NavLink href="#">
-              {item.title}
-            </NavLink>
-          </NavItem> );
-    });
+          <div className="nav-link" onClick={() => this.selectServedItem(item)} key={i}>
+            <Link to ='/cooker'><i className="fa fa-star" aria-hidden="true"></i>{' '}{item.title} </Link>
+          </div>
+        )});
     return(
-      <Nav vertical>
+      <div className="sidebar">
         {lstOrders} 
-      </Nav> 
+      </div>
     )
     
   }
 }
 const mapStateToProps = state => {
   return {
-    serves: state.bookingReducer.serves
+    served: state.bookingReducer.served
   }
 }
 export default compose(

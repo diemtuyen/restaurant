@@ -21,7 +21,7 @@ export const bookingActions = {
 function getServed() {
     return dispatch => {
         let action = actionTypes.GET_SERVED;       
-        bookingService.getServed()
+        bookingService.getItems()
             .then(
                 obj => {
                     dispatch(success(action, obj));
