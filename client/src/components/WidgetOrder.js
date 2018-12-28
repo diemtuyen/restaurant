@@ -43,22 +43,22 @@ class WidgetOrder extends React.Component{
                 this.setState({
                     tableId: _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).id
                 });
-                this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).id));
+                // this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).id));
             }
-            if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){                
-                if(this.props.foods.length > 0){                
-                    nextProps.selectOrder.details.map( (item, i) => {
-                        let fId =_.find(this.props.foods, function(food) { return food.id == item.foodId;}).id;
-                        this.props.dispatch(change(this.props.form, `Details[${i}].food`, fId));
-                    });
-                }
-                if(this.props.kinds.length > 0){                
-                    nextProps.selectOrder.details.map( (item, i) => {
-                        let kId =_.find(this.props.kinds, function(kind) { return kind.id == item.kindId;}).id;
-                        this.props.dispatch(change(this.props.form, `Details[${i}].Kind`, kId));
-                    });
-                }
-            }
+            // if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){                
+            //     if(this.props.foods.length > 0){                
+            //         nextProps.selectOrder.details.map( (item, i) => {
+            //             let fId =_.find(this.props.foods, function(food) { return food.id == item.foodId;}).id;
+            //             this.props.dispatch(change(this.props.form, `Details[${i}].food`, fId));
+            //         });
+            //     }
+            //     if(this.props.kinds.length > 0){                
+            //         nextProps.selectOrder.details.map( (item, i) => {
+            //             let kId =_.find(this.props.kinds, function(kind) { return kind.id == item.kindId;}).id;
+            //             this.props.dispatch(change(this.props.form, `Details[${i}].Kind`, kId));
+            //         });
+            //     }
+            // }
         }          
     }
     markDone() {
