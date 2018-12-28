@@ -41,20 +41,20 @@ class WidgetOrder extends React.Component{
             } 
             if(this.props.tables.length > 0){
                 this.setState({
-                    tableId: _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).id
+                    tableId: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id
                 });
-                // this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, function(table) { return table.id == nextProps.selectOrder.tableId;}).id));
+                // this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id));
             }
             // if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){                
             //     if(this.props.foods.length > 0){                
             //         nextProps.selectOrder.details.map( (item, i) => {
-            //             let fId =_.find(this.props.foods, function(food) { return food.id == item.foodId;}).id;
+            //             let fId =_.find(this.props.foods, (food) => { return food.id == item.foodId;}).id;
             //             this.props.dispatch(change(this.props.form, `Details[${i}].food`, fId));
             //         });
             //     }
             //     if(this.props.kinds.length > 0){                
             //         nextProps.selectOrder.details.map( (item, i) => {
-            //             let kId =_.find(this.props.kinds, function(kind) { return kind.id == item.kindId;}).id;
+            //             let kId =_.find(this.props.kinds, (kind) => { return kind.id == item.kindId;}).id;
             //             this.props.dispatch(change(this.props.form, `Details[${i}].Kind`, kId));
             //         });
             //     }
@@ -105,7 +105,7 @@ class WidgetOrder extends React.Component{
                                         <Field
                                         name="Table"
                                         component={renderDropdownList}  
-                                        value={this.state.orderItem == null ? '' :this.state.tableId}        
+                                        defaultValue={this.state.orderItem == null ? '' :this.state.tableId}        
                                         data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.tableId}</span>)}
                                     </Col>
                                 </FormGroup>
@@ -168,7 +168,7 @@ const mapDispatchToProps = dispatch => ({
     let title = Date.now().toString();
     const fields = {Title: title, Status: { Title: 'Order', id: '1' }};
     const jsonOrder = Object.assign({}, values, fields);
-    _.forEach(jsonOrder.Details, function(i){
+    _.forEach(jsonOrder.Details, (i) => {
         i.JsonExcept = JSON.stringify(i.JsonExcept);
         i.JsonUtility = JSON.stringify(i.JsonUtility);
     });

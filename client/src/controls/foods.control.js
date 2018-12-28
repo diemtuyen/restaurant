@@ -22,11 +22,11 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
-                                <span>{_.find(foods, function(f) { return f.id == fields.get(index).foodId;}).title}</span>
+                                <span>{_.find(foods, (f) => { return f.id == fields.get(index).foodId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.type`)}:</span>
-                                <span>{_.find(kinds, function(k) { return k.id == fields.get(index).kindId;}).title}</span>
+                                <span>{_.find(kinds, (k) =>{ return k.id == fields.get(index).kindId;}).title}</span>
                                 </Col>
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
@@ -52,8 +52,8 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
-                const menuId = _.find(foods, function(f) { return f.id == fields.get(index).foodId;}).id;
-                const kindId = _.find(kinds, function(k) { return k.id == fields.get(index).kindId;}).id;
+                const menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;}).id;
+                const kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;}).id;
                 const countId = fields.get(index).count;
                 return (
                 <li className="itemFood" key={index}>
