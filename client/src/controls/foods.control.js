@@ -75,7 +75,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     name={`${food}.food`}
                                     component={renderDropdownList}
                                     groupBy='groupName'
-                                    value={menuId}
+                                    defaultValue={menuId}
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
@@ -84,7 +84,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     className='control-input'
                                     name={`${food}.Kind`}
                                     component={renderDropdownList}                        
-                                    value={kindId}                        
+                                    defaultValue={kindId}                        
                                     data={kinds}/>
                                 </Col>
                                 <Col md={4}>
@@ -93,7 +93,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     className='control-input'
                                     name={`${food}.Count`}
                                     component={renderDropdownList}
-                                    value={countId}
+                                    defaultValue={countId}
                                     data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 
