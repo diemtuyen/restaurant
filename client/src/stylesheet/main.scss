@@ -21,7 +21,6 @@ body,html{
     }
     .sidebar{
         background-color: #f8f8f8;
-        //min-height: -webkit-fill-available;
         padding:{
             left: 0px;
             right: 0px;
@@ -116,9 +115,7 @@ body,html{
         }
         tbody{
             tr{
-                td{
-                    &:nth-last-child(1){
-                    }
+                td{                    
                     &:nth-last-child(2){
                         display: flex;
                         align-items: center;
@@ -204,14 +201,7 @@ body,html{
     }
     .panel{        
         margin-top: 15px;
-        background-color: #fff;        
-        // >:first-child{
-        //     background-color: #f5f5f5;
-        //     padding: 5px;
-        //     font-weight: bold;
-        //     font-size: 16px;
-        //     text-align: center;                       
-        // }
+        background-color: #fff;  
     }
     .panel-child{
         .row:last-child{
@@ -266,38 +256,12 @@ body,html{
                 margin-top: 1px;
                 display: inline-block;
                 width: 100%;
-                //border-bottom: 1px solid #888;
                 box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
                 padding: 5px;
                 margin: 2.5px 0;
                 .row{
                     margin-top: 5px;
-                }                 
-                // &:first-child {
-                //     text-align: center;
-                //     padding-top: 15px;
-                    // button {
-                    //     float: none;
-                    //     white-space: nowrap;
-                    //     display: inline-block;
-                    //     border-radius: 5px;
-                    //     padding: 3px 8px;
-                    //     font-size: 14px;
-                    //     background-image: linear-gradient(#fff,$line-gray);
-                    //     border: 1px solid $line-gray;
-                    //     color: #000;
-                    //     &:before {
-                    //         display: inline-block;
-                    //         font: normal normal normal 14px/1 FontAwesome;
-                    //         font-size: inherit;
-                    //         text-rendering: auto;
-                    //         -webkit-font-smoothing: antialiased;
-                    //         -moz-osx-font-smoothing: grayscale;
-                    //         //content: '\F067';
-                    //         margin-right: 5px;
-                    //     }
-                    // }
-                // }
+                } 
                 > button{
                     float: right;
                     background-image: unset;
@@ -438,15 +402,21 @@ body,html{
     }
     .widget-lstOrder{ 
         float: left;
-        box-shadow: inset 10px 0px 20px rgba(0, 0, 0, 0.22);
         width: 188px; 
         display: none; 
         position: relative;
-        height: 100%;         
+        height: 100%; 
+        margin-left: 15px;        
         >div{
             height: 100%;
             >ul{
                 text-align: center;
+            }
+        }
+        .sidebar{
+            width: 100%;
+            .nav-link{
+                border-left: 1px solid $line-gray;
             }
         }
     }

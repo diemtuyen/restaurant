@@ -101,12 +101,18 @@ class WidgetOrder extends React.Component{
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
                                     <Col sm={12} className="order-food-header-col-input">
-                                        {(this.props.pageType !== 'cooker') ?
+                                    {(this.props.pageType === 'order') ?   
                                         <Field
                                         name="Table"
-                                        component={renderDropdownList}  
-                                        defaultValue={this.state.orderItem == null ? '' :this.state.tableId}        
-                                        data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.tableId}</span>)}
+                                        component={renderDropdownList}     
+                                        data={this.props.tables}/> :
+                                        ((this.props.pageType === 'alter') ?
+                                            <Field
+                                            name="Table"
+                                            component={renderDropdownList}  
+                                            defaultValue={this.state.orderItem == null ? '' :this.state.tableId}        
+                                            data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.tableId}</span>))
+                                    }
                                     </Col>
                                 </FormGroup>
                             </Col>

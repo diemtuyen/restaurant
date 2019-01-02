@@ -21,7 +21,7 @@ class CookerPage extends React.Component {
             $(".widget-lstOrder").css({"display": "none"});
             
         } else {
-            $(".widget-main").css({"width": "calc(100% - 200px)"}); 
+            $(".widget-main").css({"width": "calc(100% - 215px)"}); 
             $(".widget-lstOrder").css({"display": "inline-block"});       
         }        
     }

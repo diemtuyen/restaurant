@@ -11,7 +11,7 @@ import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
 const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>
 {
-    const _renderDisplay = (fields) =>{
+    const _renderDisplay = () =>{
         return(
             <ul className="lstFood">            
             {fields.map((food, index) => {
@@ -46,15 +46,21 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
         </ul>
         )
     }
-    const _renderEdit = (fields)=>{
+    const _renderEdit = ()=>{
         return(
         <ul className="lstFood">            
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
-                const menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;}).id;
-                const kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;}).id;
-                const countId = fields.get(index).count;
+                if (pageType === 'alter'){
+                    if (foods.length > 0){
+                        var menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;}).id;
+                    }
+                    if (kinds.length > 0){
+                        var kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;}).id;
+                    }
+                    var countId = fields.get(index).count; 
+                }                            
                 return (
                 <li className="itemFood" key={index}>
                     <div className="panel">
