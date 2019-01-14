@@ -3,29 +3,19 @@ import PropTypes from 'prop-types';
 import {FieldProps} from './FieldProps';
 import {withInputError} from './hocs.control';
 import DropdownList from 'react-widgets/lib/DropdownList';
-const renderDropdownList = ({input, defaultValue, data, groupBy, valueField, textField, meta, showError, showWarn, ...rest}) =>{
-    if(groupBy){
-        return (
-            <DropdownList {...input}
-                data={data}
-                valueField='id'
-                textField='title'
-                groupBy={groupBy}
-                value={defaultValue}
-                onChange={input.onChange} />
-        );
-    }else{
-        return (
-            <DropdownList {...input}
-                data={data}
-                valueField='id'
-                textField='title'
-                value={defaultValue}
-                onChange={input.onChange} />
-        );
-        
-    }
+
+const renderDropdownList = ({input, val, data, groupBy, valueField, textField, meta, showError, showWarn, ...rest}) =>{
+    return (
+        <DropdownList {...input}
+            data={data}
+            valueField={valueField}
+            textField={textField}
+            groupBy={groupBy?groupBy:''}
+            defaultValue={input.value}
+            onChange={input.onChange} />
+    );
 }
+
 
 renderDropdownList.propTypes = {
     groupBy: PropTypes.string,

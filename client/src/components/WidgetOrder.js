@@ -40,34 +40,18 @@ class WidgetOrder extends React.Component{
                 this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
             } 
             if(this.props.tables.length > 0){
-                this.setState({
-                    tableId: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id
-                });
-                // this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id));
+                // this.setState({
+                //     tableSelected: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})
+                // });
+                this.props.dispatch(change(this.props.form, 'Table', 
+                _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
             }
-            // if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){                
-            //     if(this.props.foods.length > 0){                
-            //         nextProps.selectOrder.details.map( (item, i) => {
-            //             let fId =_.find(this.props.foods, (food) => { return food.id == item.foodId;}).id;
-            //             this.props.dispatch(change(this.props.form, `Details[${i}].food`, fId));
-            //         });
-            //     }
-            //     if(this.props.kinds.length > 0){                
-            //         nextProps.selectOrder.details.map( (item, i) => {
-            //             let kId =_.find(this.props.kinds, (kind) => { return kind.id == item.kindId;}).id;
-            //             this.props.dispatch(change(this.props.form, `Details[${i}].Kind`, kId));
-            //         });
-            //     }
-            // }
         }          
     }
     markDone() {
         this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
       }
     addDetail =(e)=>{
-        this.setState({
-            numFood: this.state.numFood + 1
-        });
         let Details = _.cloneDeep(this.props.Details) || [];
         Details.push({openNote: false});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
@@ -101,18 +85,21 @@ class WidgetOrder extends React.Component{
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
                                     <Col sm={12} className="order-food-header-col-input">
-                                    {(this.props.pageType === 'order') ?   
+                                    { this.props.pageType === 'order' &&  
                                         <Field
                                         name="Table"
+                                        valueField="id"
+                                        textField='title'
                                         component={renderDropdownList}     
-                                        data={this.props.tables}/> :
-                                        ((this.props.pageType === 'alter') ?
+                                        data={this.props.tables}/>}
+                                    {this.props.pageType === 'alter' &&
                                             <Field
                                             name="Table"
-                                            component={renderDropdownList}  
-                                            defaultValue={this.state.orderItem == null ? '' :this.state.tableId}        
-                                            data={this.props.tables}/> : (this.state.orderItem == null ? '' :<span>{this.state.tableId}</span>))
-                                    }
+                                            valueField="id"
+                                            textField='title'
+                                            component={renderDropdownList}                                              
+                                            data={this.props.tables}/>}
+                                    {this.props.pageType !== 'alter' && this.props.pageType !== 'order' && <span>{this.state.tableId}</span>}
                                     </Col>
                                 </FormGroup>
                             </Col>
@@ -148,8 +135,8 @@ class WidgetOrder extends React.Component{
                             fnAddSuggestNote={this.fnAddSuggestNote}/>
                             
                         <div className="alignR submit">
-                            {this.props.pageType === 'order'&&<Button type="submit" disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
-                            {this.props.pageType === 'cooker'&&<Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType !== 'cooker' && <Button type="submit" disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                         </div>
                     </form> 
                 </div>
@@ -160,14 +147,27 @@ class WidgetOrder extends React.Component{
 const selector = formValueSelector('orderForm');
 
 const mapStateToProps = state => {
-    return {
-        tables: state.bookingReducer.tables,
-        foods: state.bookingReducer.foods,
-        kinds: state.bookingReducer.kinds,
-        suggestNote: state.bookingReducer.suggestNote,
-        Details: selector(state, `Details`),
-        selectOrder: state.bookingReducer.selectOrder
-    } 
+    if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details))
+        return {
+            tables: state.bookingReducer.tables,
+            foods: state.bookingReducer.foods,
+            kinds: state.bookingReducer.kinds,
+            suggestNote: state.bookingReducer.suggestNote,
+            // Details: selector(state, `Details`),
+            selectOrder: state.bookingReducer.selectOrder,
+            initialValues: {
+                Details: state.bookingReducer.selectOrder.details
+            }
+        } 
+    else
+        return {
+            tables: state.bookingReducer.tables,
+            foods: state.bookingReducer.foods,
+            kinds: state.bookingReducer.kinds,
+            suggestNote: state.bookingReducer.suggestNote,
+            Details: selector(state, `Details`),
+            selectOrder: state.bookingReducer.selectOrder
+        } 
 }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {

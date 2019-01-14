@@ -91,6 +91,8 @@ export function bookingReducer(state = initialState, action) {
         orders: action.obj
       });
       updated.orders =_.filter(updated.orders, { 'statusId': 1 });
+      // if (_.isUndefined(action.obj))
+      //   window.location.reload();
       if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder)) && action.obj.length>0){
         updated = Object.assign(updated, {
           selectOrder: updated.orders[0]

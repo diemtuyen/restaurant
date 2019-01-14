@@ -52,14 +52,15 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
+                let menuId, kindId,countId;
                 if (pageType === 'alter'){
-                    if (foods.length > 0){
-                        var menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;}).id;
+                    if (foods.length > 0 && !_.isUndefined(fields.get(index).foodId)){
+                        menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;});
                     }
-                    if (kinds.length > 0){
-                        var kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;}).id;
+                    if (kinds.length > 0 && !_.isUndefined(fields.get(index).kindId)){
+                        kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;});
                     }
-                    var countId = fields.get(index).count; 
+                    countId = fields.get(index).count; 
                 }                            
                 return (
                 <li className="itemFood" key={index}>
@@ -78,28 +79,33 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                 <label>{_.get(rs, `widgetOrder.${pageType}.menu`)}</label>
                                 <Field
                                     className='control-input'
-                                    name={`${food}.food`}
+                                    name={`${food}.foodId`}
+                                    valueField='id'
+                                    textField='title'
                                     component={renderDropdownList}
                                     groupBy='groupName'
-                                    defaultValue={menuId}
+                                    value={_.find(foods, (f) => { return f.id == fields.get(index).foodId;})}
+                                    val={menuId}
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
                                 <label>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
                                 <Field
                                     className='control-input'
-                                    name={`${food}.Kind`}
+                                    name={`${food}.kindId`}
+                                    valueField='id'
+                                    textField='title'
                                     component={renderDropdownList}                        
-                                    defaultValue={kindId}                        
+                                    val={kindId}                        
                                     data={kinds}/>
                                 </Col>
                                 <Col md={4}>
                                 <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
                                 <Field
                                     className='control-input'
-                                    name={`${food}.Count`}
+                                    name={`${food}.count`}
                                     component={renderDropdownList}
-                                    defaultValue={countId}
+                                    val={countId}
                                     data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                                 </Col>
                             </Row> 

@@ -8,7 +8,8 @@ export const userService = {
     getItems,
     addItem,
     deleteItem,
-    updateItem
+    updateItem,
+    checkTokenExpired
 };
 
 function login(username, password) {
@@ -32,7 +33,16 @@ function login(username, password) {
         console.log(e);
     });
 }
-
+function checkTokenExpired(){
+    let token = localStorage.getItem('user');
+    token = JSON.parse(token);
+    if( new Date(token[".expires"]) > new Date() ){
+        console.log('token expires OK');
+        return true;
+    }
+    console.log('token expired !!!!!!!!!!!!!!');
+    return false;
+}
 function logout() {
     // remove user from local storage to log user out
     console.log('axios logout ');
