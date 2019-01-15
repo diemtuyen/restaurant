@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import {compose} from 'redux';
 import {Link} from 'react-router-dom';
-import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
-import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
 
 class WidgetListOrder extends React.Component {
@@ -15,16 +13,10 @@ class WidgetListOrder extends React.Component {
   handleClick(item){
     this.props.dispatch(bookingActions.setSelectOrder(item));
     if (this.props.pageType === 'order')
-      this.props.handlePageType('alter');
+      this.props.dispatch(bookingActions.setPageType('alter'));
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getOrders());
-  }
-  componentWillReceiveProps(nextProps){ 
-    // if(nextProps.orders.length >0){
-    //   let firstItem = _.first(nextProps.orders)
-    //   this.props.dispatch(bookingActions.setSelectOrder(firstItem.rowGuid));
-    // }    
   }
   render(){
     if (this.props.orders == undefined)
@@ -47,7 +39,8 @@ class WidgetListOrder extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-      orders: state.bookingReducer.orders     
+      orders: state.bookingReducer.orders,    
+      pageType: state.bookingReducer.pageType     
   }
 }
 export default compose(

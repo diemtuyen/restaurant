@@ -9,7 +9,8 @@ var initialState = {
   utilities:[],
   orders:[],
   served:[],
-  selectOrder: null
+  selectOrder: null,
+  pageType: null
 }
 
 export function bookingReducer(state = initialState, action) {
@@ -117,6 +118,12 @@ export function bookingReducer(state = initialState, action) {
       });
       updated.served =_.filter(updated.served, { 'statusId': 2 });
       return updated;
+    case bookingActionType.SET_PAGETYPE:
+      stateClone = _.cloneDeep(state);
+      stateClone = Object.assign(stateClone, {
+        pageType: action.obj
+      });
+      return stateClone;
     default:
       return state
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
 import commonWrapped from '../hocs/hocs.common';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -10,6 +11,8 @@ import renderDropdownList from '../controls/dropdown.control';
 import renderFoods from '../controls/foods.control';
 import 'react-widgets/dist/css/react-widgets.css';
 import {bookingActions} from '../actions/booking.actions';
+import { history } from '../helpers/history';
+
 
 class WidgetOrder extends React.Component{
     constructor(props){
@@ -20,17 +23,22 @@ class WidgetOrder extends React.Component{
             tableId: null
         }
         this.addDetail = this.addDetail.bind(this);
+        this.handleClick = this.handleClick.bind(this); 
         this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
         this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
         this.markDone = this.markDone.bind(this);
 
+    }
+    handleClick(){
+        this.props.dispatch(bookingActions.setPageType('alter'));
+        history.push('/order');
     }
     componentDidMount(){ 
         this.props.dispatch(bookingActions.getCategories());
     }
     componentWillReceiveProps(nextProps){
         if (this.props.pageType === 'cooker' || nextProps.pageType ==='alter'){ 
-            if(!_.isUndefined(nextProps.selectOrder) && !_.isNull(nextProps.selectOrder)){
+            if( !_.isNull(nextProps.selectOrder)){
                 this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));
             }
             if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){
@@ -121,7 +129,8 @@ class WidgetOrder extends React.Component{
                                     </Label>
                                 </FormGroup>
                             </Col>
-                            <Col xs={2}><Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>
+                            {this.props.pageType !=='cooker'&&<Col xs={2}><Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
+                            {this.props.pageType ==='cooker'&&<Col xs={2}><Button type="button" onClick={this.handleClick}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
                             rs={rs}
@@ -155,6 +164,7 @@ const mapStateToProps = state => {
             suggestNote: state.bookingReducer.suggestNote,
             // Details: selector(state, `Details`),
             selectOrder: state.bookingReducer.selectOrder,
+            pageType: state.bookingReducer.pageType,
             initialValues: {
                 Details: state.bookingReducer.selectOrder.details
             }
@@ -166,7 +176,8 @@ const mapStateToProps = state => {
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
             Details: selector(state, `Details`),
-            selectOrder: state.bookingReducer.selectOrder
+            selectOrder: state.bookingReducer.selectOrder,
+            pageType: state.bookingReducer.pageType
         } 
 }
 const mapDispatchToProps = dispatch => ({

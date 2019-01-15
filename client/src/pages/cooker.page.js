@@ -1,17 +1,21 @@
 import React from 'react';
 import $ from 'jquery';
+import { connect } from "react-redux";
 import WidgetOrder from '../components/WidgetOrder';
 import WidgetListOrder from '../components/WidgetListOrder';
 import WidgetListServed from '../components/WidgetListServed';
+import {bookingActions} from '../actions/booking.actions';
 
 class CookerPage extends React.Component {
     constructor(props) {
         super(props); 
         this.toggleList = this.toggleList.bind(this);    
         this.state = {
-            isShown: false,
-            pageType: 'cooker'
+            isShown: false
         }        
+    }
+    componentWillMount(){
+        this.props.dispatch(bookingActions.setPageType('cooker'));        
     }
     toggleList(){
         this.setState({ isShown: !this.state.isShown });  
@@ -34,14 +38,20 @@ class CookerPage extends React.Component {
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <WidgetOrder pageType= {this.state.pageType}/>
+                    <WidgetOrder/>
                 </div>
                 <div className="widget-lstOrder">  
-                    <WidgetListOrder pageType= {this.state.pageType}/>
+                    <WidgetListOrder/>
                     <WidgetListServed/>
                 </div>
             </div>
         )
     }
 }
-export default CookerPage
+const mapStateToProps = state => {
+    return {
+        pageType: state.bookingReducer.pageType     
+    }
+  }
+
+export default connect(mapStateToProps)(CookerPage);

@@ -1,23 +1,22 @@
 import React from 'react';
-import _ from 'lodash';
+import { connect } from "react-redux";
 import WidgetOrder from '../components/WidgetOrder';
 import WidgetListOrder from '../components/WidgetListOrder';
+import {bookingActions} from '../actions/booking.actions';
 import $ from 'jquery';
+import _ from 'lodash';
 
 class OrderPage extends React.Component {
     constructor(props) {
         super(props);   
         this.toggleList = this.toggleList.bind(this);    
-        this.handlePageType = this.handlePageType.bind(this);    
         this.state = {
-            isShown: false,
-            pageType: 'order'
+            isShown: false
         } 
-    }
-    handlePageType(type){
-        this.setState({
-            pageType: type
-        });
+    }    
+    componentWillMount(){
+        if (_.isNull(this.props.pageType) || _.isUndefined(this.props.pageType))
+            this.props.dispatch(bookingActions.setPageType('order'));        
     }
     toggleList(){
         this.setState({ isShown: !this.state.isShown });  
@@ -32,7 +31,6 @@ class OrderPage extends React.Component {
         }        
     }
     render(){
-        const rs = _.get(window.restaurant,'resource'); 
         return(
             <div>                
                 <div className="angle-double" onClick={this.toggleList}>
@@ -41,13 +39,20 @@ class OrderPage extends React.Component {
                     </span>                    
                 </div>
                 <div className="widget-main">
-                    <WidgetOrder pageType= {this.state.pageType}/>
+                    <WidgetOrder/>
                 </div>
                 <div className="widget-lstOrder">  
-                    {this.state.isShown ? <WidgetListOrder pageType= {this.state.pageType} handlePageType={this.handlePageType}/> : ''} 
+                    {this.state.isShown && <WidgetListOrder/>} 
                 </div>
             </div>
         )
     }
 }
-export default OrderPage
+
+const mapStateToProps = state => {
+    return {
+        pageType: state.bookingReducer.pageType     
+    }
+  }
+
+export default connect(mapStateToProps)(OrderPage);

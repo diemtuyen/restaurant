@@ -1,13 +1,11 @@
 import actionTypes from '../constants/booking.constants';
 import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
-//import { categoryService } from  '../services/category.service';
 import { foodService } from  '../services/food.service';
 import { foodGroupService } from  '../services/foodgroup.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
-import { history } from '../helpers/history';
 
 export const bookingActions = {
     getOrder,
@@ -16,7 +14,8 @@ export const bookingActions = {
     addOrder,
     getOrders,
     markDone,
-    getServed
+    getServed,
+    setPageType
 };
 function getServed() {
     return dispatch => {
@@ -70,6 +69,12 @@ function setSelectOrder(item) {
     return dispatch => {
         let action = actionTypes.SET_SELECT_ORDER;
         dispatch(success(action, item));
+    };
+}
+function setPageType(obj) {
+    return dispatch => {
+        let action = actionTypes.SET_PAGETYPE;
+        dispatch(success(action, obj));
     };
 }
 function request(user) { return { type: actionTypes.LOGIN_REQUEST, user } }
