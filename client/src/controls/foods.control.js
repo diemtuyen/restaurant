@@ -84,7 +84,6 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     textField='title'
                                     component={renderDropdownList}
                                     groupBy='groupName'
-                                    value={_.find(foods, (f) => { return f.id == fields.get(index).foodId;})}
                                     val={menuId}
                                     data={foods}/>
                                 </Col>

@@ -60,6 +60,9 @@ class WidgetOrder extends React.Component{
                 } 
             } 
             if(this.props.tables.length > 0){
+                this.setState({
+                    tableId: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id
+                });
                 this.props.dispatch(change(this.props.form, 'Table', 
                 _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
             }
@@ -96,9 +99,8 @@ class WidgetOrder extends React.Component{
                 <div className='order-food'>
                     <div className="title">
                         <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
-                        {(this.props.pageType == 'order') ?
-                            <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>:
-                            <span className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}{' '}
+                            {(this.props.pageType === 'order') && <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>}
+                            {(this.props.pageType !== 'order') && <span className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}{' '}
                                 <b>{(this.state.orderItem == null ? '' :this.state.orderItem.title )}</b></span>}
                     </div>
                     <form className='form-order' onSubmit={handleSubmit}>
@@ -107,21 +109,14 @@ class WidgetOrder extends React.Component{
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
                                     <Col sm={12} className="order-food-header-col-input">
-                                    { this.props.pageType === 'order' &&  
+                                    { this.props.pageType !== 'cooker' &&  
                                         <Field
                                         name="Table"
                                         valueField="id"
                                         textField='title'
                                         component={renderDropdownList}     
-                                        data={this.props.tables}/>}
-                                    {this.props.pageType === 'alter' &&
-                                            <Field
-                                            name="Table"
-                                            valueField="id"
-                                            textField='title'
-                                            component={renderDropdownList}                                              
-                                            data={this.props.tables}/>}
-                                    {this.props.pageType !== 'alter' && this.props.pageType !== 'order' && <span>{this.state.tableId}</span>}
+                                        data={this.props.tables}/>}                                    
+                                    {this.props.pageType === 'cooker' && <span>{this.state.tableId}</span>}
                                     </Col>
                                 </FormGroup>
                             </Col>
@@ -176,7 +171,6 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
-            currentDetails: state.bookingReducer.currentDetails,
             Details: selector(state, `Details`),
             selectOrder: state.bookingReducer.selectOrder,
             pageType: state.bookingReducer.pageType
@@ -189,7 +183,7 @@ const mapStateToProps = state => {
                 foods: state.bookingReducer.foods,
                 kinds: state.bookingReducer.kinds,
                 suggestNote: state.bookingReducer.suggestNote,
-                currentDetails: state.form.orderForm.values.Details,
+                currentDetails: (!_.isUndefined(state.form.orderForm.values) && !_.isUndefined(state.form.orderForm.values.Details)) ? state.form.orderForm.values.Details: null,
                 selectOrder: state.bookingReducer.selectOrder,
                 pageType: state.bookingReducer.pageType,
                 initialValues: {
