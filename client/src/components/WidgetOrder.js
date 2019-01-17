@@ -13,7 +13,6 @@ import 'react-widgets/dist/css/react-widgets.css';
 import {bookingActions} from '../actions/booking.actions';
 import { history } from '../helpers/history';
 
-
 class WidgetOrder extends React.Component{
     constructor(props){
         super(props);
@@ -45,12 +44,22 @@ class WidgetOrder extends React.Component{
                 this.setState({
                     orderItem: nextProps.selectOrder
                 });
-                this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
+                
+                let jsonPropsDetails = JSON.stringify(this.props.currentDetails);
+                let jsonNextSelectDetails = JSON.stringify(nextProps.selectOrder.details);
+                let jsonNextDetails = JSON.stringify(nextProps.currentDetails);
+
+                if (jsonNextDetails != jsonNextSelectDetails){
+                    this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
+                    this.props.dispatch(bookingActions.setCurrentDetails(nextProps.selectOrder.details));
+
+                    if ( !_.isUndefined(nextProps.currentDetails) && jsonPropsDetails != jsonNextDetails){
+                        this.props.dispatch(change(this.props.form, 'Details',  nextProps.currentDetails));
+                        this.props.dispatch(bookingActions.setCurrentDetails(nextProps.currentDetails));
+                    }
+                } 
             } 
             if(this.props.tables.length > 0){
-                // this.setState({
-                //     tableSelected: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})
-                // });
                 this.props.dispatch(change(this.props.form, 'Table', 
                 _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
             }
@@ -60,9 +69,14 @@ class WidgetOrder extends React.Component{
         this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
       }
     addDetail =(e)=>{
-        let Details = _.cloneDeep(this.props.Details) || [];
+        let Details;
+        if(this.props.pageType ==='order')
+            Details = _.cloneDeep(this.props.Details) || [];
+        else if (this.props.pageType === 'alter')
+            Details = _.cloneDeep(this.props.currentDetails);
         Details.push({openNote: false});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
+        this.props.dispatch(bookingActions.setCurrentDetails(Details));
     }
     fnShowNoteSuggest = (item, idx) => {
         var id = `${item}.openNote`;
@@ -156,29 +170,46 @@ class WidgetOrder extends React.Component{
 const selector = formValueSelector('orderForm');
 
 const mapStateToProps = state => {
-    if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details))
-        return {
+    if (state.bookingReducer.pageType === 'cooker'){
+        return{
             tables: state.bookingReducer.tables,
             foods: state.bookingReducer.foods,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
-            // Details: selector(state, `Details`),
-            selectOrder: state.bookingReducer.selectOrder,
-            pageType: state.bookingReducer.pageType,
-            initialValues: {
-                Details: state.bookingReducer.selectOrder.details
-            }
-        } 
-    else
-        return {
-            tables: state.bookingReducer.tables,
-            foods: state.bookingReducer.foods,
-            kinds: state.bookingReducer.kinds,
-            suggestNote: state.bookingReducer.suggestNote,
+            currentDetails: state.bookingReducer.currentDetails,
             Details: selector(state, `Details`),
             selectOrder: state.bookingReducer.selectOrder,
             pageType: state.bookingReducer.pageType
-        } 
+        }
+    }
+    else {
+        if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details)){
+            return {
+                tables: state.bookingReducer.tables,
+                foods: state.bookingReducer.foods,
+                kinds: state.bookingReducer.kinds,
+                suggestNote: state.bookingReducer.suggestNote,
+                currentDetails: state.form.orderForm.values.Details,
+                selectOrder: state.bookingReducer.selectOrder,
+                pageType: state.bookingReducer.pageType,
+                initialValues: {
+                    Details: state.bookingReducer.selectOrder.details
+                }
+            } 
+        }
+        else{
+            return {
+                tables: state.bookingReducer.tables,
+                foods: state.bookingReducer.foods,
+                kinds: state.bookingReducer.kinds,
+                suggestNote: state.bookingReducer.suggestNote,
+                currentDetails: state.bookingReducer.currentDetails,
+                Details: selector(state, `Details`),
+                selectOrder: state.bookingReducer.selectOrder,
+                pageType: state.bookingReducer.pageType
+            } 
+        }
+    }    
 }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
