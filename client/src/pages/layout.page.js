@@ -29,10 +29,10 @@ export default class Layout extends React.Component {
         this.setState({ isShown: !this.state.isShown });  
 
         if(this.state.isShown){
-            $(".sidebar").css({"width": "60px"}); 
+            $("#layout.sidebar").css({"width": "60px"}); 
             $(".content").css({"width": "calc(100% - 60px)"}); 
         } else {
-            $(".sidebar").css({"width": "220px"}); 
+            $("#layout.sidebar").css({"width": "220px"}); 
             $(".content").css({"width": "calc(100% - 220px)"});      
         }
     }
@@ -117,7 +117,7 @@ export default class Layout extends React.Component {
                 </div>
                 <div style={{minHeight: this.state.height, borderBottom: '1px solid #f5f5f5'}}>
                     <div>
-                        <div className="sidebar">                        
+                        <div id="layout" className="sidebar">                        
                             <Nav vertical>
                                 <NavItem>
                                     <NavLink className="arrows-alt-menu" onClick={this.toggleMenu}>
