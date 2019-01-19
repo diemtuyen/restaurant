@@ -96,11 +96,11 @@ export function bookingReducer(state = initialState, action) {
       updated.orders =_.filter(updated.orders, { 'statusId': 1 });
       // if (_.isUndefined(action.obj))
       //   window.location.reload();
-      if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder)) && action.obj.length>0){
-        updated = Object.assign(updated, {
-          selectOrder: updated.orders[0]
-        });
-      }
+      // if((_.isUndefined(updated.selectOrder) || _.isNull(updated.selectOrder)) && action.obj.length>0){
+      //   updated = Object.assign(updated, {
+      //     selectOrder: updated.orders[0]
+      //   });
+      // }
       return updated;
       //return Object.assign(state, {orders: action.obj});
     case bookingActionType.GET_ORDER:

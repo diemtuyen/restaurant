@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {compose} from 'redux';
 import {Link} from 'react-router-dom';
 import commonWrapped from '../hocs/hocs.common';
+import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
 
 class WidgetListOrder extends React.Component {
@@ -11,15 +12,24 @@ class WidgetListOrder extends React.Component {
     this.handleClick = this.handleClick.bind(this);    
   }
   handleClick(item){
-    this.props.dispatch(bookingActions.setSelectOrder(item));
     if (this.props.pageType === 'order')
       this.props.dispatch(bookingActions.setPageType('alter'));
+    if( _.isNull(this.props.selectOrder) || (!_.isNull(this.props.selectOrder) && item.id != this.props.selectOrder.id)){
+      this.props.dispatch(bookingActions.setSelectOrder(item));
+    }
   }
   componentDidMount(){ 
     this.props.dispatch(bookingActions.getOrders());
   }
+  componentWillReceiveProps(nextProps){
+    if(this.props.pageType === 'cooker' && this.props.orders.length == 0 && nextProps.orders.length > 0)
+      this.props.dispatch(bookingActions.setSelectOrder(nextProps.orders[0])); 
+    if( !_.isNull(nextProps.selectOrder) && !_.isUndefined(nextProps.selectOrder) && _.isNull(nextProps.selectOrder.details)){
+      this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));     
+    }    
+  }
   render(){
-    if (this.props.orders == undefined)
+    if (this.props.orders.length <= 0)
       return(
         <p> No items </p>
       )
@@ -40,7 +50,8 @@ class WidgetListOrder extends React.Component {
 const mapStateToProps = state => {
   return {
       orders: state.bookingReducer.orders,    
-      pageType: state.bookingReducer.pageType     
+      pageType: state.bookingReducer.pageType,
+      selectOrder: state.bookingReducer.selectOrder    
   }
 }
 export default compose(

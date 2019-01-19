@@ -15,7 +15,7 @@ class OrderPage extends React.Component {
         } 
     }    
     componentWillMount(){
-        if (_.isNull(this.props.pageType) || _.isUndefined(this.props.pageType))
+        if (_.isNull(this.props.pageType))
             this.props.dispatch(bookingActions.setPageType('order'));        
     }
     toggleList(){

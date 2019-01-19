@@ -17,9 +17,7 @@ class WidgetOrder extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            openNoteSuggest:false,
-            orderItem: null,
-            tableId: null
+            openNoteSuggest:false
         }
         this.addDetail = this.addDetail.bind(this);
         this.handleClick = this.handleClick.bind(this); 
@@ -36,7 +34,12 @@ class WidgetOrder extends React.Component{
         this.props.dispatch(bookingActions.getCategories());
     }
     componentWillReceiveProps(nextProps){
-        if (this.props.pageType === 'cooker' || nextProps.pageType ==='alter'){ 
+        // console.log(nextProps.selectOrder);
+        // console.log(this.props.selectOrder);
+        // if ( !_.isUndefined(nextProps.currentDetails) && !_.isNull(nextProps.currentDetails)){
+        //     this.props.dispatch(change(this.props.form, 'Details',  nextProps.currentDetails));
+        // }
+        /*if (this.props.pageType === 'cooker' || nextProps.pageType ==='alter'){ 
             if( !_.isNull(nextProps.selectOrder)){
                 this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));
             }
@@ -76,20 +79,16 @@ class WidgetOrder extends React.Component{
                 }
                 
             }
-        }          
+        }   */       
     }
     markDone() {
         this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
       }
     addDetail =(e)=>{
         let Details;
-        if(this.props.pageType ==='order')
-            Details = _.cloneDeep(this.props.Details) || [];
-        else if (this.props.pageType === 'alter')
-            Details = _.cloneDeep(this.props.currentDetails);
+        Details = _.cloneDeep(this.props.Details) || [];
         Details.push({openNote: false});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
-        this.props.dispatch(bookingActions.setCurrentDetails(Details));
     }
     fnShowNoteSuggest = (item, idx) => {
         var id = `${item}.openNote`;
@@ -111,7 +110,7 @@ class WidgetOrder extends React.Component{
                         <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
                             {(this.props.pageType === 'order') && <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>}
                             {(this.props.pageType !== 'order') && <span className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}{' '}
-                                <b>{(this.state.orderItem == null ? '' :this.state.orderItem.title )}</b></span>}
+                                <b>{this.props.title}</b></span>}
                     </div>
                     <form className='form-order' onSubmit={handleSubmit}>
                         <Row className="order-food-header">
@@ -126,7 +125,7 @@ class WidgetOrder extends React.Component{
                                         textField='title'
                                         component={renderDropdownList}     
                                         data={this.props.tables}/>}                                    
-                                    {this.props.pageType === 'cooker' && <span>{this.state.tableId}</span>}
+                                    {this.props.pageType === 'cooker' && <span>{this.props.Table}</span>}
                                     </Col>
                                 </FormGroup>
                             </Col>
@@ -176,50 +175,32 @@ class WidgetOrder extends React.Component{
 const selector = formValueSelector('orderForm');
 
 const mapStateToProps = state => {
-    if (state.bookingReducer.pageType === 'cooker'){
-        return{
+    
+    if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details)){
+        return {
             tables: state.bookingReducer.tables,
             foods: state.bookingReducer.foods,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
-            Details: selector(state, `Details`),
-            selectOrder: state.bookingReducer.selectOrder,
-            pageType: state.bookingReducer.pageType
-        }
+            pageType: state.bookingReducer.pageType,
+            title: state.bookingReducer.selectOrder.title,
+            Table: state.bookingReducer.selectOrder.tableId,
+            Details: state.bookingReducer.selectOrder.details,
+            initialValues: {
+                Details: state.bookingReducer.selectOrder.details,
+                Table: state.bookingReducer.selectOrder.tableId,
+            }                
+        } 
     }
-    else {
-        if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details)){
-            return {
-                tables: state.bookingReducer.tables,
-                foods: state.bookingReducer.foods,
-                kinds: state.bookingReducer.kinds,
-                suggestNote: state.bookingReducer.suggestNote,
-                currentDetails: (!_.isUndefined(state.form.orderForm.values) && !_.isUndefined(state.form.orderForm.values.Details)) ? state.form.orderForm.values.Details: null,
-                currentTable: (!_.isUndefined(state.form.orderForm.values) && !_.isUndefined(state.form.orderForm.values.Table)) ? selector(state, `Table`).id: null,
-                selectOrder: state.bookingReducer.selectOrder,
-                valuesTable: selector(state, 'Table'),
-                valuesDetails: selector(state, 'Details'),
-                pageType: state.bookingReducer.pageType
-                // initialValues: {
-                //     Details: state.bookingReducer.selectOrder.details
-                // }
-            } 
-        }
-        else{
-            return {
-                tables: state.bookingReducer.tables,
-                foods: state.bookingReducer.foods,
-                kinds: state.bookingReducer.kinds,
-                suggestNote: state.bookingReducer.suggestNote,
-                currentDetails: state.bookingReducer.currentDetails,
-                valuesTable: selector(state, 'Table'),
-                valuesDetails: selector(state, 'Details'),
-                Details: selector(state, `Details`),
-                selectOrder: state.bookingReducer.selectOrder,
-                pageType: state.bookingReducer.pageType
-            } 
-        }
-    }    
+    else{
+        return {
+            tables: state.bookingReducer.tables,
+            foods: state.bookingReducer.foods,
+            kinds: state.bookingReducer.kinds,
+            suggestNote: state.bookingReducer.suggestNote,
+            pageType: state.bookingReducer.pageType
+        } 
+    }
 }
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
@@ -237,7 +218,8 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     reduxForm({
-        form: 'orderForm'
+        form: 'orderForm',
+        enableReinitialize: true
     }),
     commonWrapped()
   )(WidgetOrder);
