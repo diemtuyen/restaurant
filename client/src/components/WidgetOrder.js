@@ -40,7 +40,7 @@ class WidgetOrder extends React.Component{
             if( !_.isNull(nextProps.selectOrder)){
                 this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));
             }
-            if(!_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){
+            if(!_.isNull(nextProps.selectOrder) && !_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){
                 this.setState({
                     orderItem: nextProps.selectOrder
                 });
@@ -49,6 +49,7 @@ class WidgetOrder extends React.Component{
                 let jsonNextSelectDetails = JSON.stringify(nextProps.selectOrder.details);
                 let jsonNextDetails = JSON.stringify(nextProps.currentDetails);
 
+                // if (jsonNextDetails != jsonNextSelectDetails && jsonNextDetails != jsonPropsDetails){
                 if (jsonNextDetails != jsonNextSelectDetails){
                     this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
                     this.props.dispatch(bookingActions.setCurrentDetails(nextProps.selectOrder.details));
@@ -57,14 +58,23 @@ class WidgetOrder extends React.Component{
                         this.props.dispatch(change(this.props.form, 'Details',  nextProps.currentDetails));
                         this.props.dispatch(bookingActions.setCurrentDetails(nextProps.currentDetails));
                     }
-                } 
+                }                
             } 
             if(this.props.tables.length > 0){
                 this.setState({
                     tableId: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id
                 });
-                this.props.dispatch(change(this.props.form, 'Table', 
-                _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
+                if (nextProps.currentTable != nextProps.selectOrder.tableId){
+                // if (nextProps.currentTable != nextProps.selectOrder.tableId && nextProps.currentTable !== this.props.currentTable){
+                    this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
+                    this.props.dispatch(bookingActions.setCurrentTable(nextProps.selectOrder.tableId));
+
+                    if(!_.isUndefined(nextProps.currentTable) && nextProps.currentTable !== this.props.currentTable){
+                        this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.currentTable;})));                    
+                        this.props.dispatch(bookingActions.setCurrentTable(nextProps.currentTable));
+                    }
+                }
+                
             }
         }          
     }
@@ -153,7 +163,8 @@ class WidgetOrder extends React.Component{
                             fnAddSuggestNote={this.fnAddSuggestNote}/>
                             
                         <div className="alignR submit">
-                            {this.props.pageType !== 'cooker' && <Button type="submit" disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType === 'order' && <Button type="submit" disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType === 'alter' && <Button type="submit" disabled={pristine  || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                         </div>
                     </form> 
@@ -184,11 +195,14 @@ const mapStateToProps = state => {
                 kinds: state.bookingReducer.kinds,
                 suggestNote: state.bookingReducer.suggestNote,
                 currentDetails: (!_.isUndefined(state.form.orderForm.values) && !_.isUndefined(state.form.orderForm.values.Details)) ? state.form.orderForm.values.Details: null,
+                currentTable: (!_.isUndefined(state.form.orderForm.values) && !_.isUndefined(state.form.orderForm.values.Table)) ? selector(state, `Table`).id: null,
                 selectOrder: state.bookingReducer.selectOrder,
-                pageType: state.bookingReducer.pageType,
-                initialValues: {
-                    Details: state.bookingReducer.selectOrder.details
-                }
+                valuesTable: selector(state, 'Table'),
+                valuesDetails: selector(state, 'Details'),
+                pageType: state.bookingReducer.pageType
+                // initialValues: {
+                //     Details: state.bookingReducer.selectOrder.details
+                // }
             } 
         }
         else{
@@ -198,6 +212,8 @@ const mapStateToProps = state => {
                 kinds: state.bookingReducer.kinds,
                 suggestNote: state.bookingReducer.suggestNote,
                 currentDetails: state.bookingReducer.currentDetails,
+                valuesTable: selector(state, 'Table'),
+                valuesDetails: selector(state, 'Details'),
                 Details: selector(state, `Details`),
                 selectOrder: state.bookingReducer.selectOrder,
                 pageType: state.bookingReducer.pageType
