@@ -34,52 +34,10 @@ class WidgetOrder extends React.Component{
         this.props.dispatch(bookingActions.getCategories());
     }
     componentWillReceiveProps(nextProps){
-        // console.log(nextProps.selectOrder);
-        // console.log(this.props.selectOrder);
-        // if ( !_.isUndefined(nextProps.currentDetails) && !_.isNull(nextProps.currentDetails)){
-        //     this.props.dispatch(change(this.props.form, 'Details',  nextProps.currentDetails));
-        // }
-        /*if (this.props.pageType === 'cooker' || nextProps.pageType ==='alter'){ 
-            if( !_.isNull(nextProps.selectOrder)){
-                this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));
-            }
-            if(!_.isNull(nextProps.selectOrder) && !_.isUndefined(nextProps.selectOrder.details) && !_.isNull(nextProps.selectOrder.details)){
-                this.setState({
-                    orderItem: nextProps.selectOrder
-                });
-                
-                let jsonPropsDetails = JSON.stringify(this.props.currentDetails);
-                let jsonNextSelectDetails = JSON.stringify(nextProps.selectOrder.details);
-                let jsonNextDetails = JSON.stringify(nextProps.currentDetails);
-
-                // if (jsonNextDetails != jsonNextSelectDetails && jsonNextDetails != jsonPropsDetails){
-                if (jsonNextDetails != jsonNextSelectDetails){
-                    this.props.dispatch(change(this.props.form, 'Details',  nextProps.selectOrder.details));
-                    this.props.dispatch(bookingActions.setCurrentDetails(nextProps.selectOrder.details));
-
-                    if ( !_.isUndefined(nextProps.currentDetails) && jsonPropsDetails != jsonNextDetails){
-                        this.props.dispatch(change(this.props.form, 'Details',  nextProps.currentDetails));
-                        this.props.dispatch(bookingActions.setCurrentDetails(nextProps.currentDetails));
-                    }
-                }                
-            } 
-            if(this.props.tables.length > 0){
-                this.setState({
-                    tableId: _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;}).id
-                });
-                if (nextProps.currentTable != nextProps.selectOrder.tableId){
-                // if (nextProps.currentTable != nextProps.selectOrder.tableId && nextProps.currentTable !== this.props.currentTable){
-                    this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.selectOrder.tableId;})));
-                    this.props.dispatch(bookingActions.setCurrentTable(nextProps.selectOrder.tableId));
-
-                    if(!_.isUndefined(nextProps.currentTable) && nextProps.currentTable !== this.props.currentTable){
-                        this.props.dispatch(change(this.props.form, 'Table', _.find(this.props.tables, (table) => { return table.id == nextProps.currentTable;})));                    
-                        this.props.dispatch(bookingActions.setCurrentTable(nextProps.currentTable));
-                    }
-                }
-                
-            }
-        }   */       
+        if( this.props.initialized && !nextProps.initialized){
+            this.props.dispatch(change(this.props.form, 'Details',  this.props.Details));
+            this.props.dispatch(change(this.props.form, 'Table',  this.props.Table));
+        }   
     }
     markDone() {
         this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
