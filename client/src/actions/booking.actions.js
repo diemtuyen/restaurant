@@ -15,9 +15,7 @@ export const bookingActions = {
     getOrders,
     markDone,
     getServed,
-    setPageType,
-    setCurrentDetails,
-    setCurrentTable
+    setPageType
 };
 function getServed() {
     return dispatch => {
@@ -76,18 +74,6 @@ function setSelectOrder(item) {
 function setPageType(obj) {
     return dispatch => {
         let action = actionTypes.SET_PAGETYPE;
-        dispatch(success(action, obj));
-    };
-}
-function setCurrentDetails(obj) {
-    return dispatch => {
-        let action = actionTypes.SET_CURRENT_DETAILS;
-        dispatch(success(action, obj));
-    };
-}
-function setCurrentTable(obj) {
-    return dispatch => {
-        let action = actionTypes.SET_CURRENT_TABLE;
         dispatch(success(action, obj));
     };
 }

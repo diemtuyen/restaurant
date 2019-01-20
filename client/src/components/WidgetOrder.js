@@ -44,7 +44,7 @@ class WidgetOrder extends React.Component{
       }
     addDetail =(e)=>{
         let Details;
-        Details = _.cloneDeep(this.props.Details) || [];
+        Details = _.cloneDeep(this.props.tempDetails) || [];
         Details.push({openNote: false});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
     }
@@ -144,6 +144,7 @@ const mapStateToProps = state => {
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
             Details: state.bookingReducer.selectOrder.details,
+            tempDetails: selector(state, 'Details'),
             initialValues: {
                 Details: state.bookingReducer.selectOrder.details,
                 Table: state.bookingReducer.selectOrder.tableId,

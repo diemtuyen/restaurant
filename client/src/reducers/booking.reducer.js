@@ -126,18 +126,6 @@ export function bookingReducer(state = initialState, action) {
         pageType: action.obj
       });
       return stateClone;
-    case bookingActionType.SET_CURRENT_DETAILS:
-      stateClone = _.cloneDeep(state);
-      stateClone = Object.assign(stateClone, {
-        currentDetails: action.obj
-      });
-      return stateClone;
-    case bookingActionType.SET_CURRENT_TABLE:
-      stateClone = _.cloneDeep(state);
-      stateClone = Object.assign(stateClone, {
-        currentTable: action.obj
-      });
-      return stateClone;
     default:
       return state
   }
