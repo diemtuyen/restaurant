@@ -31,6 +31,10 @@ export function bookingReducer(state = initialState, action) {
       stateClone.orders =  Object.assign([], state.orders);
       stateClone.orders.push(action.obj);
       return stateClone;
+    case bookingActionType.UPDATE_ORDER:
+      stateClone.orders =  Object.assign([], state.orders);
+      stateClone.orders.push(action.obj);
+      return stateClone;
     case bookingActionType.TABLE_ADD_NEW:
       stateClone = _.cloneDeep(state);
       stateClone.tables.push(action.obj);
@@ -67,7 +71,7 @@ export function bookingReducer(state = initialState, action) {
           ...itm,
           newId: itm.id,
           groupId: 1,
-          group:'B? th�m'
+          group:'Cho them'
         }
       });
       const n = suggestNote.length+1;
@@ -76,7 +80,7 @@ export function bookingReducer(state = initialState, action) {
             ...itm,
             newId: n + itm.id,
             groupId: 2,
-            group: 'Kh�ng th�m'
+            group: 'Khong cho'
           }
       }));
       return Object.assign(state,{

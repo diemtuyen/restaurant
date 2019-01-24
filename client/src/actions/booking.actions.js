@@ -12,6 +12,7 @@ export const bookingActions = {
     setSelectOrder,
     getCategories,
     addOrder,
+    updateOrder,
     getOrders,
     markDone,
     getServed,
@@ -117,6 +118,20 @@ function addOrder(orderObj) {
     return dispatch => {
         let action = actionTypes.ADD_ORDER;
         bookingService.addOrder(orderObj)
+            .then(
+                obj => {
+                    dispatch(successOrder(action, orderObj));
+                },
+                error => {
+                    console.log('fail');
+                }
+            );
+    };
+}
+function updateOrder(orderObj) {
+    return dispatch => {
+        let action = actionTypes.UPDATE_ORDER;
+        bookingService.updateOrder(orderObj)
             .then(
                 obj => {
                     dispatch(successOrder(action, orderObj));

@@ -20,13 +20,13 @@ class WidgetOrder extends React.Component{
             openNoteSuggest:false
         }
         this.addDetail = this.addDetail.bind(this);
-        this.handleClick = this.handleClick.bind(this); 
+        this.handleEditOrder = this.handleEditOrder.bind(this); 
         this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
         this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
         this.markDone = this.markDone.bind(this);
 
     }
-    handleClick(){
+    handleEditOrder(){
         this.props.dispatch(bookingActions.setPageType('alter'));
         history.push('/order');
     }
@@ -106,7 +106,7 @@ class WidgetOrder extends React.Component{
                                 </FormGroup>
                             </Col>
                             {this.props.pageType !=='cooker'&&<Col xs={2}><Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
-                            {this.props.pageType ==='cooker'&&<Col xs={2}><Button type="button" onClick={this.handleClick}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
+                            {this.props.pageType ==='cooker'&&<Col xs={2}><Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
                             rs={rs}
@@ -120,8 +120,7 @@ class WidgetOrder extends React.Component{
                             fnAddSuggestNote={this.fnAddSuggestNote}/>
                             
                         <div className="alignR submit">
-                            {this.props.pageType === 'order' && <Button type="submit" disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
-                            {this.props.pageType === 'alter' && <Button type="submit" disabled={pristine  || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType !== 'cooker' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                         </div>
                     </form> 
@@ -157,7 +156,9 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
-            pageType: state.bookingReducer.pageType
+            pageType: state.bookingReducer.pageType,
+            tempDetails: selector(state, 'Details'),
+            Details: selector(state, 'Details'),
         } 
     }
 }
@@ -170,9 +171,11 @@ const mapDispatchToProps = dispatch => ({
         i.JsonExcept = JSON.stringify(i.JsonExcept);
         i.JsonUtility = JSON.stringify(i.JsonUtility);
     });
-    dispatch(bookingActions.addOrder(jsonOrder));
-  }
-    
+    if(this.pageType === 'order')
+        dispatch(bookingActions.addOrder(jsonOrder));
+    else
+        dispatch(bookingActions.updateOrder(jsonOrder));
+  }    
 });
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

@@ -52,6 +52,14 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
+                var addSelect = false;
+                var textNote;
+                if(!openNote){
+                    textNote = fields.get(index).note;
+                    if (textNote!= null && textNote != undefined && _.findIndex(selectedNote, (n) => { return n.title == textNote;}) == -1){
+                        addSelect = true;
+                    }
+                }
                 let menuId, kindId,countId;
                 if (pageType === 'alter'){
                     if (foods.length > 0 && !_.isUndefined(fields.get(index).foodId)){
@@ -111,16 +119,16 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <Row className="row-note">
                                 <Col md={12}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.note`)}</label>{' '}
-                                    {!openNote && <Field
+                                    {openNote && <Field
                                         className='res-input'
                                         name={`${food}.note`}
                                         type='textarea'
                                         component={renderInput}
                                     />}
-                                    {openNote && <Multiselect
+                                    {!openNote && <Multiselect
                                         className='suggestion-note'
                                         name={`${food}.noteSuggestion`}
-                                        open={openNote}
+                                        // open={openNote}
                                         data={suggestNote}
                                         valueField='newId'
                                         textField='title'
@@ -128,8 +136,8 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                         onChange={value => {
                                             fnAddSuggestNote(food, index, value);
                                         }}
-                                        value={selectedNote}
-                                        onToggle={()=>fnShowNoteSuggest(food, index)}
+                                        value={addSelect? selectedNote.concat({title: textNote}) :selectedNote}
+                                        // onToggle={()=>fnShowNoteSuggest(food, index)}
                                     />}
                                     <Button
                                         className='bt-suggestion-note'

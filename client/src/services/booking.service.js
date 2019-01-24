@@ -4,6 +4,7 @@ import ApiEndpoints from '../constants/ApiEndpoints';
 export const bookingService = {
     getOrder,
     addOrder,
+    updateOrder,
     getItems,
     getServed,
     markDone
@@ -52,6 +53,17 @@ function addOrder(orderOjb) {
     return new Promise((resolve, reject) => {
         axios.post(url, orderOjb).then(res=>{
             console.log('aaaaaaaaaaa ' + res.data.content);
+            resolve(res.data.content);
+        },e=>{
+            reject(e);
+        });
+    });
+}
+function updateOrder(orderOjb) {
+    let url = `${config.apiUrl}/${ApiEndpoints.order}`;
+    return new Promise((resolve, reject) => {
+        axios.post(url, orderOjb).then(res=>{
+            console.log('updateeeeeeeee ' + res.data.content);
             resolve(res.data.content);
         },e=>{
             reject(e);

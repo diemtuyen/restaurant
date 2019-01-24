@@ -11,8 +11,8 @@ body,html{
     color: $font;
     .row {
         margin:{
-			right:0;
-			left: 0;
+            right:0;
+            left: 0;
 		}
     } 
     .navbar{
@@ -165,6 +165,10 @@ body,html{
     .rw-multiselect{
         .rw-input-reset{
             height: 28px;
+        }
+        .rw-popup-container{
+            padding-left: 80px; 
+            padding-right: 80px
         }
     }
     .rw-widget-input{
