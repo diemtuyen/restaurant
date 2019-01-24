@@ -318,6 +318,11 @@ body,html{
             margin-bottom: 0;
             margin-top: 2.5px;
         }
+        .groupDrink{
+            ul{
+                margin-top: 0px;
+            }
+        }
         .title{
             border-bottom: 1px solid $line-gray;
             position: relative;
@@ -375,7 +380,12 @@ body,html{
                 }
             }
         }
-        .action{text-align: right;}
+        .action{
+            text-align: right;
+            > label {
+                margin-right: 50px;
+            }
+        }
         input.form-control{border-radius: 0}
         .submit{
             height: 35px;

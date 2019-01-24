@@ -10,9 +10,7 @@ var initialState = {
   orders:[],
   served:[],
   selectOrder: null,
-  pageType: null,
-  currentTable: null,
-  currentDetails: null
+  pageType: null
 }
 
 export function bookingReducer(state = initialState, action) {

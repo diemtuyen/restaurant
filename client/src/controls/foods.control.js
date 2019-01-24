@@ -5,7 +5,7 @@ import renderInput from '../controls/input.control';
 import renderMultiselect from '../controls/multiselect.control';
 import renderDropdownList from '../controls/dropdown.control';
 import {required} from '../controls/FieldValidations';
-import { Row, Col, Button } from 'reactstrap';
+import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import { Field} from 'redux-form';
 import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
@@ -75,6 +75,14 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                     <div className="panel">
                         <div className="panel-child">
                             <div className="action">
+                                <Label takeAway>                               
+                                    <Field
+                                        name={`${food}.takeAway`}
+                                        id="takeAway"
+                                        component="input"
+                                        type="checkbox" />
+                                        {' '}{_.get(rs, `widgetOrder.${pageType}.takeAway`)}
+                                </Label>
                                 <Button
                                     type="button"
                                     title="Remove Food"
@@ -119,13 +127,19 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <Row className="row-note">
                                 <Col md={12}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.note`)}</label>{' '}
-                                    {openNote && <Field
+                                    {pageType == 'order' && openNote && <Field
                                         className='res-input'
                                         name={`${food}.note`}
                                         type='textarea'
                                         component={renderInput}
                                     />}
-                                    {!openNote && <Multiselect
+                                    {pageType == 'alter' && <Field
+                                        className='res-input'
+                                        name={`${food}.note`}
+                                        type='textarea'
+                                        component={renderInput}
+                                    />}
+                                    {pageType == 'order' && !openNote && <Multiselect
                                         className='suggestion-note'
                                         name={`${food}.noteSuggestion`}
                                         // open={openNote}

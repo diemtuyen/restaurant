@@ -1,14 +1,14 @@
 import React from 'react';
 import {compose} from 'redux';
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
 import commonWrapped from '../hocs/hocs.common';
 import $ from 'jquery';
 import _ from 'lodash';
-import { formValueSelector, Field, FieldArray, reduxForm, change } from 'redux-form';
+import { formValueSelector, Field, FieldArray, reduxForm, change, reset } from 'redux-form';
 import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import renderDropdownList from '../controls/dropdown.control';
 import renderFoods from '../controls/foods.control';
+import renderDrink from '../controls/drink.control';
 import 'react-widgets/dist/css/react-widgets.css';
 import {bookingActions} from '../actions/booking.actions';
 import { history } from '../helpers/history';
@@ -42,11 +42,17 @@ class WidgetOrder extends React.Component{
     markDone() {
         this.props.dispatch(bookingActions.markDone(this.props.selectOrder));  
       }
-    addDetail =(e)=>{
+    addDetail = () =>{
         let Details;
         Details = _.cloneDeep(this.props.tempDetails) || [];
         Details.push({openNote: false});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
+    }
+    addDrink = () =>{
+        let Drinks;
+        Drinks = _.cloneDeep(this.props.tempDetails) || [];
+        Drinks.push({});
+        this.props.dispatch(change(this.props.form, 'Drinks',  Drinks));
     }
     fnShowNoteSuggest = (item, idx) => {
         var id = `${item}.openNote`;
@@ -56,11 +62,11 @@ class WidgetOrder extends React.Component{
     fnAddSuggestNote = (food, index, value)=>{
         let item = _.cloneDeep( _.get(this.props, food)) || {};
         item.selectedNote = value;
-        this.props.dispatch(change(this.props.form, food, {...item, refresh: new Date().toString()}));
+        this.props.dispatch(change(this.props.form, food, {...item}));
     }
     render(){
         const rs = _.get(window.restaurant,'resource');
-        const {handleSubmit, pristine, reset, submitting } = this.props;
+        const {handleSubmit, pristine, submitting } = this.props;
         return(
             <div className="order-food-form">
                 <div className='order-food'>
@@ -87,26 +93,17 @@ class WidgetOrder extends React.Component{
                                     </Col>
                                 </FormGroup>
                             </Col>
-                            <Col xs={2}>
-                                <FormGroup takeAway>
-                                    <Label takeAway>
-                                    {(this.props.pageType == 'order') ?
-                                    <Field
-                                        name="takeAway"
-                                        id="takeAway"
-                                        component="input"
-                                        type="checkbox" /> :
-                                    <Field
-                                        name="takeAway"
-                                        id="takeAway"
-                                        component="input"
-                                        type="checkbox" />}
-                                        {' '}{_.get(rs, `widgetOrder.${this.props.pageType}.takeAway`)}
-                                    </Label>
-                                </FormGroup>
-                            </Col>
-                            {this.props.pageType !=='cooker'&&<Col xs={2}><Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
-                            {this.props.pageType ==='cooker'&&<Col xs={2}><Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
+                            {this.props.pageType !=='cooker'&&
+                                <Col xs={{ size: 2, offset: 2 }}>
+                                    <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}
+                                    </Button>
+                                </Col>}
+                            {this.props.pageType !=='cooker'&&                            
+                                <Col xs={{ size: 2, offset: 1 }}>
+                                    <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}
+                                    </Button>
+                                </Col>}
+                            {this.props.pageType ==='cooker'&&<Col xs={{ size: 2, offset: 3 }}><Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
                             rs={rs}
@@ -115,10 +112,13 @@ class WidgetOrder extends React.Component{
                             kinds={this.props.kinds} 
                             foods={this.props.foods} 
                             suggestNote={this.props.suggestNote}
-                            utilities={this.props.utilities}
                             fnShowNoteSuggest={this.fnShowNoteSuggest}
                             fnAddSuggestNote={this.fnAddSuggestNote}/>
-                            
+                        <FieldArray name="Drinks" 
+                            rs={rs}
+                            pageType={this.props.pageType}
+                            component={renderDrink} 
+                            utilities={this.props.utilities}/>    
                         <div className="alignR submit">
                             {this.props.pageType !== 'cooker' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
@@ -163,19 +163,29 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = dispatch => ({
-  onSubmit: values => {
-    let title = Date.now().toString();
-    const fields = {Title: title, Status: { Title: 'Order', id: '1' }};
-    const jsonOrder = Object.assign({}, values, fields);
-    _.forEach(jsonOrder.Details, (i) => {
-        i.JsonExcept = JSON.stringify(i.JsonExcept);
-        i.JsonUtility = JSON.stringify(i.JsonUtility);
-    });
-    if(this.pageType === 'order')
-        dispatch(bookingActions.addOrder(jsonOrder));
-    else
-        dispatch(bookingActions.updateOrder(jsonOrder));
-  }    
+    onSubmit: values => {
+        let title = Date.now().toString();
+        const fields = {Title: title, Status: { Title: 'Order', id: '1' }};
+        const jsonOrder = Object.assign({}, values, fields);
+        _.forEach(jsonOrder.Details, (i) => {
+            i.foodId = i.foodId.id;
+            i.kindId = i.kindId.id;
+            var txtNote = '';
+            _.forEach(i.selectedNote, (j) => {
+                txtNote += ` -- ` + j.title;           
+            });
+            if (i.note != null && i.note != undefined)
+                txtNote += ` (` + i.note + `)`;
+            i.note = txtNote;
+            delete i.selectedNote;
+            delete i.openNote;
+        });
+        if (this.pageType == 'alter')
+            dispatch(bookingActions.updateOrder(jsonOrder));
+        else
+            dispatch(bookingActions.addOrder(jsonOrder));
+        dispatch(reset('orderForm'));
+    }    
 });
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
