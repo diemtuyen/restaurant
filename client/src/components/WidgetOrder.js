@@ -120,7 +120,8 @@ class WidgetOrder extends React.Component{
                             component={renderDrink} 
                             utilities={this.props.utilities}/>    
                         <div className="alignR submit">
-                            {this.props.pageType !== 'cooker' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                            {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                         </div>
                     </form> 
@@ -180,9 +181,9 @@ const mapDispatchToProps = dispatch => ({
             delete i.selectedNote;
             delete i.openNote;
         });
-        if (this.pageType == 'alter')
+        if (values.type == 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));
-        else
+        if (values.type == 'order')
             dispatch(bookingActions.addOrder(jsonOrder));
         dispatch(reset('orderForm'));
     }    

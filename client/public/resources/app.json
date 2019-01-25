@@ -24,8 +24,10 @@
             "takeAway": "Mang về",
             "submit": "Order",
             "addFood": "Add Food",
+            "addDrink": "Add Drink",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
+            "menuDrink": "Nuoc uong",
             "type": "Loại",
             "sum": "Số lượng",
             "note": "Ghi chú"
@@ -37,8 +39,10 @@
             "takeAway": "Mang về",
             "submit": "Ok",
             "addFood": "Add Food",
+            "addDrink": "Add Drink",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
+            "menuDrink": "Nuoc uong",
             "type": "Loại",
             "sum": "Số lượng",
             "note": "Ghi chú"
@@ -52,6 +56,7 @@
             "editOrder": "Edit",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
+            "menuDrink": "Nuoc uong",
             "type": "Loại",
             "sum": "Số lượng",
             "note": "Ghi chú"
