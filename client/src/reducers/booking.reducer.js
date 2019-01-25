@@ -4,6 +4,7 @@ import _ from 'lodash';
 var initialState = {
   tables: [],
   foods:[],
+  drinks:[],
   kinds: [],
   excepts: [],
   utilities:[],
@@ -88,6 +89,7 @@ export function bookingReducer(state = initialState, action) {
         kinds: action.obj[3],
         excepts: action.obj[4],
         utilities: action.obj[5],
+        drinks: action.obj[6],
         suggestNote
       });
     case bookingActionType.GET_ORDERS:

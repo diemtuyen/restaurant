@@ -3,6 +3,7 @@ import { bookingService } from  '../services/booking.service';
 import { tableService } from  '../services/table.service';
 import { foodService } from  '../services/food.service';
 import { foodGroupService } from  '../services/foodgroup.service';
+import { drinkService } from  '../services/drink.service';
 import { kindService } from  '../services/kind.service';
 import { exceptService } from  '../services/except.service';
 import { utilityService } from  '../services/utility.service';
@@ -96,7 +97,8 @@ function getCategories() {
             foodService.getItems(), 
             kindService.getItems(), 
             exceptService.getItems(), 
-            utilityService.getItems()])
+            utilityService.getItems(),
+            drinkService.getItems()])
             .then(
                 obj => {
                     dispatch(success(action, obj));

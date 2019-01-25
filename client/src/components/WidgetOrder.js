@@ -109,7 +109,7 @@ class WidgetOrder extends React.Component{
                             rs={rs}
                             pageType={this.props.pageType}
                             component={renderDrink} 
-                            utilities={this.props.utilities}/>    
+                            drinks={this.props.drinks}/>    
                         <div className="alignR submit">
                             {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
@@ -129,6 +129,7 @@ const mapStateToProps = state => {
         return {
             tables: state.bookingReducer.tables,
             foods: state.bookingReducer.foods,
+            drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
@@ -147,6 +148,7 @@ const mapStateToProps = state => {
         return {
             tables: state.bookingReducer.tables,
             foods: state.bookingReducer.foods,
+            drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
@@ -173,6 +175,10 @@ const mapDispatchToProps = dispatch => ({
             i.note = txtNote;
             delete i.selectedNote;
             delete i.openNote;
+        });
+        _.forEach(jsonOrder.Drinks, (i) => {
+            i.drinkId = i.drinkId.id;
+            i.kindId = 0;            
         });
         if (values.type == 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));

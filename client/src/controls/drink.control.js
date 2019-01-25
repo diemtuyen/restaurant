@@ -1,15 +1,11 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {FieldProps} from './FieldProps';
 import {withInputError} from './hocs.control';
-import renderInput from '../controls/input.control'; 
-import renderMultiselect from '../controls/multiselect.control';
 import renderDropdownList from '../controls/dropdown.control';
-import {required} from '../controls/FieldValidations';
-import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 import { Field} from 'redux-form';
-import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-const renderDrink = ({rs, pageType, utilities, fields}) =>
+const renderDrink = ({rs, pageType, drinks, fields}) =>
 {
     const _renderDisplay = () =>{
         return(
@@ -22,7 +18,7 @@ const renderDrink = ({rs, pageType, utilities, fields}) =>
                             <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
-                                <span>{_.find(utilities, (f) => { return f.id == fields.get(index).drinkId;}).title}</span>
+                                <span>{_.find(drinks, (f) => { return f.id == fields.get(index).drinkId;}).title}</span>
                                 </Col>                                
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
@@ -45,11 +41,11 @@ const renderDrink = ({rs, pageType, utilities, fields}) =>
     const _renderEdit = ()=>{
         return(
         <ul className="lstFood">            
-            {fields.map((food, index) => {                
+            {fields.map((drink, index) => {                
                 let drinkId, countId;
                 if (pageType === 'alter'){
-                    if (utilities.length > 0 && !_.isUndefined(fields.get(index).drinkId)){
-                        drinkId = _.find(utilities, (f) => { return f.id == fields.get(index).drinkId;});
+                    if (drinks.length > 0 && !_.isUndefined(fields.get(index).drinkId)){
+                        drinkId = _.find(drinks, (f) => { return f.id == fields.get(index).drinkId;});
                     }
                     countId = fields.get(index).count; 
                 }                            
@@ -62,19 +58,19 @@ const renderDrink = ({rs, pageType, utilities, fields}) =>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.menuDrink`)}</label>
                                     <Field
                                         className='control-input'
-                                        name={`${food}.drinkId`}
+                                        name={`${drink}.drinkId`}
                                         valueField='id'
                                         textField='title'
                                         component={renderDropdownList}
                                         groupBy='groupName'
                                         val={drinkId}
-                                        data={utilities}/>
+                                        data={drinks}/>
                                 </Col>                                
                                 <Col md={{size:4, offset: 2}}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
                                     <Field
                                         className='control-input'
-                                        name={`${food}.count`}
+                                        name={`${drink}.count`}
                                         component={renderDropdownList}
                                         val={countId}
                                         data={[ '1', 
