@@ -127,39 +127,55 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <Row className="row-note">
                                 <Col md={12}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.note`)}</label>{' '}
-                                    {pageType == 'order' && openNote && <Field
-                                        className='res-input'
-                                        name={`${food}.note`}
-                                        type='textarea'
-                                        component={renderInput}
+                                    {openNote != undefined && openNote && 
+                                        <Field
+                                            className='res-input'
+                                            name={`${food}.note`}
+                                            type='textarea'
+                                            component={renderInput}
                                     />}
-                                    {pageType == 'alter' && <Field
-                                        className='res-input'
-                                        name={`${food}.note`}
-                                        type='textarea'
-                                        component={renderInput}
+                                    {openNote != undefined && !openNote && 
+                                        <Multiselect
+                                            className='suggestion-note'
+                                            name={`${food}.noteSuggestion`}
+                                            data={suggestNote}
+                                            valueField='newId'
+                                            textField='title'
+                                            groupBy='group'
+                                            onChange={value => {
+                                                fnAddSuggestNote(food, index, value);
+                                            }}
+                                            value={addSelect? selectedNote.concat({title: textNote}) :selectedNote}
                                     />}
-                                    {pageType == 'order' && !openNote && <Multiselect
-                                        className='suggestion-note'
-                                        name={`${food}.noteSuggestion`}
-                                        // open={openNote}
-                                        data={suggestNote}
-                                        valueField='newId'
-                                        textField='title'
-                                        groupBy='group'
-                                        onChange={value => {
-                                            fnAddSuggestNote(food, index, value);
-                                        }}
-                                        value={addSelect? selectedNote.concat({title: textNote}) :selectedNote}
-                                        // onToggle={()=>fnShowNoteSuggest(food, index)}
+
+                                    {openNote == undefined && selectedNote == undefined &&
+                                        <Field
+                                            className='res-input alter-input'
+                                            name={`${food}.note`}
+                                            type='textarea'
+                                            value={textNote}
+                                            component={renderInput}
+                                    />}                                   
+                                    {openNote == undefined && selectedNote != undefined && 
+                                        <Multiselect
+                                            className='suggestion-note'
+                                            name={`${food}.noteSuggestion`}
+                                            data={suggestNote}
+                                            valueField='newId'
+                                            textField='title'
+                                            groupBy='group'
+                                            onChange={value => {
+                                                fnAddSuggestNote(food, index, value);
+                                            }}
+                                            value={addSelect? selectedNote.concat({title: textNote}) :selectedNote}
                                     />}
-                                    <Button
+                                    {!(openNote == undefined && selectedNote == undefined) && <Button
                                         className='bt-suggestion-note'
                                         type="button"
                                         title="Add Note"
                                         onClick={()=>fnShowNoteSuggest(food, index)}>
-                                        {openNote ? 'Close' : 'Add Note'} 
-                                    </Button>
+                                        {openNote ? 'Close' : _.get(rs, `widgetOrder.${pageType}.btnNote`)} 
+                                    </Button>}
                                     <div style={{display:'none'}}>
                                         <Field name={`${food}.openNote`}
                                         id={`${food}.openNote`}

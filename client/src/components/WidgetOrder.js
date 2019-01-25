@@ -16,15 +16,11 @@ import { history } from '../helpers/history';
 class WidgetOrder extends React.Component{
     constructor(props){
         super(props);
-        this.state={
-            openNoteSuggest:false
-        }
         this.addDetail = this.addDetail.bind(this);
         this.handleEditOrder = this.handleEditOrder.bind(this); 
         this.fnShowNoteSuggest = this.fnShowNoteSuggest.bind(this);
         this.fnAddSuggestNote = this.fnAddSuggestNote.bind(this);
         this.markDone = this.markDone.bind(this);
-
     }
     handleEditOrder(){
         this.props.dispatch(bookingActions.setPageType('alter'));
@@ -50,7 +46,7 @@ class WidgetOrder extends React.Component{
     }
     addDrink = () =>{
         let Drinks;
-        Drinks = _.cloneDeep(this.props.tempDetails) || [];
+        Drinks = _.cloneDeep(this.props.tempDrinks) || [];
         Drinks.push({});
         this.props.dispatch(change(this.props.form, 'Drinks',  Drinks));
     }
@@ -93,17 +89,12 @@ class WidgetOrder extends React.Component{
                                     </Col>
                                 </FormGroup>
                             </Col>
-                            {this.props.pageType !=='cooker'&&
-                                <Col xs={{ size: 2, offset: 2 }}>
-                                    <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}
-                                    </Button>
-                                </Col>}
-                            {this.props.pageType !=='cooker'&&                            
-                                <Col xs={{ size: 2, offset: 1 }}>
-                                    <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}
-                                    </Button>
-                                </Col>}
-                            {this.props.pageType ==='cooker'&&<Col xs={{ size: 2, offset: 3 }}><Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
+                            {this.props.pageType !=='cooker' && <Col xs={{ size: 2, offset: 2 }}>
+                                <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
+                            {this.props.pageType !=='cooker' && <Col xs={{ size: 2, offset: 1 }}>
+                                <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}</Button></Col>}
+                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2, offset: 3 }}>
+                                <Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
                             rs={rs}
@@ -145,6 +136,7 @@ const mapStateToProps = state => {
             Table: state.bookingReducer.selectOrder.tableId,
             Details: state.bookingReducer.selectOrder.details,
             tempDetails: selector(state, 'Details'),
+            tempDrinks: selector(state, 'Drinks'),
             initialValues: {
                 Details: state.bookingReducer.selectOrder.details,
                 Table: state.bookingReducer.selectOrder.tableId,
@@ -159,6 +151,7 @@ const mapStateToProps = state => {
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
             tempDetails: selector(state, 'Details'),
+            tempDrinks: selector(state, 'Drinks'),
             Details: selector(state, 'Details'),
         } 
     }

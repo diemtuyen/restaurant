@@ -9,7 +9,7 @@ import { Row, Col, Button, FormGroup, Label } from 'reactstrap';
 import { Field} from 'redux-form';
 import Multiselect  from 'react-widgets/lib/Multiselect';
 import _ from 'lodash';
-const renderDrink = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, fnShowNoteSuggest, fnAddSuggestNote}) =>
+const renderDrink = ({rs, pageType, utilities, fields}) =>
 {
     const _renderDisplay = () =>{
         return(
@@ -22,12 +22,8 @@ const renderDrink = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
-                                <span>{_.find(foods, (f) => { return f.id == fields.get(index).foodId;}).title}</span>
-                                </Col>
-                                <Col md={4}>
-                                <span>{_.get(rs, `widgetOrder.${pageType}.type`)}:</span>
-                                <span>{_.find(kinds, (k) =>{ return k.id == fields.get(index).kindId;}).title}</span>
-                                </Col>
+                                <span>{_.find(utilities, (f) => { return f.id == fields.get(index).drinkId;}).title}</span>
+                                </Col>                                
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
                                 <span>{fields.get(index).count}</span>
@@ -49,24 +45,11 @@ const renderDrink = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
     const _renderEdit = ()=>{
         return(
         <ul className="lstFood">            
-            {fields.map((food, index) => {
-                const openNote = fields.get(index).openNote;
-                const selectedNote = fields.get(index).selectedNote;
-                var addSelect = false;
-                var textNote;
-                if(!openNote){
-                    textNote = fields.get(index).note;
-                    if (textNote!= null && textNote != undefined && _.findIndex(selectedNote, (n) => { return n.title == textNote;}) == -1){
-                        addSelect = true;
-                    }
-                }
-                let menuId, kindId,countId;
+            {fields.map((food, index) => {                
+                let drinkId, countId;
                 if (pageType === 'alter'){
-                    if (foods.length > 0 && !_.isUndefined(fields.get(index).foodId)){
-                        menuId = _.find(foods, (f) => { return f.id == fields.get(index).foodId;});
-                    }
-                    if (kinds.length > 0 && !_.isUndefined(fields.get(index).kindId)){
-                        kindId = _.find(kinds, (k) => { return k.id == fields.get(index).kindId;});
+                    if (utilities.length > 0 && !_.isUndefined(fields.get(index).drinkId)){
+                        drinkId = _.find(utilities, (f) => { return f.id == fields.get(index).drinkId;});
                     }
                     countId = fields.get(index).count; 
                 }                            
@@ -79,13 +62,13 @@ const renderDrink = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     <label>{_.get(rs, `widgetOrder.${pageType}.menuDrink`)}</label>
                                     <Field
                                         className='control-input'
-                                        name={`${food}.foodId`}
+                                        name={`${food}.drinkId`}
                                         valueField='id'
                                         textField='title'
                                         component={renderDropdownList}
                                         groupBy='groupName'
-                                        val={menuId}
-                                        data={foods}/>
+                                        val={drinkId}
+                                        data={utilities}/>
                                 </Col>                                
                                 <Col md={{size:4, offset: 2}}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>

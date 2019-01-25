@@ -357,6 +357,11 @@ body,html{
         }
         .row-note{
             .res-input, .suggestion-note{padding-left: 80px; padding-right: 80px}
+            .res-input{
+                &.alter-input{
+                    padding-right: 0;
+                }
+            }
             label{position: absolute; top: 5px;}
             button.bt-suggestion-note{position: absolute; top: 0; right: 0; width: 75px}
             &.display{
