@@ -1,12 +1,11 @@
 import React from 'react';
 import {compose} from 'redux';
-import { Field, reduxForm, formValueSelector  } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import renderInput from '../controls/input.control'; 
 import {adminActions} from '../actions/admin.actions';
 import commonWrapped from '../hocs/hocs.common';
-import _ from 'lodash';
 
 let ExceptForm = props => {
   const { handleSubmit, pristine, submitting } = props

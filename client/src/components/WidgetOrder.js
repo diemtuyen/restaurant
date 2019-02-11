@@ -187,6 +187,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(reset('orderForm'));
     }    
 });
+
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     reduxForm({
