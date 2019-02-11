@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import {compose} from 'redux';
 import {Link} from 'react-router-dom';
-import {Nav, NavItem, NavLink} from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
-import _ from 'lodash';
 import {bookingActions} from '../actions/booking.actions';
 
 class WidgetListServed extends React.Component {
@@ -20,7 +18,7 @@ class WidgetListServed extends React.Component {
       this.props.dispatch(bookingActions.getServed()); 
   }
   render(){
-    if (this.props.served == undefined)
+    if (this.props.served === undefined)
       return(
         <p> No items </p>
       )

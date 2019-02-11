@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Row, Col} from 'reactstrap';
-import { userActions } from '../actions/user.actions';
 
 class HomePage extends React.Component {
     componentDidMount() {

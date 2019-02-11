@@ -170,7 +170,7 @@ const mapDispatchToProps = dispatch => ({
             _.forEach(i.selectedNote, (j) => {
                 txtNote += ` -- ` + j.title;           
             });
-            if (i.note != null && i.note != undefined)
+            if (i.note !== null && i.note !== undefined)
                 txtNote += ` (` + i.note + `)`;
             i.note = txtNote;
             delete i.selectedNote;
@@ -180,9 +180,9 @@ const mapDispatchToProps = dispatch => ({
             i.drinkId = i.drinkId.id;
             i.kindId = 0;            
         });
-        if (values.type == 'alter')
+        if (values.type === 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));
-        if (values.type == 'order')
+        if (values.type === 'order')
             dispatch(bookingActions.addOrder(jsonOrder));
         dispatch(reset('orderForm'));
     }    

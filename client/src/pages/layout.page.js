@@ -1,8 +1,7 @@
 import React from 'react';
-import {Collapse, Navbar, NavbarToggler, NavbarBrand,
+import {Navbar, NavbarBrand,
     UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, 
-    Nav, NavItem, NavLink, NavDropdown,    
-    Row, Col, Button} from 'reactstrap';  
+    Nav, NavItem, NavLink } from 'reactstrap';  
 import logo from '../images/logo.jpg';
 import $ from 'jquery';
 

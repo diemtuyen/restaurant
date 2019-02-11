@@ -14,7 +14,7 @@ class WidgetListOrder extends React.Component {
   handleClick(item){
     if (this.props.pageType === 'order')
       this.props.dispatch(bookingActions.setPageType('alter'));
-    if( _.isNull(this.props.selectOrder) || (!_.isNull(this.props.selectOrder) && item.id != this.props.selectOrder.id)){
+    if( _.isNull(this.props.selectOrder) || (!_.isNull(this.props.selectOrder) && item.id !== this.props.selectOrder.id)){
       this.props.dispatch(bookingActions.setSelectOrder(item));
     }
   }
@@ -22,7 +22,7 @@ class WidgetListOrder extends React.Component {
     this.props.dispatch(bookingActions.getOrders());
   }
   componentWillReceiveProps(nextProps){
-    if(this.props.pageType === 'cooker' && this.props.orders.length == 0 && nextProps.orders.length > 0)
+    if(this.props.pageType === 'cooker' && this.props.orders.length === 0 && nextProps.orders.length > 0)
       this.props.dispatch(bookingActions.setSelectOrder(nextProps.orders[0])); 
     if( !_.isNull(nextProps.selectOrder) && !_.isUndefined(nextProps.selectOrder) && _.isNull(nextProps.selectOrder.details)){
       this.props.dispatch(bookingActions.getOrder(nextProps.selectOrder.rowGuid));     

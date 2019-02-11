@@ -1,8 +1,6 @@
 import React from 'react';
-import _ from 'lodash';
 import { connect } from "react-redux";
 import {compose} from 'redux';
-import { Row, Col } from 'reactstrap';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
