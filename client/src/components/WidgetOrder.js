@@ -135,11 +135,15 @@ const mapStateToProps = state => {
             pageType: state.bookingReducer.pageType,
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
-            Details: state.bookingReducer.selectOrder.details,
+            // Details: state.bookingReducer.selectOrder.details,
+            Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+            Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
             tempDetails: selector(state, 'Details'),
             tempDrinks: selector(state, 'Drinks'),
             initialValues: {
-                Details: state.bookingReducer.selectOrder.details,
+                // Details: state.bookingReducer.selectOrder.details,
+                Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+                Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
                 Table: state.bookingReducer.selectOrder.tableId,
             }                
         } 
@@ -176,10 +180,16 @@ const mapDispatchToProps = dispatch => ({
             delete i.selectedNote;
             delete i.openNote;
         });
+
+        let nDetails = jsonOrder.Details.length;
         _.forEach(jsonOrder.Drinks, (i) => {
-            i.drinkId = i.drinkId.id;
-            i.kindId = 0;            
+            jsonOrder.Details.push({});
+            jsonOrder.Details[nDetails].drinkId = i.drinkId.id;
+            jsonOrder.Details[nDetails].count = i.count;
+            nDetails ++;
         });
+        delete jsonOrder.Drinks;
+
         if (values.type === 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));
         if (values.type === 'order')
