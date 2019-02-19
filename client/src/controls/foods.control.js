@@ -190,7 +190,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
         </ul>);
     }
     return (
-        <div>
+        <div className='groupFood'>
             {pageType!=='cooker' && _renderEdit(fields)}
             {pageType==='cooker' && _renderDisplay(fields)}
         </div>
