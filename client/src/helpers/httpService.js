@@ -8,6 +8,7 @@ export default {
             return response;
         }, error => {  
             if (error.response.status === 401) {
+                //https://stackoverflow.com/questions/51563821/axios-interceptors-retry-original-request-and-access-original-promise
                 //store.dispatch(logoutUser());
             }  
             if (error.response.status === 404) {
