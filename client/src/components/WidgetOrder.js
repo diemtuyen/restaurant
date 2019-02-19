@@ -71,8 +71,8 @@ class WidgetOrder extends React.Component{
         const rs = _.get(window.restaurant,'resource');
         const {handleSubmit, pristine, submitting } = this.props;
         return(
-            <div className="order-food-form">
-                <div className='order-food'>
+            <div className="content-page">
+                <div>
                     <div className="title">
                         <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
                             {(this.props.pageType === 'order') && <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>}
@@ -80,11 +80,11 @@ class WidgetOrder extends React.Component{
                                 <b>{this.props.title}</b></span>}
                     </div>
                     <form className='form-order' onSubmit={handleSubmit}>
-                        <Row className="order-food-header">
-                            <Col xs={6}>
+                        <Row className="form-header-row">
+                            <Col xs={{size:5, offset:1}}>
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                                    <Col sm={12} className="order-food-header-col-input">
+                                    <Col sm={12} className="form-header-row-col-input">
                                     { this.props.pageType !== 'cooker' &&  
                                         <Field
                                         name="Table"
@@ -96,11 +96,11 @@ class WidgetOrder extends React.Component{
                                     </Col>
                                 </FormGroup>
                             </Col>
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addOption}>{_.get(rs, `widgetOrder.${this.props.pageType}.addOption`)}</Button></Col>}
                             {this.props.pageType ==='cooker'&& <Col xs={{ size: 2, offset: 3 }}>
                                 <Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
@@ -124,7 +124,7 @@ class WidgetOrder extends React.Component{
                             pageType={this.props.pageType}
                             component={renderOption} 
                             options={this.props.options}/> 
-                        <div className="alignC submit">
+                        <div className="submit">
                             {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
