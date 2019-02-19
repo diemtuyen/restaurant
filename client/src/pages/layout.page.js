@@ -170,7 +170,7 @@ export default class Layout extends React.Component {
                     </div>
                 </div>                
                 <div ref={ e => { this.state.footer = e; } }>
-                    <p style={{backgroundColor: '#f8f8f8', padding: 20}}> Copyright@2018 </p>
+                    <p style={{backgroundColor: '#f8f9fa', padding: 20}}> Copyright@2019 </p>
                 </div>
             </div> 
         );

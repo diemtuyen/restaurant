@@ -1,0 +1,49 @@
+.content{
+    display: inline-block;
+    width: calc(100% - 220px);
+    padding:{
+        left: 0;
+        right: 0;
+    }
+    .angle-double{
+        float: right;
+        height: 100%;
+        width: 12px;
+        position: relative;
+        background-color: $line-gray;
+        >span{
+            position: absolute;
+            top: 50%;
+        }
+        &:hover{
+            cursor: pointer;
+            color: #00a6ac;
+        }
+    }
+    .widget-main{ 
+        display: inline-block;
+        width: calc(100% - 12px);
+        height: 100%;   
+        float: left;
+    }
+    .widget-lstOrder{ 
+        float: left;
+        width: 188px; 
+        display: none; 
+        position: relative;
+        height: 100%; 
+        margin-left: 15px;        
+        >div{
+            height: 100%;
+            >ul{
+                text-align: center;
+            }
+        }
+        .sidebar{
+            width: 100%;
+            .nav-link{
+                border-left: 1px solid $line-gray;
+            }
+        }
+    }
+} 

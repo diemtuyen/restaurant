@@ -25,12 +25,15 @@
             "submit": "Order",
             "addFood": "Add Food",
             "addDrink": "Add Drink",
+            "addOption": "Add Option",
             "btnNote": "Add note",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "menuDrink": "Nuoc uong",
+            "menuOption": "Tuy chon",
             "type": "Loại",
             "sum": "Số lượng",
+            "price": "Don gia",
             "note": "Ghi chú"
         },
         "alter":{
@@ -41,12 +44,15 @@
             "submit": "Ok",
             "addFood": "Add Food",
             "addDrink": "Add Drink",
+            "addOption": "Add Option",
             "btnNote": "Add note",
             "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "menuDrink": "Nuoc uong",
+            "menuOption": "Tuy chon",
             "type": "Loại",
             "sum": "Số lượng",
+            "price": "Don gia",
             "note": "Ghi chú"
         },
         "cooker":{
