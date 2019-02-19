@@ -9,10 +9,10 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
 {
     const _renderDisplay = () =>{
         return(
-            <ul className="lstFood">            
-            {fields.map((food, index) => {
+            <ul className="lstField">            
+            {fields.map((drink, index) => {
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">                           
                             <Row className="row-info display">  
@@ -40,7 +40,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
     }
     const _renderEdit = ()=>{
         return(
-        <ul className="lstFood">            
+        <ul className="lstField">            
             {fields.map((drink, index) => {                
                 let drinkId, countId;
                 if (pageType === 'alter'){
@@ -50,7 +50,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                     countId = fields.get(index).count; 
                 }                            
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">
                             <Row className="row-info">  
@@ -62,7 +62,6 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                         valueField='id'
                                         textField='title'
                                         component={renderDropdownList}
-                                        groupBy='groupName'
                                         val={drinkId}
                                         data={drinks}/>
                                 </Col>                                
@@ -79,7 +78,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                 <Col md={2} className="action"> 
                                     <Button
                                         type="button"
-                                        title="Remove Food"
+                                        title="Remove Drink"
                                         onClick={() => fields.remove(index)}>
                                         Delete
                                     </Button>

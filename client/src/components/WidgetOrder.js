@@ -84,7 +84,7 @@ class WidgetOrder extends React.Component{
                             <Col xs={{size:5, offset:1}}>
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                                    <Col sm={12} className="form-header-row-col-input">
+                                    <Col sm={12} className="select-table">
                                     { this.props.pageType !== 'cooker' &&  
                                         <Field
                                         name="Table"
@@ -124,7 +124,7 @@ class WidgetOrder extends React.Component{
                             pageType={this.props.pageType}
                             component={renderOption} 
                             options={this.props.options}/> 
-                        <div className="submit">
+                        <div className="form-submit-row">
                             {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
@@ -151,14 +151,18 @@ const mapStateToProps = state => {
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
             // Details: state.bookingReducer.selectOrder.details,
-            Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+            // Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null}),
+            Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
+            Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
             Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
             tempDetails: selector(state, 'Details'),
             tempDrinks: selector(state, 'Drinks'),
             tempOptions: selector(state, 'Options'),
             initialValues: {
                 // Details: state.bookingReducer.selectOrder.details,
-                Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+                // Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+                Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
+                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
                 Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
                 Table: state.bookingReducer.selectOrder.tableId,
             }                
@@ -207,6 +211,15 @@ const mapDispatchToProps = dispatch => ({
             nDetails ++;
         });
         delete jsonOrder.Drinks;
+
+        _.forEach(jsonOrder.Options, (i) => {
+            jsonOrder.Details.push({});
+            jsonOrder.Details[nDetails].foodId = i.optionId.id;
+            jsonOrder.Details[nDetails].price = i.price;
+            jsonOrder.Details[nDetails].count = 0;
+            nDetails ++;
+        });
+        delete jsonOrder.Options;
 
         if (values.type === 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));

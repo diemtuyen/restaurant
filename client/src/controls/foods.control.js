@@ -11,10 +11,10 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
 {
     const _renderDisplay = () =>{
         return(
-            <ul className="lstFood">            
+            <ul className="lstField">            
             {fields.map((food, index) => {
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">                           
                             <Row className="row-info display">  
@@ -46,7 +46,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
     }
     const _renderEdit = ()=>{
         return(
-        <ul className="lstFood">            
+        <ul className="lstField">            
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
@@ -69,7 +69,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                     countId = fields.get(index).count; 
                 }                            
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">
                             <div className="action">

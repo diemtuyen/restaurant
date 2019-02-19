@@ -9,20 +9,20 @@ const renderOption = ({rs, pageType, options, fields}) =>
 {
     const _renderDisplay = () =>{
         return(
-            <ul className="lstFood">            
-            {fields.map((food, index) => {
+            <ul className="lstField">            
+            {fields.map((option, index) => {
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">                           
                             <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
-                                <span>{_.find(options, (f) => { return f.id == fields.get(index).drinkId;}).title}</span>
+                                <span>{_.find(options, (f) => { return f.id == fields.get(index).optionId;}).title}</span>
                                 </Col>                                
                                 <Col md={4}>
-                                <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
-                                <span>{fields.get(index).count}</span>
+                                <span>{_.get(rs, `widgetOrder.${pageType}.price`)}:</span>
+                                <span>{fields.get(index).price}</span>
                                 </Col>
                             </Row> 
                             <Row className="row-note display">
@@ -40,17 +40,17 @@ const renderOption = ({rs, pageType, options, fields}) =>
     }
     const _renderEdit = ()=>{
         return(
-        <ul className="lstFood">            
+        <ul className="lstField">            
             {fields.map((option, index) => {                
-                let optionId, countId;
+                let optionId, priceId;
                 if (pageType === 'alter'){
-                    if (options.length > 0 && !_.isUndefined(fields.get(index).optionId)){
-                        optionId = _.find(options, (f) => { return f.id == fields.get(index).optionId;});
+                    if (options.length > 0 && !_.isUndefined(fields.get(index).foodId)){
+                        optionId = _.find(options, (f) => { return f.id == fields.get(index).foodId;});
                     }
-                    countId = fields.get(index).count; 
+                    priceId = fields.get(index).price; 
                 }                            
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">
                             <Row className="row-info">  
@@ -62,7 +62,6 @@ const renderOption = ({rs, pageType, options, fields}) =>
                                         valueField='id'
                                         textField='title'
                                         component={renderDropdownList}
-                                        groupBy='groupName'
                                         val={optionId}
                                         data={options}/>
                                 </Col>                                
@@ -70,16 +69,16 @@ const renderOption = ({rs, pageType, options, fields}) =>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.price`)}</label>
                                     <Field
                                         className='control-input'
-                                        name={`${option}.count`}
+                                        name={`${option}.price`}
                                         component={renderDropdownList}
-                                        val={countId}
+                                        val={priceId}
                                         data={[ '5000', 
                                         '10000', '15000', '20000', '25000', '30000' ]}/>
                                  </Col>
                                 <Col md={2} className="action"> 
                                     <Button
                                         type="button"
-                                        title="Remove Food"
+                                        title="Remove Option"
                                         onClick={() => fields.remove(index)}>
                                         Delete
                                     </Button>
