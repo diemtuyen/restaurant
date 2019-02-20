@@ -33,6 +33,8 @@ class WidgetOrder extends React.Component{
     componentWillReceiveProps(nextProps){
         if( this.props.initialized && !nextProps.initialized){
             this.props.dispatch(change(this.props.form, 'Details',  this.props.Details));
+            this.props.dispatch(change(this.props.form, 'Drinks',  this.props.Drinks));
+            this.props.dispatch(change(this.props.form, 'Options',  this.props.Options));
             this.props.dispatch(change(this.props.form, 'Table',  this.props.Table));
         }   
     }
@@ -158,7 +160,7 @@ const mapStateToProps = state => {
             tempOptions: selector(state, 'Options'),
             initialValues: {
                 Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
-                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count == 0)),
+                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
                 Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
                 Table: state.bookingReducer.selectOrder.tableId,
             }                
@@ -172,11 +174,7 @@ const mapStateToProps = state => {
             kinds: state.bookingReducer.kinds,
             options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
-            pageType: state.bookingReducer.pageType,
-            tempDetails: selector(state, 'Details'),
-            tempDrinks: selector(state, 'Drinks'),
-            tempOptions: selector(state, 'Options'),
-            Details: selector(state, 'Details'),
+            pageType: state.bookingReducer.pageType
         } 
     }
 }
