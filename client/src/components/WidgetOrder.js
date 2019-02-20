@@ -81,7 +81,7 @@ class WidgetOrder extends React.Component{
                     </div>
                     <form className='form-order' onSubmit={handleSubmit}>
                         <Row className="form-header-row">
-                            <Col xs={{size:5, offset:1}}>
+                            <Col xs={{size:4, offset:2}}>
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
                                     <Col sm={12} className="select-table">
@@ -102,7 +102,7 @@ class WidgetOrder extends React.Component{
                                 <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}</Button></Col>}
                             {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addOption}>{_.get(rs, `widgetOrder.${this.props.pageType}.addOption`)}</Button></Col>}
-                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2, offset: 3 }}>
+                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2}}>
                                 <Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
@@ -145,13 +145,11 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
-            options:state.bookingReducer.utilities,
+            options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
-            // Details: state.bookingReducer.selectOrder.details,
-            // Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null}),
             Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
             Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
             Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
@@ -159,10 +157,8 @@ const mapStateToProps = state => {
             tempDrinks: selector(state, 'Drinks'),
             tempOptions: selector(state, 'Options'),
             initialValues: {
-                // Details: state.bookingReducer.selectOrder.details,
-                // Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
                 Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
-                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
+                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count == 0)),
                 Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
                 Table: state.bookingReducer.selectOrder.tableId,
             }                
@@ -174,7 +170,7 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
-            options:state.bookingReducer.utilities,
+            options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
             tempDetails: selector(state, 'Details'),
@@ -214,7 +210,7 @@ const mapDispatchToProps = dispatch => ({
 
         _.forEach(jsonOrder.Options, (i) => {
             jsonOrder.Details.push({});
-            jsonOrder.Details[nDetails].foodId = i.optionId.id;
+            jsonOrder.Details[nDetails].foodId = i.foodId.id;
             jsonOrder.Details[nDetails].price = i.price;
             jsonOrder.Details[nDetails].count = 0;
             nDetails ++;

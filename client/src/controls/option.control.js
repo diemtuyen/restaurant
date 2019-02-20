@@ -18,19 +18,13 @@ const renderOption = ({rs, pageType, options, fields}) =>
                             <Row className="row-info display">  
                                 <Col md={4}>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
-                                <span>{_.find(options, (f) => { return f.id == fields.get(index).optionId;}).title}</span>
+                                <span>{_.find(options, (f) => { return f.id == fields.get(index).foodId;}).title}</span>
                                 </Col>                                
-                                <Col md={4}>
+                                <Col md={4} className="col-drink-option">
                                 <span>{_.get(rs, `widgetOrder.${pageType}.price`)}:</span>
                                 <span>{fields.get(index).price}</span>
                                 </Col>
-                            </Row> 
-                            <Row className="row-note display">
-                                <Col md={12}>
-                                    <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
-                                    <span>{fields.get(index).note}</span>
-                                </Col>
-                            </Row>                          
+                            </Row>                                                      
                         </div>
                     </div>                       
                 </li>
@@ -42,10 +36,10 @@ const renderOption = ({rs, pageType, options, fields}) =>
         return(
         <ul className="lstField">            
             {fields.map((option, index) => {                
-                let optionId, priceId;
+                let foodId, priceId;
                 if (pageType === 'alter'){
                     if (options.length > 0 && !_.isUndefined(fields.get(index).foodId)){
-                        optionId = _.find(options, (f) => { return f.id == fields.get(index).foodId;});
+                        foodId = _.find(options, (f) => { return f.id == fields.get(index).foodId;});
                     }
                     priceId = fields.get(index).price; 
                 }                            
@@ -58,14 +52,14 @@ const renderOption = ({rs, pageType, options, fields}) =>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.menuOption`)}</label>
                                     <Field
                                         className='control-input'
-                                        name={`${option}.optionId`}
+                                        name={`${option}.foodId`}
                                         valueField='id'
                                         textField='title'
                                         component={renderDropdownList}
-                                        val={optionId}
+                                        val={foodId}
                                         data={options}/>
                                 </Col>                                
-                                <Col md={{size:4, offset: 2}}>
+                                <Col md={{size:4, offset: 1}}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.price`)}</label>
                                     <Field
                                         className='control-input'
@@ -75,7 +69,7 @@ const renderOption = ({rs, pageType, options, fields}) =>
                                         data={[ '5000', 
                                         '10000', '15000', '20000', '25000', '30000' ]}/>
                                  </Col>
-                                <Col md={2} className="action"> 
+                                <Col md={{size:2, offset: 1}} className="action"> 
                                     <Button
                                         type="button"
                                         title="Remove Option"

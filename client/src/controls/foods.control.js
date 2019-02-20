@@ -31,12 +31,12 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                 <span>{fields.get(index).count}</span>
                                 </Col>
                             </Row> 
-                            <Row className="row-note display">
+                            {fields.get(index).note && <Row className="row-note display">
                                 <Col md={12}>
                                     <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
                                     <span>{fields.get(index).note}</span>
                                 </Col>
-                            </Row>                          
+                            </Row>}                         
                         </div>
                     </div>                       
                 </li>
@@ -102,7 +102,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
+                                <label className='middle-label'>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.kindId`}

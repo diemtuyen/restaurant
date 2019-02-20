@@ -28,11 +28,11 @@ export default class Layout extends React.Component {
         this.setState({ isShown: !this.state.isShown });  
 
         if(this.state.isShown){
-            $("#layout.sidebar").css({"width": "60px"}); 
-            $(".content").css({"width": "calc(100% - 60px)"}); 
+            $("#layout.sidebar").css({"width": "71px"}); 
+            $(".content").css({"width": "calc(100% - 71px)"}); 
         } else {
-            $("#layout.sidebar").css({"width": "220px"}); 
-            $(".content").css({"width": "calc(100% - 220px)"});      
+            $("#layout.sidebar").css({"width": "200px"}); 
+            $(".content").css({"width": "calc(100% - 200px)"});      
         }
     }
     componentDidMount(){

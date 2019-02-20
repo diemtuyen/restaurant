@@ -17,77 +17,45 @@ body,html{
             right:0;
             left: 0;
 		}
-    }     
-    
-    
-    // .title{
-    //     col{
-    //         padding-right: 0;
-    //     }
-    //     h2{      
-    //         margin-left: 15px;
-    //         margin-bottom: 0;
-    //         color: $font-btn;
-    //         font-size: 20px;
-    //     }
-    // } 
-    .main {
-        margin: 0 auto;
+    } 
+    .alignC{
+        text-align: center;
+    }
+    .alignL{
         text-align: left;
-    }  
-    
-    .done {
-        color: red;
-        text-decoration: line-through;
-    }      
-    .undone {
-        color: #61DAFB;
     }
-    .form-control {        
-        height: 30px;
-        font-size: 14px;
-        border-color: #E6E6E6;
-        .res-input{
-            input{
-                border:{
-                    radius: 0;
-                    color: #E6E6E6;
-                }
-                font-size: 14px;
-            }        
-        }
-    }  
-    
-    .dropdown-item{
-        padding: 10px 15px;
-        font-size: 14px;
+    .alignR{
+        text-align: right;
     }
-    .dropdown-menu{
-        padding: 0;
-        margin: 11px 0 0;
-        border-radius: 0;
-    }    
-    .dropdown-divider{
-        margin:0;
+    .marginT{
+        margin-top: 15px;
     }
-    
-    
-    
-    // .order-list{
-    //     // box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
-    //     padding-left: 15px;
-    //     padding-right: 15px;
-    //     height: 100%;
-    //     .nav-link{
-    //         padding: 8px 0;
-    //     }
+    // .dropdown-item{
+    //     padding: 10px 15px;
+    //     font-size: 14px;
     // }
+    // .dropdown-menu{
+    //     padding: 0;
+    //     margin: 11px 0 0;
+    //     border-radius: 0;
+    // }    
+    // .dropdown-divider{
+    //     margin:0;
+    // }
+    .logForm{
+        margin-top: 10px;
+    }
+    label{
+        margin-bottom: 3px;
+    }
+    input{
+        height: 32px;
+    }
+   
     form{
         .required{
             color: darkred;
             font-weight: bold;
-        }
-        
         }
         .addNew{
             width: 40%;            
@@ -106,302 +74,5 @@ body,html{
                 }
             }
         }
-        
-    }
-    
-    .content-page{        
-        .title{
-            border-bottom: 1px solid $line-gray;
-            position: relative;
-            padding: 11px 0;
-            background: #f5f5f5;
-            h2{      
-                margin-left: 15px;
-                margin-bottom: 0;
-                color: $font-btn;
-                font-size: 20px;
-            }
-            .number_no{
-                margin-top: 10px;
-                position: absolute;
-                top: 5px;
-                right: 25px;
-            }
-        }
-        form.form-order{
-            margin-bottom: 2.5px;   
-            padding: 0 1px 1px 1px;
-            background-color: #f5f5f5;
-            .form-header-row{
-                // box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-                padding: 20px;
-                padding-bottom: 0;
-                background: white;
-                text-align: center;
-                // .btn-secondary
-                label{position: absolute;top:5px}
-                .select-table{
-                    padding-left: 80px;
-                    text-align: left;
-                    >span{
-                        font-weight: bold;
-                        position: absolute;
-                        top: 4px;
-                    }
-                }
-            }
-            .form-submit-row{
-                padding: 5px;
-                text-align: center;
-            }
-            @mixin bg-field-control ($color) {
-                background-color: $color;
-            }
-            .groupFood{
-                @include bg-field-control($bg_food);
-            }
-            .groupDrink{
-                @include bg-field-control($bg_drink);
-            }  
-            .groupOption{
-                @include bg-field-control($bg_option);
-            }
-            .groupFood, .groupDrink, .groupOption{
-                .lstField{
-                    list-style: none;
-                    padding: 0;
-                    position: relative;
-                    margin-bottom: 0;            
-                    .itemField{
-                        padding-left: 0;
-                        padding-right: 0;
-                        clear: both;
-                        background-color: #fff;
-                        display: inline-block;
-                        width: 100%;
-                        // box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-                        padding: 5px;
-                        margin-top: 5px;
-                        .row{
-                            margin-top: 5px;
-                        } 
-                        > button{
-                            float: right;
-                            background-image: unset;
-                            background-color: unset;
-                            border: unset;
-                            padding: 5px 8px;
-                            &:before {
-                                display: inline-block;
-                                font: normal normal normal 14px/1 FontAwesome;
-                                font-size: inherit;
-                                text-rendering: auto;
-                                -webkit-font-smoothing: antialiased;
-                                -moz-osx-font-smoothing: grayscale;
-                                //content: '\F1F8';
-                                content: 'Delete'
-                            }
-                        }
-                        .panel{        
-                            margin-top: 3px;
-                            background-color: #fff;  
-                        }
-                        .panel-child{
-                            .row:last-child{
-                                margin-bottom: 10px;
-                            }
-                            [class*="col-"]{
-                                &:first-child, &:last-child{
-                                    padding:{
-                                        left: 0;
-                                        right: 0;
-                                    }
-                                }
-                            }
-                        }    
-                    }
-                }
-            }
-            
-        // >.row{
-        //     height: 100%;
-        // }        
-        
-        .row-note{
-            .res-input, .suggestion-note{padding-left: 80px; padding-right: 80px}
-            .res-input{
-                &.alter-input{
-                    padding-right: 0;
-                }
-            }
-            label{position: absolute; top: 5px;}
-            button.bt-suggestion-note{position: absolute; top: 0; right: 0; width: 75px}
-            &.display{
-                div{
-                    :last-child{
-                        font-weight: bold;
-                        margin-left: 10px;
-                    }
-                }
-            }            
-        }
-        .row-info{
-            label{position: absolute; top: 5px;}
-            .control-input{padding-left: 80px}
-            &.display{
-                div{
-                    :last-child{
-                        font-weight: bold;
-                        margin-left: 10px;
-                    }
-                }
-            }
-        }
-        .action{
-            text-align: right;
-            > label {
-                margin-right: 50px;
-            }
-        }
-        input.form-control{border-radius: 0}
-        
-    }
-    //-----------------------------------
-    
-    //-----------------------------------
-    .logForm{
-        margin-top: 10px;
-    }
-    label{
-        margin-bottom: 3px;
-    }
-    input{
-        height: 32px;
-    }
-    
-    #hasOption, #takeAway{
-        zoom: 1.2;
-        top: 3px;
-        position: relative;
-        height: auto;
-    } 
-    
-    .detail{
-        text-align: center;
-        color: $state_billing;
-        span{
-            font-weight: bold;
-        }
-    }
-    .titleLst{
-        color: $state_order;
-    }
-    .lstOrder{
-        font-size: 20px;
-    }
-    /*.tableIdx{
-        width: 200px;
-        border: 1px solid gray;
-        text-align: center;
-        padding: 10px;
-        margin: 20px;
-        margin-right: 10px;
-        float: left;
-        &.wait{
-            background-color: $state_waiting;
-            font-size: 24px;
-            .btnTable{
-                >button:after{
-                    content: 'Detail';
-                }
-            }
-        }
-        &.bill{
-            background-color: $state_billing;
-            font-size: 24px;
-            .btnTable{
-                >button:after{
-                    content: 'Serve';
-                }
-            }
-        }
-        &.order{
-            background-color: $state_order;
-            font-size: 24px;
-            .btnTable{
-                >button:after{
-                    content: 'Order';
-                }
-            }
-        }
-        &.serve{
-            background-color: $state_serving;
-            font-size: 24px;
-            .btnTable{
-                >button:after{
-                    content: 'Bill';
-                }
-            }
-        }
-        a{
-            text-decoration: none;
-            color: black;
-        }
-    }
-    .listTable, .detailTable{
-        border: 1px solid gray;
-    }
-    .detailTableItem{
-        clear: left;
-    }
-    .addTable{
-        clear: both;
-        text-align: center;
-    } 
-    .newTable{
-        border: 1px solid gray;
-        border-radius: 5px;
-        width: 40%;
-        padding: 10px;
-        margin:{
-            left: auto;
-            right: auto;
-            top: 30px;
-        }       
-        .row{
-            padding:{
-                bottom: 5px;
-                top: 5px;
-            }
-            input{
-                width: 100%;
-            }
-        }
-    } 
-    .price{
-        font:{
-			size: 24px;
-			weight: bold;
-        }
-        margin:{
-            top: 5px;
-            bottom: 5px;
-        }
-        color: $price;
-        height: 30px;
-    } */     
-    .alignC{
-        text-align: center;
-    }
-    .alignL{
-        text-align: left;
-    }
-    .alignR{
-        text-align: right;
-    }
-    .marginT{
-        margin-top: 15px;
     }
 }
-
-

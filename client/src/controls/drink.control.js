@@ -20,17 +20,11 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                 <span>{_.get(rs, `widgetOrder.${pageType}.menu`)}:</span>
                                 <span>{_.find(drinks, (f) => { return f.id == fields.get(index).drinkId;}).title}</span>
                                 </Col>                                
-                                <Col md={4}>
+                                <Col md={4} className="col-drink-option">
                                 <span>{_.get(rs, `widgetOrder.${pageType}.sum`)}:</span>
                                 <span>{fields.get(index).count}</span>
                                 </Col>
-                            </Row> 
-                            <Row className="row-note display">
-                                <Col md={12}>
-                                    <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
-                                    <span>{fields.get(index).note}</span>
-                                </Col>
-                            </Row>                          
+                            </Row>                        
                         </div>
                     </div>                       
                 </li>
@@ -65,7 +59,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                         val={drinkId}
                                         data={drinks}/>
                                 </Col>                                
-                                <Col md={{size:4, offset: 2}}>
+                                <Col md={{size:4, offset: 1}}>
                                     <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
                                     <Field
                                         className='control-input'
@@ -75,7 +69,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                         data={[ '1', 
                                         '2', '3', '4', '5', '6' ]}/>
                                  </Col>
-                                <Col md={2} className="action"> 
+                                <Col md={{size:2, offset: 1}} className="action"> 
                                     <Button
                                         type="button"
                                         title="Remove Drink"

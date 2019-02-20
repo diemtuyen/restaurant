@@ -64,6 +64,7 @@
             "menuDrink": "Nuoc uong",
             "type": "Loại",
             "sum": "Số lượng",
+            "price": "Don gia",
             "note": "Ghi chú"
         }
     },
