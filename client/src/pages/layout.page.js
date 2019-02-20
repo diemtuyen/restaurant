@@ -4,7 +4,7 @@ import {Navbar, NavbarBrand,
     Nav, NavItem, NavLink } from 'reactstrap';  
 import logo from '../images/logo.jpg';
 import $ from 'jquery';
-
+import {globalConstants} from '../constants/global.constants';
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);    
@@ -38,9 +38,9 @@ export default class Layout extends React.Component {
     componentDidMount(){
         let headerHeight= this.state.header.clientHeight;
         let footerHeight= this.state.footer.clientHeight;
-        if (localStorage.getItem('user') != null) 
+        if (localStorage.getItem(globalConstants.USER) != null) 
         this.setState({
-           userName: JSON.parse(localStorage.getItem('user')).userName
+           userName: JSON.parse(localStorage.getItem(globalConstants.USER)).userName
         })
         this.setState({
             height: window.innerHeight - headerHeight - footerHeight

@@ -2,9 +2,12 @@ import config from 'config';
 // import { authHeader } from '../helpers/auth-header';
 import axios from 'axios';
 import ApiEndpoints from '../constants/ApiEndpoints';
+import {common} from '../helpers/common';
+import {globalConstants} from '../constants/global.constants';
 export const userService = {
     login,
     logout,
+    refreshToken,
     getItems,
     addItem,
     deleteItem,
@@ -16,25 +19,47 @@ function login(username, password) {
     let params = {
         'username': username,
         'password': password,
-        'grant_type': 'password'
+        'grant_type': 'password',
+        'client_id': 'web'
     };
     const searchParams = Object.keys(params).map((key) => {
         return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }).join('&');
     let url = `${config.apiUrl}/${ApiEndpoints.login}`;
-    console.log('axios URL');
     return axios.post(url, searchParams).then(res=>{
         if (res.data.access_token) {
-            console.log('axios access token OK');
-            localStorage.setItem('user', JSON.stringify(res.data));
+            localStorage.setItem(globalConstants.USER, JSON.stringify(res.data));
             return res.data;
         }
     }).catch(e=>{
         console.log(e);
     });
 }
+function refreshToken(oldRequest){
+    let params = {
+        'grant_type': 'refresh_token',
+        'client_id': 'web',
+        'refresh_token': common.getRefreshToken()
+    };
+    const searchParams = Object.keys(params).map((key) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+    }).join('&');
+    let url = `${config.apiUrl}/${ApiEndpoints.login}`;
+    localStorage.removeItem(globalConstants.USER);
+    return axios.post(url, searchParams).then(res=>{
+        if (res.data.access_token) {
+            localStorage.setItem(globalConstants.USER, JSON.stringify(res.data));
+        }
+        return Promise.resolve({
+            response: res,
+            request: oldRequest
+        });
+    }).catch(e=>{
+        return Promise.reject(e);
+    });
+}
 function checkTokenExpired(){
-    let token = localStorage.getItem('user');
+    let token = localStorage.getItem(globalConstants.USER);
     token = JSON.parse(token);
     if( new Date(token[".expires"]) > new Date() ){
         console.log('token expires OK');
@@ -44,9 +69,7 @@ function checkTokenExpired(){
     return false;
 }
 function logout() {
-    // remove user from local storage to log user out
-    console.log('axios logout ');
-    localStorage.removeItem('user');
+    localStorage.removeItem(globalConstants.USER);
 }
 function getItems() {
     let url = `${config.apiUrl}/${ApiEndpoints.user}/items`;

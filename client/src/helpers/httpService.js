@@ -1,15 +1,39 @@
 import axios from 'axios';
+import {userService} from '../services/user.service';
 import {common} from '../helpers/common';
+import Axios from 'axios';
+import { userActions } from '../actions/user.actions';
+import {globalConstants} from '../constants/global.constants';
 const baseApiAddress = ['/token']
 axios.defaults.baseURL="/";
+
 export default {
     setupInterceptors: (store, history) => {  
         axios.interceptors.response.use(response => {
             return response;
         }, error => {  
             if (error.response.status === 401) {
-                //https://stackoverflow.com/questions/51563821/axios-interceptors-retry-original-request-and-access-original-promise
-                //store.dispatch(logoutUser());
+                const rf = localStorage.getItem(globalConstants.REFRESHING_TOKEN);                
+                if(rf==='false'||rf===null){
+                    localStorage.setItem(globalConstants.REFRESHING_TOKEN, true);
+                    window.restaurant.refresh_token= userService.refreshToken(error.config);
+                    //https://stackoverflow.com/questions/51563821/axios-interceptors-retry-original-request-and-access-original-promise
+                    return window.restaurant.refresh_token.then(_=>{
+                        error.config.baseURL = undefined;
+                        localStorage.setItem(globalConstants.REFRESHING_TOKEN, false);
+                        window.restaurant.refresh_token = null;
+                        console.log(_.request.url);
+                        return Axios.request(error.config);
+                    },e=>{
+                        store.dispatch(userActions.logout());
+                    });
+                }else{
+                    return window.restaurant.refresh_token.then(_=>{
+                        error.config.baseURL = undefined;
+                        console.log(_.request.url);
+                        return Axios.request(error.config);
+                    });
+                }
             }  
             if (error.response.status === 404) {
                 history.push('/not-found');
