@@ -174,7 +174,10 @@ const mapStateToProps = state => {
             kinds: state.bookingReducer.kinds,
             options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
-            pageType: state.bookingReducer.pageType
+            pageType: state.bookingReducer.pageType,
+            tempDetails: selector(state, 'Details'),
+            tempDrinks: selector(state, 'Drinks'),
+            tempOptions: selector(state, 'Options')
         } 
     }
 }

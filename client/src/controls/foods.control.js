@@ -31,12 +31,13 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                 <span>{fields.get(index).count}</span>
                                 </Col>
                             </Row> 
-                            {fields.get(index).note && <Row className="row-note display">
+                            {(fields.get(index).note || fields.get(index).isTakeAway)&& <Row className="row-note display">
                                 <Col md={12}>
                                     <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
-                                    <span>{fields.get(index).note}</span>
+                                    {fields.get(index).isTakeAway && <span className='take-away'>{_.get(rs, `widgetOrder.${pageType}.takeAway`)}</span>}
+                                    {fields.get(index).note && <span>{fields.get(index).note}</span>}
                                 </Col>
-                            </Row>}                         
+                            </Row>}                   
                         </div>
                     </div>                       
                 </li>
@@ -75,7 +76,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             <div className="action">
                                 <Label takeAway>                               
                                     <Field
-                                        name={`${food}.takeAway`}
+                                        name={`${food}.isTakeAway`}
                                         id="takeAway"
                                         component="input"
                                         type="checkbox" />

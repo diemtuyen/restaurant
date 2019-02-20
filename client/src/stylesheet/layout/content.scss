@@ -147,7 +147,22 @@
                                         margin-left: 30px;
                                     }
                                 }
+                                %row-note-info{
+                                    label{
+                                        position: absolute; 
+                                        top: 5px;
+                                    }
+                                    &.display{
+                                        div{
+                                            :last-child{
+                                                font-weight: bold;
+                                                margin-left: 10px;
+                                            }
+                                        }
+                                    } 
+                                }
                                 .row-note{
+                                    @extend %row-note-info;
                                     .res-input, .suggestion-note{
                                         padding-left: 80px; 
                                         padding-right: 80px
@@ -157,10 +172,6 @@
                                             padding-right: 0;
                                         }
                                     }
-                                    label{
-                                        position: absolute; 
-                                        top: 5px;
-                                    }
                                     button.bt-suggestion-note{
                                         position: absolute;
                                         top: 0; 
@@ -168,24 +179,17 @@
                                         width: 75px
                                     }
                                     &.display{
-                                        div{
-                                            :last-child{
-                                                font-weight: bold;
-                                                margin-left: 10px;
-                                            }
+                                        .take-away{
+                                            font-weight: bold;
+                                            margin-left: 10px;
+                                            color: darkred;
                                         }
-                                    }            
+                                    }
                                 }
                                 .row-info{
-                                    label{position: absolute; top: 5px;}
+                                    @extend %row-note-info;
                                     .control-input{padding-left: 80px}
-                                    &.display{
-                                        div{
-                                            :last-child{
-                                                font-weight: bold;
-                                                margin-left: 10px;
-                                            }
-                                        }
+                                    &.display{                                        
                                         .col-drink-option{
                                             padding-left: 15px;
                                         }
