@@ -13,8 +13,9 @@ export default {
             return response;
         }, error => {  
             if (error.response.status === 401) {
+                console.log(error.config.url);
                 const rf = localStorage.getItem(globalConstants.REFRESHING_TOKEN);                
-                if(rf==='false'||rf===null){
+                if(rf==='false'||rf===null|| window.restaurant.refresh_token === undefined || window.restaurant.refresh_token === null){
                     localStorage.setItem(globalConstants.REFRESHING_TOKEN, true);
                     window.restaurant.refresh_token= userService.refreshToken(error.config);
                     //https://stackoverflow.com/questions/51563821/axios-interceptors-retry-original-request-and-access-original-promise
@@ -22,15 +23,13 @@ export default {
                         error.config.baseURL = undefined;
                         localStorage.setItem(globalConstants.REFRESHING_TOKEN, false);
                         window.restaurant.refresh_token = null;
-                        console.log(_.request.url);
                         return Axios.request(error.config);
                     },e=>{
                         store.dispatch(userActions.logout());
                     });
                 }else{
                     return window.restaurant.refresh_token.then(_=>{
-                        error.config.baseURL = undefined;
-                        console.log(_.request.url);
+                        error.config.baseURL = undefined;                        
                         return Axios.request(error.config);
                     });
                 }

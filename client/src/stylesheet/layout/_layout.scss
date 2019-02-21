@@ -2,3 +2,20 @@
 @import 'footer';
 @import 'sidebar';
 @import 'content';
+.loading-whole-page{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background: #a0a0a0;
+    left: 0;
+    right: 0;
+    opacity: 0.6;
+    z-index: 9999;
+    >img{
+        position: absolute;
+        left: 35%;
+        top: 35%;
+    }
+}

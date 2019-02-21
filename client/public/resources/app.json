@@ -6,7 +6,8 @@
         "title":"Login",
         "userName": "User name",
         "password": "Password",
-        "loginBtn": "Login"
+        "loginBtn": "Login",
+        "resetBtn": "Clear value"
     },
     "registerForm":{
         "title": "Register",
