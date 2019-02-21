@@ -11,10 +11,10 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
 {
     const _renderDisplay = () =>{
         return(
-            <ul className="lstFood">            
+            <ul className="lstField">            
             {fields.map((food, index) => {
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">                           
                             <Row className="row-info display">  
@@ -31,12 +31,13 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                 <span>{fields.get(index).count}</span>
                                 </Col>
                             </Row> 
-                            <Row className="row-note display">
+                            {(fields.get(index).note || fields.get(index).isTakeAway)&& <Row className="row-note display">
                                 <Col md={12}>
                                     <span>{_.get(rs, `widgetOrder.${pageType}.note`)}:</span>
-                                    <span>{fields.get(index).note}</span>
+                                    {fields.get(index).isTakeAway && <span className='take-away'>{_.get(rs, `widgetOrder.${pageType}.takeAway`)}</span>}
+                                    {fields.get(index).note && <span>{fields.get(index).note}</span>}
                                 </Col>
-                            </Row>                          
+                            </Row>}                   
                         </div>
                     </div>                       
                 </li>
@@ -46,7 +47,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
     }
     const _renderEdit = ()=>{
         return(
-        <ul className="lstFood">            
+        <ul className="lstField">            
             {fields.map((food, index) => {
                 const openNote = fields.get(index).openNote;
                 const selectedNote = fields.get(index).selectedNote;
@@ -69,13 +70,13 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                     countId = fields.get(index).count; 
                 }                            
                 return (
-                <li className="itemFood" key={index}>
+                <li className="itemField" key={index}>
                     <div className="panel">
                         <div className="panel-child">
                             <div className="action">
                                 <Label takeAway>                               
                                     <Field
-                                        name={`${food}.takeAway`}
+                                        name={`${food}.isTakeAway`}
                                         id="takeAway"
                                         component="input"
                                         type="checkbox" />
@@ -102,7 +103,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     data={foods}/>
                                 </Col>
                                 <Col md={4}>
-                                <label>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
+                                <label className='middle-label'>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
                                 <Field
                                     className='control-input'
                                     name={`${food}.kindId`}

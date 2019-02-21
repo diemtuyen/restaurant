@@ -26,7 +26,7 @@ class OrderPage extends React.Component {
             $(".widget-lstOrder").css({"display": "none"});
             
         } else {
-            $(".widget-main").css({"width": "calc(100% - 215px)"}); 
+            $(".widget-main").css({"width": "calc(100% - 200px - 12px)"}); 
             $(".widget-lstOrder").css({"display": "inline-block"});       
         }        
     }

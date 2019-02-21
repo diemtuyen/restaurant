@@ -33,6 +33,8 @@ class WidgetOrder extends React.Component{
     componentWillReceiveProps(nextProps){
         if( this.props.initialized && !nextProps.initialized){
             this.props.dispatch(change(this.props.form, 'Details',  this.props.Details));
+            this.props.dispatch(change(this.props.form, 'Drinks',  this.props.Drinks));
+            this.props.dispatch(change(this.props.form, 'Options',  this.props.Options));
             this.props.dispatch(change(this.props.form, 'Table',  this.props.Table));
         }   
     }
@@ -71,8 +73,8 @@ class WidgetOrder extends React.Component{
         const rs = _.get(window.restaurant,'resource');
         const {handleSubmit, pristine, submitting } = this.props;
         return(
-            <div className="order-food-form">
-                <div className='order-food'>
+            <div className="content-page">
+                <div>
                     <div className="title">
                         <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
                             {(this.props.pageType === 'order') && <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>}
@@ -80,11 +82,11 @@ class WidgetOrder extends React.Component{
                                 <b>{this.props.title}</b></span>}
                     </div>
                     <form className='form-order' onSubmit={handleSubmit}>
-                        <Row className="order-food-header">
-                            <Col xs={6}>
+                        <Row className="form-header-row">
+                            <Col xs={{size:4, offset:2}}>
                                 <FormGroup row>
                                     <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                                    <Col sm={12} className="order-food-header-col-input">
+                                    <Col sm={12} className="select-table">
                                     { this.props.pageType !== 'cooker' &&  
                                         <Field
                                         name="Table"
@@ -96,13 +98,13 @@ class WidgetOrder extends React.Component{
                                     </Col>
                                 </FormGroup>
                             </Col>
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2} className="alignC">
+                            {this.props.pageType !=='cooker' && <Col xs={2}>
                                 <Button type="button" onClick={this.addOption}>{_.get(rs, `widgetOrder.${this.props.pageType}.addOption`)}</Button></Col>}
-                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2, offset: 3 }}>
+                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2}}>
                                 <Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
                         </Row>
                         <FieldArray name="Details" 
@@ -124,7 +126,7 @@ class WidgetOrder extends React.Component{
                             pageType={this.props.pageType}
                             component={renderOption} 
                             options={this.props.options}/> 
-                        <div className="alignC submit">
+                        <div className="form-submit-row">
                             {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
@@ -145,20 +147,20 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
-            options:state.bookingReducer.utilities,
+            options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
-            // Details: state.bookingReducer.selectOrder.details,
-            Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+            Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
+            Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
             Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
             tempDetails: selector(state, 'Details'),
             tempDrinks: selector(state, 'Drinks'),
             tempOptions: selector(state, 'Options'),
             initialValues: {
-                // Details: state.bookingReducer.selectOrder.details,
-                Details : _.filter(state.bookingReducer.selectOrder.details, { 'drinkId': null }),
+                Details : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count > 0)),
+                Options : _.filter(state.bookingReducer.selectOrder.details, detail => (detail.drinkId === null && detail.count === 0)),
                 Drinks : _.filter(state.bookingReducer.selectOrder.details, { 'foodId': null }),
                 Table: state.bookingReducer.selectOrder.tableId,
             }                
@@ -170,13 +172,12 @@ const mapStateToProps = state => {
             foods: state.bookingReducer.foods,
             drinks: state.bookingReducer.drinks,
             kinds: state.bookingReducer.kinds,
-            options:state.bookingReducer.utilities,
+            options: state.bookingReducer.utilities,
             suggestNote: state.bookingReducer.suggestNote,
             pageType: state.bookingReducer.pageType,
             tempDetails: selector(state, 'Details'),
             tempDrinks: selector(state, 'Drinks'),
-            tempOptions: selector(state, 'Options'),
-            Details: selector(state, 'Details'),
+            tempOptions: selector(state, 'Options')
         } 
     }
 }
@@ -207,6 +208,15 @@ const mapDispatchToProps = dispatch => ({
             nDetails ++;
         });
         delete jsonOrder.Drinks;
+
+        _.forEach(jsonOrder.Options, (i) => {
+            jsonOrder.Details.push({});
+            jsonOrder.Details[nDetails].foodId = i.foodId.id;
+            jsonOrder.Details[nDetails].price = i.price;
+            jsonOrder.Details[nDetails].count = 0;
+            nDetails ++;
+        });
+        delete jsonOrder.Options;
 
         if (values.type === 'alter')
             dispatch(bookingActions.updateOrder(jsonOrder));

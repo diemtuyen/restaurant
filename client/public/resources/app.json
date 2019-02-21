@@ -28,7 +28,6 @@
             "addDrink": "Add Drink",
             "addOption": "Add Option",
             "btnNote": "Add note",
-            "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "menuDrink": "Nuoc uong",
             "menuOption": "Tuy chon",
@@ -47,7 +46,6 @@
             "addDrink": "Add Drink",
             "addOption": "Add Option",
             "btnNote": "Add note",
-            "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "menuDrink": "Nuoc uong",
             "menuOption": "Tuy chon",
@@ -63,11 +61,11 @@
             "takeAway": "Mang về",
             "submit": "Ok",
             "editOrder": "Edit",
-            "foodItemfoodItem": "Food #",
             "menu": "Thực đơn",
             "menuDrink": "Nuoc uong",
             "type": "Loại",
             "sum": "Số lượng",
+            "price": "Don gia",
             "note": "Ghi chú"
         }
     },
