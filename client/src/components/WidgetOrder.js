@@ -72,6 +72,26 @@ class WidgetOrder extends React.Component{
     render(){
         const rs = _.get(window.restaurant,'resource');
         const {handleSubmit, pristine, submitting } = this.props;
+        var totalPrice = 0;
+        if (this.props.foods != undefined && this.props.drinks != undefined && this.props.kinds != undefined){
+            this.props.tempDetails != undefined && _.forEach(this.props.tempDetails, (i) => {
+                if (i.count !== undefined && i.foodId !== undefined && i.kindId !=undefined){
+                    let ratio = parseFloat(_.find(this.props.kinds, (k) => { return k.id == (_.isObject(i.kindId) ? i.kindId.id : i.kindId);}).note);                    
+                    let price = _.find(this.props.foods, (f) => { return f.id == (_.isObject(i.foodId) ? i.foodId.id : i.foodId);}).price;
+                    totalPrice += i.count * ratio * price ;
+                }  
+            });
+            this.props.tempDrinks != undefined && _.forEach(this.props.tempDrinks, (i) => {
+                if (i.count !== undefined && i.drinkId !== undefined){
+                    let price = _.find(this.props.drinks, (d) => { return d.id == (_.isObject(i.drinkId) ? i.drinkId.id : i.drinkId);}).price;
+                    totalPrice += i.count * price;
+                }
+            });
+            this.props.tempOptions != undefined && _.forEach(this.props.tempOptions, (i) => {
+                if (i.foodId !== undefined && i.price !== undefined)
+                    totalPrice += parseInt(i.price);
+            });
+        }
         return(
             <div className="content-page">
                 <div>
@@ -127,6 +147,7 @@ class WidgetOrder extends React.Component{
                             component={renderOption} 
                             options={this.props.options}/> 
                         <div className="form-submit-row">
+                            {totalPrice >0 && <span className='totalPrice'>Tong tien: {totalPrice}</span>}
                             {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                             {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}

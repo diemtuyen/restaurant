@@ -75,6 +75,13 @@
                         }
                     }
                 }
+                .totalPrice{
+                    color: blue;
+                    float: right;
+                    font-weight: bold;
+                    padding: 10px;
+                    font-size: 16px;
+                }
                 .form-submit-row{
                     padding: 5px;
                     text-align: center;
@@ -153,6 +160,7 @@
                                     }
                                     &.display{
                                         div{
+                                            margin: 12px 0;
                                             :last-child{
                                                 font-weight: bold;
                                                 margin-left: 10px;
