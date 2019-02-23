@@ -1,10 +1,9 @@
 .content{
-    display: inline-block;
-    width: calc(100% - #{$width_sidebar});
-    padding:{
-        left: 0;
-        right: 0;
+    @include media-breakpoint-up(md) {
+        width: calc(100% - #{$width_sidebar});
     }
+    display: inline-block;
+   
     .form-control {        
         height: 30px;
         font-size: 14px;
@@ -216,7 +215,7 @@
     }
     .widget-lstOrder{ 
         float: left;
-        width: $width_sidebar; 
+        width: $width_sidebar;
         display: none; 
         position: relative;
         height: 100%; 

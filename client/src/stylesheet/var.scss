@@ -1,4 +1,7 @@
-
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/mixins";
 /* font name*/
 $font_name: Arial, sans-serif;
 $width_sidebar: 200px;
@@ -23,3 +26,21 @@ $font-btn: #666666;
 
 $color-white: #ffffff;
 
+//blue color
+$color_b1: #039;
+$color_b2: #4066b3;
+
+$space-values : (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50,60) !default;
+
+@mixin makespace($values, $breakpoints:$grid-breakpoints) {
+    @each $breakpoint-name, $breakpoint-value in $breakpoints {
+        @include media-breakpoint-up($breakpoint-name) {
+            @each $value in $values{
+                .margin-padding-#{$breakpoint-name}-#{$value}{
+                    margin: #{$value}#{'px'} !important;
+                    padding: #{$value}#{'px'} !important;
+                }
+            }
+        }
+    }
+}

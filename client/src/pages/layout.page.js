@@ -116,7 +116,7 @@ export default class Layout extends React.Component {
                 </div>
                 <div style={{minHeight: this.state.height, borderBottom: '1px solid #f5f5f5'}}>
                     <div>
-                        <div id="layout" className="sidebar">                        
+                        <div id="layout" className="sidebar d-none d-sm-block">                        
                             <Nav vertical>
                                 <NavItem>
                                     <NavLink className="arrows-alt-menu" onClick={this.toggleMenu}>
@@ -164,7 +164,7 @@ export default class Layout extends React.Component {
                                 </NavItem>                    
                             </Nav>
                         </div>
-                        <div className="content">
+                        <div className="content margin-padding-0">
                             {this.props.children}
                         </div>
                     </div>

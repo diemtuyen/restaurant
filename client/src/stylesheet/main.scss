@@ -4,11 +4,14 @@ body,html{
     padding: 0;
 }
 .tienhai{
+    //create dynamic margin, padding utilities for responsive
+    @include makespace($space-values);
+
     @import '../../node_modules/bootstrap/scss/bootstrap.scss';
     @import '../../node_modules/font-awesome/css/font-awesome.min.css';
     @import 'components/_component.scss';
-    @import 'layout/_layout.scss';
-    
+    @import 'layout/_layout.scss';     
+   
     font-family: $font_name;
     font-size: 14px; 
     color: $font;
@@ -30,18 +33,6 @@ body,html{
     .marginT{
         margin-top: 15px;
     }
-    // .dropdown-item{
-    //     padding: 10px 15px;
-    //     font-size: 14px;
-    // }
-    // .dropdown-menu{
-    //     padding: 0;
-    //     margin: 11px 0 0;
-    //     border-radius: 0;
-    // }    
-    // .dropdown-divider{
-    //     margin:0;
-    // }
     .logForm{
         margin-top: 10px;
     }

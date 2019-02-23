@@ -5,7 +5,7 @@ import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
 import CategoryForm from '../components/CategoryForm';
-
+import CatalogForm from '../components/Catalog.Form';
 class CategoryList extends React.Component {
     constructor(props) {
         super(props);
@@ -57,7 +57,7 @@ class CategoryItem extends React.Component {
                 <td>{this.props.item.note}</td>
                 <td>{this.props.item.createdBy}</td>
                 <td>{this.props.item.modifiedBy}</td>                
-                <td><button type="button" className="close" onClick={this.onClickEdit}><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                <td><button type="button" className="close" onClick={this.onClickEdit}><i className="fa fa-pencil" aria-hidden="true"></i></button></td>
                 <td><button type="button" className="close" onClick={this.onClickDelete}>&times;</button></td>
             </tr>  
         );
@@ -80,7 +80,8 @@ class CategoryPage extends React.Component {
                 <div className="title">
                     <h2>Category Management</h2>
                 </div>
-                <CategoryForm />
+                {/* <CategoryForm /> */}
+                <CatalogForm url='food' action='ADD_FOOD' />
                 {(this.props.foods.length > 0) ?
                     <CategoryList items={this.props.foods} removeItem={this.removeItem}/>: 
                     <div className="alignC">There are no items in list</div>}

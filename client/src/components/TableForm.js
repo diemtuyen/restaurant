@@ -3,10 +3,10 @@ import {compose} from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import { Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import renderInput from '../controls/input.control'; 
+import renderInput from '../controls/input.control';
 import {adminActions} from '../actions/admin.actions';
 import commonWrapped from '../hocs/hocs.common';
-
+import {required} from '../controls/FieldValidations';
 let TableForm = props => {
   const { handleSubmit, pristine, submitting } = props
   return (
@@ -22,6 +22,8 @@ let TableForm = props => {
                 className='res-input'
                 name='title'
                 type='number'
+                validate={required}
+                showError
                 component={renderInput}
             />
           </Col>
@@ -35,6 +37,8 @@ let TableForm = props => {
                 className='res-input'
                 name='note'
                 type='text'
+                validate={required}
+                showError
                 component={renderInput}
             />
           </Col>

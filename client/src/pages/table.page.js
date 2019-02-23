@@ -94,9 +94,9 @@ const mapStateToProps = state => {
     return {
         tables: state.bookingReducer.tables
     }
-  }
+}
   
 export default compose(
     connect(mapStateToProps,null),
     commonWrapped()
-  )(TablePage);
+)(TablePage);
