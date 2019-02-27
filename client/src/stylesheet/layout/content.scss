@@ -1,244 +1,183 @@
 .content{
-    @include media-breakpoint-up(md) {
-        width: calc(100% - #{$width_sidebar});
-    }
-    display: inline-block;
-   
+    margin-left: $width-sidebar;
     .form-control {        
-        height: 30px;
-        font-size: 14px;
+        height: $height-widget;
+        font-size: $font-size;
         border:{
-            radius: 0;
-            color: #E6E6E6;
+            radius: 5px;
+            color: $line-gray3;
         }
         &:focus{
             box-shadow: unset;
-            border-color: #66afe9;
+            border-color: $color-blue2;
         }
-    }  
-    .angle-double{
-        float: right;
-        height: 100%;
-        width: 12px;
-        position: relative;
-        background-color: $line-gray;
-        >span{
-            position: absolute;
-            top: 50%;
+    } 
+    .dashboard{
+        @mixin bg-dashboard-item($color){
+            background-color: $color;
+            font-size: 24px;
+            color: $color-white;
+            line-height: 2.5;
+            .col:last-child(){
+                text-align: right;
+            }
         }
-        &:hover{
-            cursor: pointer;
-            color: #00a6ac;
+        .msg{
+            @include bg-dashboard-item($color-red);
+        }
+        .view{
+            @include bg-dashboard-item($color-blue-light);
+        }
+        .share{
+            @include bg-dashboard-item($color-blue-dark);
+        }
+        .user{
+            @include bg-dashboard-item($color-orange);
         }
     }
-    .widget-main{ 
+    .widget-main{
         display: inline-block;
-        width: calc(100% - #{$width_lstOrder});
         height: 100%;   
         float: left;
-        .content-page{        
-            .title{
-                border-bottom: 1px solid $line-gray;
-                position: relative;
-                padding: 11px 0;
-                background: #f5f5f5;
-                h2{      
-                    margin-left: 15px;
-                    margin-bottom: 0;
-                    color: $font-btn;
-                    font-size: 20px;
+        border: 1px solid $line-gray;
+        width: calc(100% - #{$width_sidebar});
+        .title{
+            border-bottom: 1px solid $line-gray;
+            position: relative;
+            padding: 11px 0;
+            background: $line-gray4;
+            h2{      
+                margin-left: 15px;
+                margin-bottom: 0;
+                color: $font-btn;
+                font-size: 20px;
+            }
+            .number_no{
+                margin-top: 10px;
+                position: absolute;
+                top: 5px;
+                right: 25px;
+            }
+        }
+        form.form-order{
+            .form-header-row{
+                padding: 10px 0;
+                .form-group{
+                    margin-bottom: 5px;
+                    label{
+                        position: absolute;
+                        top:5px; 
+                    }
                 }
-                .number_no{
-                    margin-top: 10px;
-                    position: absolute;
-                    top: 5px;
-                    right: 25px;
+                .select-table{
+                    padding-left: $spacing-label;
+                    padding-right: 0;
                 }
             }
-            form.form-order{
-                border: 3px solid #f5f5f5;                
-                .form-header-row{
-                    padding: 10px;
-                    background: white;
-                    text-align: center;
-                    .form-group{
-                        margin-bottom: 0;
+            .totalPrice{
+                color: $color-blue;
+                float: right;
+                font-weight: bold;
+                padding: 10px;
+                font-size: 16px;
+            }
+            .form-submit-row{
+                padding: 5px;
+                box-shadow: inset 0px 8px 20px 12px $line-gray4;
+            }            
+            .lstField{
+                list-style: none;
+                padding: 0;
+                position: relative;
+                margin-bottom: 0;                 
+                .itemField{
+                    background-color: $color-white;
+                    display: inline-block;
+                    width: 100%;
+                    padding: 10px 0;
+                    margin-top: 5px;
+                    [class*="col"]{
+                        margin-bottom: 5px;
                     }
-                    label{position: absolute;top:5px}
-                    .select-table{
-                        padding-left: 80px;
-                        text-align: left;
-                        >span{
-                            font-weight: bold;
+                    %row-note-info{
+                        .control-input{
+                            padding-left: $spacing-label;
+                            &.rw-multiselect, &.order-page{
+                                padding-right: $spacing-label + 10px;
+                            }
+                        }
+                        label{
+                            position: absolute; 
+                            top: 5px;
+                        }
+                    }
+                    .row-note{
+                        @extend %row-note-info;
+                        >button{
                             position: absolute;
-                            top: 4px;
+                            top: 0; 
+                            right: 15px;
+                            width: $spacing-label + 5px;
                         }
                     }
-                }
-                .totalPrice{
-                    color: blue;
-                    float: right;
-                    font-weight: bold;
-                    padding: 10px;
-                    font-size: 16px;
-                }
-                .form-submit-row{
-                    padding: 5px;
-                    text-align: center;
-                    box-shadow: inset 0px 8px 20px 12px #f5f5f5;
-                }
-                @mixin bg-field-control ($color) {
-                    background-color: $color;
-                }
-                .groupFood{
-                    @include bg-field-control($bg_food);
-                }
-                .groupDrink{
-                    @include bg-field-control($bg_drink);                    
-                }  
-                .groupOption{
-                    @include bg-field-control($bg_option);
-                }
-                .groupFood, .groupDrink, .groupOption{
-                    .lstField{
-                        list-style: none;
-                        padding: 0;
-                        position: relative;
-                        margin-bottom: 0;            
-                        .itemField{
-                            padding-left: 0;
-                            padding-right: 0;
-                            clear: both;
-                            background-color: #fff;
-                            display: inline-block;
-                            width: 100%;
-                            // box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-                            padding: 5px;
-                            margin-top: 5px;
-                            .row{
-                                margin-top: 10px;
-                            } 
-                            > button{
-                                float: right;
-                                background-image: unset;
-                                background-color: unset;
-                                border: unset;
-                                padding: 5px 8px;
-                                &:before {
-                                    display: inline-block;
-                                    font: normal normal normal 14px/1 FontAwesome;
-                                    font-size: inherit;
-                                    text-rendering: auto;
-                                    -webkit-font-smoothing: antialiased;
-                                    -moz-osx-font-smoothing: grayscale;
-                                    //content: '\F1F8';
-                                    content: 'Delete'
-                                }
-                            }
-                            .panel{        
-                                margin-top: 3px;
-                            }
-                            .panel-child{
-                                .row:last-child{
-                                    margin-bottom: 5px;
-                                }
-                                [class*="col-"]{
-                                    &:first-child, &:last-child{
-                                        padding:{
-                                            left: 0;
-                                            right: 0;
-                                        }
-                                    }
-                                    .middle-label{
-                                        margin-left: 30px;
-                                    }
-                                }
-                                %row-note-info{
-                                    label{
-                                        position: absolute; 
-                                        top: 5px;
-                                    }
-                                    &.display{
-                                        div{
-                                            margin: 12px 0;
-                                            :last-child{
-                                                font-weight: bold;
-                                                margin-left: 10px;
-                                            }
-                                        }
-                                    } 
-                                }
-                                .row-note{
-                                    @extend %row-note-info;
-                                    .res-input, .suggestion-note{
-                                        padding-left: 80px; 
-                                        padding-right: 80px
-                                    }
-                                    .res-input{
-                                        &.alter-input{
-                                            padding-right: 0;
-                                        }
-                                    }
-                                    button.bt-suggestion-note{
-                                        position: absolute;
-                                        top: 0; 
-                                        right: 0; 
-                                        width: 75px
-                                    }
-                                    &.display{
-                                        .take-away{
-                                            font-weight: bold;
-                                            margin-left: 10px;
-                                            color: darkred;
-                                        }
-                                    }
-                                }
-                                .row-info{
-                                    @extend %row-note-info;
-                                    .control-input{padding-left: 80px}
-                                    &.display{                                        
-                                        .col-drink-option{
-                                            padding-left: 15px;
-                                        }
-                                    }
-                                }
-                                .action{
-                                    text-align: right;
-                                    > label {
-                                        margin-right: 50px;
-                                    }
-                                    #takeAway{
-                                        zoom: 1.2;
-                                        top: 3px;
-                                        position: relative;
-                                        height: auto;
-                                    } 
-                                }
-                            }    
+                    .row-info{
+                        @extend %row-note-info;
+                    }
+                    .action{
+                        label {
+                            margin-right: 25px;
                         }
+                        #takeAway{
+                            zoom: 1.2;
+                            top: 3px;
+                            position: relative;
+                            height: auto;
+                        } 
                     }
                 }
             }
         }
     }
-    .widget-lstOrder{ 
+    .widget-lstOrder{
         float: left;
         width: $width_sidebar;
-        display: none; 
-        position: relative;
-        height: 100%; 
-        >div{
-            height: 100%;
-            >ul{
-                text-align: center;
-            }
-        }
-        .sidebar{
-            width: 100%;
-            .nav-link{
-                border-left: 1px solid $line-gray;
-                text-align: center;
+        .nav-link{
+            padding: 15px;
+            border-left: 1px solid $line-gray;
+            border-bottom: 1px solid $line-gray;
+            a{
+                @extend %link-navbar;
             }
         }
     }
-} 
+}
+@mixin set-width-content{
+    .content{
+        margin-left: $width_sidebar;
+        &.show-menu-true{
+            margin-top: $height-navbar-all;
+        }
+        .widget-main{
+            width: calc(100% - #{$width_iconbar});
+        }
+        .widget-lstOrder{
+            width: $width_iconbar;
+            .nav-link{
+                width: $width_iconbar;
+                padding: 15px 0;
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1199px) {
+    @include set-width-content;
+}
+@media screen and (max-width: 991px) {
+    @include set-width-content;
+    .content{
+        margin-left: 0;        
+    }
+}
