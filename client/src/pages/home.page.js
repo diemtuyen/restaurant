@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col} from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class HomePage extends React.Component {
@@ -38,7 +37,6 @@ class HomePage extends React.Component {
                         <Row>User</Row>
                     </Col>
                 </Row>
-                <Link to="/login">Logout</Link>
             </div>
         );
     }

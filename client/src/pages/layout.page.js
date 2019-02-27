@@ -30,8 +30,7 @@ export default class Layout extends React.Component {
             <Navbar color='light' light expand='lg'>
                 <NavbarBrand href='/'><img src={logo}/>Tien Hai</NavbarBrand>
                 <div className='profile text-center'>
-                        <span>Welcome, <strong>{this.state.userName ? this.state.userName :<i className="fa fa-user" aria-hidden="true"></i>}</strong></span><br/>
-                        
+                        {this.state.userName ? <span>Welcome, <strong>{this.state.userName}</strong></span> :<i className="fa fa-user" aria-hidden="true"></i>}<br/>
                         <Link to href='/email'>
                             <i className='fa fa-envelope' aria-hidden='true'></i>
                         </Link>

@@ -12,8 +12,8 @@ const renderOption = ({rs, pageType, options, fields}) =>
             (fields.length > 0) && <Table responsive>
                 <thead className='table-warning'>
                     <tr className='d-flex'>
-                        <th className='col-md-4 col-sm-9 col-10'>{_.get(rs, `widgetOrder.${pageType}.menuOption`)}</th>
-                        <th className='col-md-8 col-sm-3 col-2'>{_.get(rs, `widgetOrder.${pageType}.sum`)}</th>
+                        <th className='col-md-4 col-sm-9 col-10'>{_.get(rs, `widgetOrder.menuOption`)}</th>
+                        <th className='col-md-8 col-sm-3 col-2'>{_.get(rs, `widgetOrder.price`)}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@ const renderOption = ({rs, pageType, options, fields}) =>
                 <li className='itemField' key={index}>
                     <Row className='row-info'>  
                         <Col xl='4' lg='6' md='6' sm='6' xs='12'>
-                            <label>{_.get(rs, `widgetOrder.${pageType}.menuOption`)}</label>
+                            <label>{_.get(rs, `widgetOrder.menuOption`)}</label>
                             <Field
                                 className='control-input'
                                 name={`${option}.foodId`}
@@ -54,8 +54,8 @@ const renderOption = ({rs, pageType, options, fields}) =>
                                 val={foodId}
                                 data={options}/>
                         </Col>                                
-                        <Col xl='4' lg='4' md='4' sm='4' xs='9'>
-                            <label>{_.get(rs, `widgetOrder.${pageType}.price`)}</label>
+                        <Col sm='4' xs='9'>
+                            <label>{_.get(rs, `widgetOrder.price`)}</label>
                             <Field
                                 className='control-input'
                                 name={`${option}.price`}

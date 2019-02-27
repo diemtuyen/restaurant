@@ -102,10 +102,10 @@ class WidgetOrder extends React.Component{
                 <form className='form-order' onSubmit={handleSubmit}>
                     {this.props.pageType !=='cooker' && 
                     <Row className='form-header-row'>
-                        <Col lg='5' md={{size:5, offset:1}} sm={6} xs='12'>
-                            <FormGroup row>
-                                <Label for='table'>{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                                <Col className='select-table'>
+                        <Col sm='6' xs='12'>
+                            <FormGroup>
+                                <Label for='table'>{_.get(rs, 'widgetOrder.tableId')}</Label>
+                                <Col className='pr-0'>
                                     <Field
                                     name='Table'
                                     valueField='id'
@@ -115,24 +115,24 @@ class WidgetOrder extends React.Component{
                                 </Col>
                             </FormGroup>
                         </Col>                        
-                        <Col md='2' lg='2' sm='2' xs='4' className='text-left pr-0'>
+                        <Col sm='2' xs='4' className='text-left pr-0'>
                             <Button type='button' onClick={this.addDetail}>
-                                {_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}
+                                {_.get(rs, 'widgetOrder.addFood')}
                             </Button></Col>
-                        <Col md='2' lg='2' sm='2' xs='4' className='text-center px-0'>
+                        <Col sm='2' xs='4' className='text-center px-0'>
                             <Button type='button' onClick={this.addDrink}>
-                                {_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}
+                                {_.get(rs, 'widgetOrder.addDrink')}
                             </Button></Col>
-                        <Col md='2' lg='2' sm='2' xs='4' className='text-right pl-0'>
+                        <Col sm='2' xs='4' className='text-right pl-0'>
                             <Button type='button' onClick={this.addOption}>
-                                {_.get(rs, `widgetOrder.${this.props.pageType}.addOption`)}
+                                {_.get(rs, 'widgetOrder.addOption')}
                             </Button></Col>
                     </Row>}
                     {this.props.pageType ==='cooker' && 
                         <div className='my-3 text-center'>
-                            <Label for='table'>{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                            <span className='px-4 font-weight-bold'>{this.props.Table}</span>
-                            <Button type='button' onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button>
+                            <Label for='table'>{_.get(rs, 'widgetOrder.tableId')}</Label>
+                            <span className='pl-3 pr-5 font-weight-bold'>{this.props.Table}</span>
+                            <Button type='button' onClick={this.handleEditOrder}>{_.get(rs, 'widgetOrder.cooker.editOrder')}</Button>
                         </div>}
                     <FieldArray name='Details' 
                         rs={rs}

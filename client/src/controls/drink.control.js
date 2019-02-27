@@ -12,8 +12,8 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
             (fields.length > 0) && <Table responsive>
                 <thead className='table-info'>
                     <tr className='d-flex'>
-                        <th className='col-md-4 col-sm-9 col-10'>{_.get(rs, `widgetOrder.${pageType}.menuDrink`)}</th>
-                        <th className='col-md-8 col-sm-3 col-2'>{_.get(rs, `widgetOrder.${pageType}.sum`)}</th>
+                        <th className='col-md-4 col-sm-9 col-10'>{_.get(rs, `widgetOrder.menuDrink`)}</th>
+                        <th className='col-md-8 col-sm-3 col-2'>{_.get(rs, `widgetOrder.sum`)}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                 <li className='itemField' key={index}>
                     <Row className='row-info'>  
                         <Col xl='4' lg='6' md='6' sm='6' xs='12'>
-                            <label>{_.get(rs, `widgetOrder.${pageType}.menuDrink`)}</label>
+                            <label>{_.get(rs, `widgetOrder.menuDrink`)}</label>
                             <Field
                                 className='control-input'
                                 name={`${drink}.drinkId`}
@@ -54,8 +54,8 @@ const renderDrink = ({rs, pageType, drinks, fields}) =>
                                 val={drinkId}
                                 data={drinks}/>
                         </Col>                                
-                        <Col xl='4' lg='4' md='4' sm='4' xs='9'>
-                            <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
+                        <Col sm='4' xs='9'>
+                            <label>{_.get(rs, `widgetOrder.sum`)}</label>
                             <Field
                                 className='control-input'
                                 name={`${drink}.count`}

@@ -1,12 +1,8 @@
 .content{
     margin-left: $width-sidebar;
     .form-control {        
-        height: $height-widget;
         font-size: $font-size;
-        border:{
-            radius: 5px;
-            color: $line-gray3;
-        }
+        border-color: $line-gray3;
         &:focus{
             box-shadow: unset;
             border-color: $color-blue2;
@@ -60,18 +56,23 @@
             }
         }
         form.form-order{
+            label{
+                position: absolute; 
+                top: 8px;
+            }
             .form-header-row{
                 padding: 10px 0;
                 .form-group{
                     margin-bottom: 5px;
-                    label{
-                        position: absolute;
-                        top:5px; 
+                    .col{
+                        padding-left: $spacing-label + 20px;
                     }
                 }
-                .select-table{
-                    padding-left: $spacing-label;
-                    padding-right: 0;
+            }
+            .my-3.text-center{
+                font-size: 18px;
+                label{
+                    position: unset; 
                 }
             }
             .totalPrice{
@@ -103,13 +104,12 @@
                         .control-input{
                             padding-left: $spacing-label;
                             &.rw-multiselect, &.order-page{
-                                padding-right: $spacing-label + 10px;
+                                padding-right: $spacing-note + 5px;
                             }
-                        }
-                        label{
-                            position: absolute; 
-                            top: 5px;
-                        }
+                            >input{
+                                height: $height-widget;
+                            }
+                        }                        
                     }
                     .row-note{
                         @extend %row-note-info;
@@ -117,7 +117,8 @@
                             position: absolute;
                             top: 0; 
                             right: 15px;
-                            width: $spacing-label + 5px;
+                            width: $spacing-note;
+                            height: $height-widget;
                         }
                     }
                     .row-info{
@@ -126,6 +127,7 @@
                     .action{
                         label {
                             margin-right: 25px;
+                            position: unset;
                         }
                         #takeAway{
                             zoom: 1.2;

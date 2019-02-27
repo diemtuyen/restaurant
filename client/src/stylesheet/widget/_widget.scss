@@ -9,7 +9,6 @@
     background-image: linear-gradient($color-white, $line-gray);
     color:$font-btn;
     font-size: $font-size;
-    padding: 3px 13px;
     &:hover, &:not(:disabled):not(.disabled):active{
         border-color: $line-gray;
         background-image: linear-gradient($color-white, $line-gray2);
@@ -48,26 +47,18 @@
 }
 //===================== end table ====================
 //===================== widget ====================
-.rw-widget-picker{        
-    height: $height-widget - 2px;
-}
+
 .rw-multiselect{
-    .rw-input-reset{
-        height: $height-widget;
-    }
     .rw-popup-container{
         padding-left: $spacing-label; 
-        padding-right: $spacing-label + 10px;
+        padding-right: $spacing-note + 5px;
     }
 }
 .rw-widget-input{
     box-shadow: unset;
 }
 .rw-widget-container{
-    border:{
-        radius: 5px;
-        color: $line-gray3;
-    }
+    border-color: $line-gray3;
 }
 .rw-list-optgroup{
     padding-bottom: 7px;
@@ -77,6 +68,5 @@
         border: unset;
     }
 }
-
 //===================== end widget ====================
 

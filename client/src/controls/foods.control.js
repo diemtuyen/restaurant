@@ -14,11 +14,11 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
             (fields.length > 0) && <Table responsive>
                 <thead className='table-primary'>
                     <tr className='d-flex'>
-                        <th className='col-md-2 col-sm-6 col-5'>{_.get(rs, `widgetOrder.${pageType}.menu`)}</th>
-                        <th className='col-md-2 col-sm-3 col-5'>{_.get(rs, `widgetOrder.${pageType}.type`)}</th>
-                        <th className='col-md-1 col-sm-1 col-2'>{_.get(rs, `widgetOrder.${pageType}.sum`)}</th>
-                        <th className='col-md-2 col-sm-2 d-none d-sm-block'>{_.get(rs, `widgetOrder.${pageType}.takeAway`)}</th>
-                        <th className='col-md-5 d-none d-md-block'>{_.get(rs, `widgetOrder.${pageType}.note`)}</th>
+                        <th className='col-md-2 col-sm-6 col-5'>{_.get(rs, `widgetOrder.menu`)}</th>
+                        <th className='col-md-2 col-sm-3 col-5'>{_.get(rs, `widgetOrder.type`)}</th>
+                        <th className='col-md-1 col-sm-1 col-2'>{_.get(rs, `widgetOrder.sum`)}</th>
+                        <th className='col-md-2 col-sm-2 d-none d-sm-block'>{_.get(rs, `widgetOrder.takeAway`)}</th>
+                        <th className='col-md-5 d-none d-md-block'>{_.get(rs, `widgetOrder.note`)}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     </td>
                                 <td className='col-md-2 col-sm-3 col-5'>
                                     {_.find(kinds, (k) =>{ return k.id == fields.get(index).kindId;}).title}
-                                    <span className='d-block d-sm-none text-warning'>{fields.get(index).isTakeAway && _.get(rs, `widgetOrder.${pageType}.takeAway`)}</span></td>
+                                    <span className='d-block d-sm-none text-warning'>{fields.get(index).isTakeAway && _.get(rs, `widgetOrder.takeAway`)}</span></td>
                                 <td className='col-md-1 col-sm-1 col-2'>{fields.get(index).count}</td>
                                 <td className='col-md-2 col-sm-2 d-none d-sm-block'>{fields.get(index).isTakeAway && <i class='fa fa-check' aria-hidden='true'></i>}</td>
                                 <td className='col-md-5 d-none d-md-block'>{fields.get(index).note}</td>
@@ -76,7 +76,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                     id='takeAway'
                                     component='input'
                                     type='checkbox' />
-                                    {' '}{_.get(rs, `widgetOrder.${pageType}.takeAway`)}
+                                    {' '}{_.get(rs, `widgetOrder.takeAway`)}
                             </Label>
                             <Button
                                 type='button'
@@ -88,7 +88,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                     </Row>
                     <Row className='row-info'>  
                         <Col xl='4' lg='6' md='6' sm='6' xs='12'>
-                        <label>{_.get(rs, `widgetOrder.${pageType}.menu`)}</label>
+                        <label>{_.get(rs, `widgetOrder.menu`)}</label>
                         <Field
                             className='control-input'
                             name={`${food}.foodId`}
@@ -100,7 +100,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             data={foods}/>
                         </Col>
                         <Col xl='4' lg='6' md='6' sm='6' xs='12'>
-                        <label className='middle-label'>{_.get(rs, `widgetOrder.${pageType}.type`)}</label>
+                        <label className='middle-label'>{_.get(rs, `widgetOrder.type`)}</label>
                         <Field
                             className='control-input'
                             name={`${food}.kindId`}
@@ -111,7 +111,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             data={kinds}/>
                         </Col>
                         <Col xl='4' lg='3' md='3' sm='3' xs='12'>
-                        <label>{_.get(rs, `widgetOrder.${pageType}.sum`)}</label>
+                        <label>{_.get(rs, `widgetOrder.sum`)}</label>
                         <Field
                             className='control-input'
                             name={`${food}.count`}
@@ -120,7 +120,7 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                             data={[ '1', '2', '3', '4', '5', '6' ]}/> 
                         </Col>
                         <Col xl='12' lg='9' md='9' sm='9' xs='12' className='row-note'>
-                            <label>{_.get(rs, `widgetOrder.${pageType}.note`)}</label>{' '}
+                            <label>{_.get(rs, `widgetOrder.note`)}</label>{' '}
                             {!openNote && pageType === 'order' && 
                                 <Multiselect
                                     className='control-input'
@@ -147,14 +147,14 @@ const renderFoods = ({rs, pageType, foods, kinds, suggestNote, fields, ...rest, 
                                 type='button'
                                 title='Add Note'
                                 onClick={()=>fnShowNoteSuggest(food, index)}>
-                                {openNote ? 'Close' : _.get(rs, `widgetOrder.${pageType}.btnNote`)} 
+                                {openNote ? 'Close' : _.get(rs, `widgetOrder.addNote`)} 
                             </Button>}
                             <div style={{display:'none'}}>
                                 <Field name={`${food}.openNote`}
                                 id={`${food}.openNote`}
                                 component='input'
                                 type='checkbox' />{' '}
-                                {_.get(rs, `widgetOrder.${pageType}.takeAway`)}
+                                {_.get(rs, `widgetOrder.takeAway`)}
                             </div>
                         </Col>
                     </Row> 
