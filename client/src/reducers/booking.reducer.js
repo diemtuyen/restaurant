@@ -2,12 +2,6 @@ import bookingActionType from '../constants/booking.constants';
 import _ from 'lodash';
 
 var initialState = {
-  tables: [],
-  foods:[],
-  drinks:[],
-  kinds: [],
-  excepts: [],
-  utilities:[],
   orders:[],
   served:[],
   selectOrder: null,
@@ -34,64 +28,6 @@ export function bookingReducer(state = initialState, action) {
       stateClone.orders =  Object.assign([], state.orders);
       stateClone.orders.push(action.obj);
       return stateClone;
-    case bookingActionType.TABLE_ADD_NEW:
-      stateClone = _.cloneDeep(state);
-      stateClone.tables.push(action.obj);
-      return stateClone;
-    case bookingActionType.TABLE_DELETE:
-      stateClone = _.cloneDeep(state);
-      _.remove(stateClone.tables, table => table.id === action.obj.id);
-      return stateClone;
-    case bookingActionType.CATEGORY_ADD_NEW:
-      stateClone = _.cloneDeep(state);
-      stateClone.categories.push(action.obj);
-      return stateClone;
-    case bookingActionType.KIND_ADD_NEW:
-      stateClone = _.cloneDeep(state);
-      stateClone.kinds.push(action.obj);
-      return stateClone;
-    case bookingActionType.EXCEPT_ADD_NEW:
-      stateClone = _.cloneDeep(state);
-      stateClone.excepts.push(action.obj);
-      return stateClone;
-    case bookingActionType.UTILITY_ADD_NEW:
-      stateClone = _.cloneDeep(state);
-      stateClone.utilities.push(action.obj);
-      return stateClone;
-    case bookingActionType.GET_CATEGORIES:
-      let foodGroup = action.obj[1];
-      let foods = action.obj[2];
-      _.each(foods, function(f,i){
-          let gr = _.find(foodGroup, ['id', f.foodGroupId]);
-          f.groupName = _.isUndefined(gr) ? '' : gr.title;
-      });
-      let suggestNote = _.map(action.obj[5],function(itm){
-        return{
-          ...itm,
-          newId: itm.id,
-          groupId: 1,
-          group:'Cho them'
-        }
-      });
-      const n = suggestNote.length+1;
-      suggestNote = _.concat(suggestNote, _.map(action.obj[4], function(itm){
-          return{
-            ...itm,
-            newId: n + itm.id,
-            groupId: 2,
-            group: 'Khong cho'
-          }
-      }));
-      return Object.assign(state,{
-        tables: action.obj[0],
-        foodGroup,
-        foods,
-        kinds: action.obj[3],
-        excepts: action.obj[4],
-        utilities: action.obj[5],
-        drinks: action.obj[6],
-        suggestNote
-      });
     case bookingActionType.GET_ORDERS:
       updated = Object.assign({}, state);      
       updated = Object.assign(updated, {

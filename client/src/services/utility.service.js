@@ -10,36 +10,41 @@ export const utilityService = {
 
 function getItems() {
     let url = `${config.apiUrl}/${ApiEndpoints.utility}/items`;
-    return axios.get(url).then(res=>{        
-        return res.data.content.items;
-    }).catch(e=>{
-        console.log(e);
+    return new Promise((resolve, reject) => {
+        axios.get(url).then(res=>{
+            resolve(res.data.content.items);
+        },function(e){
+            reject(e);
+        });
     });
 }
 function addItem(obj) {
-    console.log(obj); 
     let url = `${config.apiUrl}/${ApiEndpoints.utility}`;
-    return axios.post(url, obj).then(res=>{
-        console.log(res.data.content);
-        Promise.resolve(res.data.content);
-    },e=>{
-        Promise.reject(e);
+    return new Promise((resolve,reject)=>{
+        axios.post(url, obj).then(res=>{
+            resolve(res.data.content);
+        },e=>{
+            reject(e);
+        });
     });
 }
 function deleteItem(obj) {
-    console.log(obj); 
     let url = `${config.apiUrl}/${ApiEndpoints.utility}`;
-    return axios.delete(url, { data: { id: obj.id } }).then(res=>{
-        console.log(res.data.content);
+    return new Promise((resolve, reject)=>{
+        axios.delete(url, { data: { id: obj.id } }).then(res=>{
+            resolve(res.data.content);
+        }, e=>{
+            reject(e);
+        });
     });
 }
 function updateItem(obj) {
-    console.log(obj); 
     let url = `${config.apiUrl}/${ApiEndpoints.utility}`;
-    return axios.put(url, { data: { obj } }).then(res=>{
-        console.log(res.data.content);
-        Promise.resolve(res.data.content);
-    },e=>{
-        Promise.reject(e);
+    return new Promise((resolve, reject)=>{
+        axios.put(url, { data: { obj } }).then(res=>{
+            resolve(res.data.content);
+        },e=>{
+            reject(e);
+        });
     });
 }

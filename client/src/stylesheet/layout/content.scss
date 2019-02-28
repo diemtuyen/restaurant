@@ -31,6 +31,29 @@
             @include bg-dashboard-item($color-orange);
         }
     }
+    .title{
+        border-bottom: 1px solid $line-gray;
+        position: relative;
+        padding: 11px 0;
+        background: $line-gray4;
+        h2{      
+            margin-left: 15px;
+            margin-bottom: 0;
+            color: $font-btn;
+            font-size: 20px;
+        }
+    }
+    .admin-page{
+        form{
+            box-shadow: 0px 10px 15px 0px $line-gray2;
+            margin: 0 auto 15px;
+            width: 80%;
+            border: 1px solid $line-gray;
+            .row{
+                margin: 15px;
+            }
+        }
+    }
     .widget-main{
         display: inline-block;
         height: 100%;   
@@ -38,16 +61,6 @@
         border: 1px solid $line-gray;
         width: calc(100% - #{$width_sidebar});
         .title{
-            border-bottom: 1px solid $line-gray;
-            position: relative;
-            padding: 11px 0;
-            background: $line-gray4;
-            h2{      
-                margin-left: 15px;
-                margin-bottom: 0;
-                color: $font-btn;
-                font-size: 20px;
-            }
             .number_no{
                 margin-top: 10px;
                 position: absolute;

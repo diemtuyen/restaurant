@@ -50,12 +50,13 @@ export function ofsReducer(state = initialState, action) {
         const type_action = action.data.type_action;
         const catalog_name = action.data.catalog_name;
         let cl = stateClone.cataglog[catalog_name.toLowerCase()];
-        const request_data = action.data.request, response_data = action.data.response
+        const request_data = action.data.request;
+        const response_data = action.data.response;
         if(type_action=='add'){
-            cl.push(response_data);
+            cl.push(request_data);
         }else if(type_action === 'update'){
             const index = cl.findIndex(obj => obj.id === action.data.request.id);
-            cl[index]=response_data;
+            cl[index]=request_data;
         }else if(type_action === 'delete'){
             const index = cl.findIndex(obj => obj.id === action.data.request.id);
             cl = cl.splice(index, 1);

@@ -21,6 +21,26 @@ const fnApi={
         add: tableService.addItem,
         update: tableService.updateItem,
         delete: tableService.deleteItem
+    },
+    DRINKS:{
+        add: drinkService.addItem,
+        update: drinkService.updateItem,
+        delete: drinkService.deleteItem
+    },
+    UTILITIES:{
+        add: utilityService.addItem,
+        update: utilityService.updateItem,
+        delete: utilityService.deleteItem
+    },
+    KINDS:{
+        add: kindService.addItem,
+        update: kindService.updateItem,
+        delete: kindService.deleteItem
+    },
+    EXCEPTS:{
+        add: exceptService.addItem,
+        update: exceptService.updateItem,
+        delete: exceptService.deleteItem
     }
 }
 function success(action, type_action, catalog_name, request, response) {
@@ -67,6 +87,7 @@ function submitCategory(props, data) {
                 dispatch(commonActions.success(ofsActionType.CATALOG_SUCCESS, obj));
             },
             error => {
+                console.log('fail submitCategory ::: '+ error);
                 dispatch(commonActions.failure(ofsActionType.CATALOG_FAILURE, data));
             }
         );

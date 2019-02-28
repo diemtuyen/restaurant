@@ -50,7 +50,16 @@
         }
     },
     "adminPage":{
-        "addNew":"Add new item"
-
+        "addItem":"Add new item",
+        "editItem":"Edit item",
+        "btnAdd": "Add",
+        "btnUpdate": "Update",
+        "no": "No.",
+        "title":"Title",
+        "note":"Note",
+        "createBy": "Create By",
+        "deleteBy": "Delete By",
+        "edit": "Edit",
+        "delete": "Delete"
     }
 }

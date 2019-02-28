@@ -1,69 +1,52 @@
 import React from 'react';
+import {Table} from 'reactstrap';
 import { connect } from "react-redux";
 import {compose} from 'redux';
 import commonWrapped from '../hocs/hocs.common';
-import {bookingActions} from '../actions/booking.actions';
-import {adminActions} from '../actions/admin.actions';
 import ofsActionType from '../constants/ofs.constants';
-import CategoryForm from '../components/CategoryForm';
-import CatalogForm from '../components/Catalog.Form';
+import CatalogForm from '../components/CatalogForm';
 import {ofsActions} from '../actions/ofs.actions';
 import ConfirmModal from '../controls/confirmModal';
-class CategoryList extends React.Component {
+import _ from 'lodash';
+class CategoryList extends React.Component{
     constructor(props) {
         super(props);
     }
-    render () {
-        var items = this.props.items.map((item, index) => {
-            return (        
-                <CategoryItem id ={item.id} key={index} item={item} index={index} 
-                removeItem={this.props.removeItem}
-                selectedItem={this.props.selectedItem} />
-            );
-        });
-        return (
-            <div>
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Note</th>
-                            <th>Create By</th>
-                            <th>Modify By</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>{items}</tbody>
-                </table>
-            </div>
-        );
-    }
-}
-    
-class CategoryItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onClickDelete = this.onClickDelete.bind(this);
-    }
-    onClickDelete() {
-        this.props.removeItem(this.props.item); 
-    }
-    render () {        
-        return(   
-            <tr>
-                <td>{this.props.item.id}</td>
-                <td>{this.props.item.title}</td>
-                <td>{this.props.item.note}</td>
-                <td>{this.props.item.createdBy}</td>
-                <td>{this.props.item.modifiedBy}</td>                
-                <td><button type="button" className="close" onClick={(e)=>{
-                    this.props.selectedItem(this.props.item)}
-                }><i className="fa fa-pencil" aria-hidden="true"></i></button></td>
-                <td><button type="button" className="close" onClick={this.onClickDelete}>&times;</button></td>
-            </tr>  
-        );
+    render() {
+        const rs = _.get(window.restaurant,'resource');
+        return(
+            <Table striped responsive>
+                <thead className='table-primary'>
+                    <tr className='d-flex'>
+                        <th className='col-1'>{_.get(rs, `adminPage.no`)}</th>
+                        <th className='col-3'>{_.get(rs, `adminPage.title`)}</th>
+                        <th className='col-2'>{_.get(rs, `adminPage.note`)}</th>
+                        <th className='col-2'>{_.get(rs, `adminPage.createBy`)}</th>
+                        <th className='col-2'>{_.get(rs, `adminPage.deleteBy`)}</th>
+                        <th className='col-1'>{_.get(rs, `adminPage.edit`)}</th>
+                        <th className='col-1'>{_.get(rs, `adminPage.delete`)}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.props.items.map((item, index) => {
+                        return(
+                            <tr className='d-flex'>
+                                <td className='col-1'>{index+1}</td>
+                                <td className='col-3'>{item.title}</td>
+                                <td className='col-2'>{item.note}</td>
+                                <td className='col-2'>{item.createdBy}</td>
+                                <td className='col-2'>{item.modifiedBy}</td>
+                                <td className='col-1'>
+                                    <button type="button" className="close" onClick={(e)=>{this.props.selectedItem(item)}}>
+                                        <i className="fa fa-pencil" aria-hidden="true"></i></button></td>
+                                <td className='col-1'>
+                                    <button type="button" className="close" onClick={(e)=>{this.props.removeItem(item)}}>&times;</button></td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        )
     }
 }
 class CategoryPage extends React.Component {    
@@ -78,13 +61,11 @@ class CategoryPage extends React.Component {
         }
     }
     componentDidMount(){ 
-        //this.props.dispatch(bookingActions.getCategories());
         this.props.dispatch(ofsActions.getCategories());
         const { name } = this.props.match.params;
         this.setState({'catalogName': name});
     }
     onClickRemoveItem (item) { 
-        //this.props.dispatch(adminActions.deleteCategory(item));
         this.setState({'selectedRemoveItem': item})
         this.toggleFn();
     }
@@ -103,26 +84,24 @@ class CategoryPage extends React.Component {
     render(){
         const items = this.props.cataglog[this.state.catalogName];
         return(
-            <div>
+            <div className='admin-page'>
                 <div className="title">
                     <h2>Category Management</h2>
                 </div>
-                {/* <CategoryForm /> */}
-                <ConfirmModal data={this.state.selectedRemoveItem} mdTitle='Modal Title' mdBody='Modal Body' isOpen={this.state.isOpen} okFn={this.okFn} toggleFn={this.toggleFn}/>
+                <ConfirmModal 
+                    data={this.state.selectedRemoveItem} 
+                    mdTitle='Confirmation' 
+                    mdBody='Are you sure you want to delete this item ?' 
+                    isOpen={this.state.isOpen} 
+                    okFn={this.okFn} 
+                    toggleFn={this.toggleFn}/>
                 <CatalogForm catalogName={this.state.catalogName}/>{/*'FOODS'*/}
-                {/* {(this.props.foods.length > 0) ?
-                    <CategoryList 
-                        items={this.props.foods} 
-                        items={this.props.foods}
-                        removeItem={this.removeItem} 
-                        selectedItem={this.selectedItem}/>: 
-                    <div className="alignC">There are no items in list</div>} */}
-                 {(items !== undefined && items.length > 0) ?
+                {(items !== undefined && items.length > 0) ?
                     <CategoryList 
                         items={items}
                         removeItem={this.onClickRemoveItem}
                         selectedItem={this.onClickEditItem}/>: 
-                    <div className="alignC">There are no items in list</div>}
+                    <div className="text-center">There are no items in list</div>}
             </div>
         )
     }
@@ -130,7 +109,6 @@ class CategoryPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        //foods: state.bookingReducer.foods
         cataglog: state.ofs.cataglog
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
 import _ from 'lodash';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import { Row, Col, Button} from 'reactstrap';
 import { connect } from 'react-redux';
 import renderInput from '../controls/input.control'; 
@@ -21,41 +21,30 @@ class CatalogForm extends React.Component{
     render(){
         const { pristine, reset, submitting, valid } = this.props;
         const { handleSubmit } = this.props;
+        const rs = _.get(window.restaurant,'resource');
         return(
             // <form onSubmit={handleSubmit(this.handleSubmit)}>
             <form onSubmit={handleSubmit}>
-                <div className="addNew">
-                    <Row>
-                        <Col md={12}><h5>Add new item</h5></Col>
-                    </Row>                    
-                    <Row>
-                        <Col md={4} className="txtAddNew"><label>Tieu de</label></Col>
-                        <Col md={8}>
-                            <Field
-                                className='res-input'
-                                name='title'
-                                type='text'
-                                component={renderInput}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4} className="txtAddNew"><label>Ghi chu</label></Col>
-                        <Col md={8}>
-                            <Field
-                                className='res-input'
-                                name='note'
-                                type='text'
-                                component={renderInput}
-                            />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={12}>
-                            <Button type="submit" disabled={!valid || pristine || submitting}>Add</Button>
-                        </Col>
-                    </Row>
-                </div>
+                <Row>
+                    <Col className='text-center'><h5>Add new item</h5></Col></Row>                    
+                <Row>
+                    <Col xs='4' className='text-right'><label>{_.get(rs, `adminPage.title`)}</label></Col>
+                    <Col xs='6'>
+                        <Field
+                            name='title'
+                            type='text'
+                            component={renderInput}/></Col></Row>
+                <Row>
+                    <Col xs='4' className='text-right'><label>{_.get(rs, `adminPage.note`)}</label></Col>
+                    <Col xs='6'>
+                        <Field
+                            name='note'
+                            type='text'
+                            component={renderInput}/></Col></Row>
+                <Row>
+                    <Col className='text-center'>
+                        <Button type="submit" disabled={!valid || pristine || submitting}>{_.get(rs, `adminPage.btnAdd`)}</Button></Col>
+                </Row>
             </form>
         )
     }
@@ -76,6 +65,7 @@ const mapDispatchToProps = (dispatch,props) => ({
             alter_props  = {...props, type_action : 'add'};
         }
         dispatch(ofsActions.submitCategory(alter_props, values));
+        dispatch(reset('catelogForm'));
     }
 });
 export default compose(

@@ -12,6 +12,7 @@ import renderDrink from '../controls/drink.control';
 import renderOption from '../controls/option.control';
 import 'react-widgets/dist/css/react-widgets.css';
 import {bookingActions} from '../actions/booking.actions';
+import {ofsActions} from '../actions/ofs.actions';
 import { history } from '../helpers/history';
 
 class WidgetOrder extends React.Component{
@@ -28,7 +29,7 @@ class WidgetOrder extends React.Component{
         history.push('/order');
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getCategories());
+        this.props.dispatch(ofsActions.getCategories());
     }
     componentWillReceiveProps(nextProps){
         if( this.props.initialized && !nextProps.initialized){
@@ -44,7 +45,7 @@ class WidgetOrder extends React.Component{
     addDetail = () =>{
         let Details;
         Details = _.cloneDeep(this.props.tempDetails) || [];
-        Details.push({openNote: false});
+        Details.push({openNote: false, selectedNote:[]});
         this.props.dispatch(change(this.props.form, 'Details',  Details));
     }
     addDrink = () =>{
@@ -65,9 +66,9 @@ class WidgetOrder extends React.Component{
         $(`#${id}`).trigger('click');    
     }
     fnAddSuggestNote = (food, index, value)=>{
-        let item = _.cloneDeep( _.get(this.props, food)) || {};
-        item.selectedNote = value;
-        this.props.dispatch(change(this.props.form, food, {...item}));
+        let items = _.cloneDeep(this.props.tempDetails);
+        items[index].selectedNote = value;
+        this.props.dispatch(change(this.props.form, 'Details', items));
     }
     render(){
         const rs = _.get(window.restaurant,'resource');
@@ -167,15 +168,14 @@ class WidgetOrder extends React.Component{
 const selector = formValueSelector('orderForm');
 
 const mapStateToProps = state => {
-    
     if (!_.isNull(state.bookingReducer.selectOrder) && !_.isNull(state.bookingReducer.selectOrder.details)){
         return {
-            tables: state.bookingReducer.tables,
-            foods: state.bookingReducer.foods,
-            drinks: state.bookingReducer.drinks,
-            kinds: state.bookingReducer.kinds,
-            options: state.bookingReducer.utilities,
-            suggestNote: state.bookingReducer.suggestNote,
+            tables: state.ofs.cataglog.tables,
+            foods: state.ofs.cataglog.foods,
+            drinks: state.ofs.cataglog.drinks,
+            kinds: state.ofs.cataglog.kinds,
+            options: state.ofs.cataglog.utilities,
+            suggestNote: state.ofs.cataglog.suggestNote,
             pageType: state.bookingReducer.pageType,
             title: state.bookingReducer.selectOrder.title,
             Table: state.bookingReducer.selectOrder.tableId,
@@ -195,12 +195,12 @@ const mapStateToProps = state => {
     }
     else{
         return {
-            tables: state.bookingReducer.tables,
-            foods: state.bookingReducer.foods,
-            drinks: state.bookingReducer.drinks,
-            kinds: state.bookingReducer.kinds,
-            options: state.bookingReducer.utilities,
-            suggestNote: state.bookingReducer.suggestNote,
+            tables: state.ofs.cataglog.tables,
+            foods: state.ofs.cataglog.foods,
+            drinks: state.ofs.cataglog.drinks,
+            kinds: state.ofs.cataglog.kinds,
+            options: state.ofs.cataglog.utilities,
+            suggestNote: state.ofs.cataglog.suggestNote,
             pageType: state.bookingReducer.pageType,
             tempDetails: selector(state, 'Details'),
             tempDrinks: selector(state, 'Drinks'),
