@@ -1,4 +1,63 @@
+%link-navbar{
+    color: $color-blue;
+    padding: 15px;
+    &:hover{
+        color: $color-blue-hightlight;
+        text-shadow: 0px 1px 1px $color-blue;
+    }
+}
 .navbar{
     padding: 0;
-    border: 1px solid $line-gray;
+    border-bottom: 1px solid $line-gray;
+    position: relative;
+    .navbar-brand{
+        padding: 0;
+        img{
+            height: $height-navbar;
+        }
+    }
+    .navbar-collapse{
+        position: absolute;
+        top: $height-navbar + 1px ;
+        left: 0;
+        &.show{
+            width: 100%;
+            .navbar-nav{
+                width: 100%;
+            }
+        } 
+    } 
+    .navbar-nav{
+        background-color: #f8f8f8;        
+        display: inline-block;
+        width: $width-sidebar;
+        .nav-link{
+            @extend %link-navbar;
+            border:{
+                bottom: 1px solid $line-gray;
+                right: 1px solid $line-gray;
+            }
+            i{
+                margin-right: 10px;
+            }
+        }
+    }
+    .profile{
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 1.5;
+        a{
+            @extend %link-navbar;
+            border:{
+                bottom: unset;
+                right: unset;
+            }
+        }
+    }
+    @media screen and (max-width: 991px) {
+        .profile{
+            right: 65px;
+        }
+    }
 }

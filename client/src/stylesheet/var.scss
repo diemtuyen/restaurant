@@ -1,36 +1,40 @@
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/mixins";
 /* font name*/
 $font_name: Arial, sans-serif;
-$width_sidebar: 200px;
-$width_lstOrder: 12px;
-
-$bg_food: #f6dada;
-$bg_drink: #c4dcf0;
-$bg_option: #e2e3d2;
-// state of table
-$state_billing: #CF6F76;
-$state_order: #69A6C7;
-$state_serving:#DB9A4B;
-$state_waiting:#8AB388;
-
-$price: #B81A24;
-$btn:#b2b5b7;
-
+$font-size: 14px;
 $line-gray: #E7E7E7;
 $line-gray2: #bdbdbd;
+$line-gray3: #E6E6E6;
+$line-gray4: #f5f5f5;
 $font: #212529;
 $font-btn: #666666;
-
 $color-white: #ffffff;
 
-//blue color
-$color_b1: #039;
-$color_b2: #4066b3;
+
+$height-navbar:45px;
+$height-navlink:47px;
+$num-navlink: 7;
+$height-navbar-all: $height-navlink * $num-navlink;
+$height-widget:34px;
+$width_sidebar: 200px;
+$width_iconbar: 43px;
+$spacing-label: 45px;
+$spacing-note: 70px;
+
+
+$color-red: #f44336;
+$color-blue: #337ab7;
+$color-blue2: #66afe9;
+$color-blue-hightlight: #23527c;
+$color-blue-light: #2196F3;
+$color-blue-dark: #009688;
+$color-orange: #ff9800;
 
 $space-values : (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50,60) !default;
+
+// xs: 0,  sm: 576px,  md: 768px,  lg: 992px,  xl: 1200px;
 
 @mixin makespace($values, $breakpoints:$grid-breakpoints) {
     @each $breakpoint-name, $breakpoint-value in $breakpoints {

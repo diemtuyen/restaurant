@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {compose} from 'redux';
 import {Link} from 'react-router-dom';
 import commonWrapped from '../hocs/hocs.common';
@@ -35,13 +35,13 @@ class WidgetListOrder extends React.Component {
       )
     const lstOrders = this.props.orders.map( (item, i) => {
         return (
-          <div className="nav-link" onClick={() => this.handleClick(item)} key={i}>
-            {this.props.pageType !== 'cooker' && <Link to ='/order'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>}
-            {this.props.pageType === 'cooker' && <Link to ='/cooker'><i className="fa fa-star-o" aria-hidden="true"></i>{' '}{item.title} </Link>}
+          <div className='nav-link' onClick={() => this.handleClick(item)} key={i}>
+            {this.props.pageType !== 'cooker' && <Link to ='/order'><i className='fa fa-star-o' aria-hidden='true'></i>{' '}<span>{item.title}</span> </Link>}
+            {this.props.pageType === 'cooker' && <Link to ='/cooker'><i className='fa fa-star-o' aria-hidden='true'></i>{' '}<span>{item.title}</span> </Link>}
           </div>
         )});
     return( 
-      <div className="sidebar">
+      <div className='widget-lstOrder'>
         {lstOrders}  
       </div>
     )    

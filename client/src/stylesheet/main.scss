@@ -6,14 +6,14 @@ body,html{
 .tienhai{
     //create dynamic margin, padding utilities for responsive
     @include makespace($space-values);
-
+    
     @import '../../node_modules/bootstrap/scss/bootstrap.scss';
     @import '../../node_modules/font-awesome/css/font-awesome.min.css';
-    @import 'components/_component.scss';
-    @import 'layout/_layout.scss';     
-   
+    @import 'widget/_widget.scss';
+    @import 'layout/_layout.scss';
+    
     font-family: $font_name;
-    font-size: 14px; 
+    font-size: $font-size;
     color: $font;
     .row {
         margin:{
@@ -21,49 +21,4 @@ body,html{
             left: 0;
 		}
     } 
-    .alignC{
-        text-align: center;
-    }
-    .alignL{
-        text-align: left;
-    }
-    .alignR{
-        text-align: right;
-    }
-    .marginT{
-        margin-top: 15px;
-    }
-    .logForm{
-        margin-top: 10px;
-    }
-    label{
-        margin-bottom: 3px;
-    }
-    input{
-        height: 32px;
-    }
-   
-    form{
-        .required{
-            color: darkred;
-            font-weight: bold;
-        }
-        .addNew{
-            width: 40%;            
-            >*{
-                margin-bottom: 10px;
-            }
-            >h5{
-                text-align: center;
-            }
-            .row{
-                .txtAddNew{
-                    padding-left: 40px;
-                    >label{
-                        margin-top: 8px;
-                    }
-                }
-            }
-        }
-    }
 }

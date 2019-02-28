@@ -1,6 +1,6 @@
 import React from 'react';
 import {compose} from 'redux';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import commonWrapped from '../hocs/hocs.common';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -62,7 +62,7 @@ class WidgetOrder extends React.Component{
     fnShowNoteSuggest = (item, idx) => {
         let id = `${item}.openNote`;
         id = $.escapeSelector(id);    
-        $(`#${id}`).trigger("click");    
+        $(`#${id}`).trigger('click');    
     }
     fnAddSuggestNote = (food, index, value)=>{
         let item = _.cloneDeep( _.get(this.props, food)) || {};
@@ -93,67 +93,73 @@ class WidgetOrder extends React.Component{
             });
         }
         return(
-            <div className="content-page">
-                <div>
-                    <div className="title">
-                        <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
-                            {(this.props.pageType === 'order') && <label className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}</label>}
-                            {(this.props.pageType !== 'order') && <span className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}{' '}
-                                <b>{this.props.title}</b></span>}
+            <div className='widget-main'>
+                <Row className='title'>
+                    <h2>{_.get(rs, `widgetOrder.${this.props.pageType}.name`)}</h2>
+                        {(this.props.pageType !== 'order') && <span className='number_no'>{_.get(rs, `widgetOrder.${this.props.pageType}.title`)}{' '}
+                            <b>{this.props.title}</b></span>}
+                </Row>
+                <form className='form-order' onSubmit={handleSubmit}>
+                    {this.props.pageType !=='cooker' && 
+                    <Row className='form-header-row'>
+                        <Col sm='6' xs='12'>
+                            <FormGroup>
+                                <Label for='table'>{_.get(rs, 'widgetOrder.tableId')}</Label>
+                                <Col className='pr-0'>
+                                    <Field
+                                    name='Table'
+                                    valueField='id'
+                                    textField='title'
+                                    component={renderDropdownList}     
+                                    data={this.props.tables}/>
+                                </Col>
+                            </FormGroup>
+                        </Col>                        
+                        <Col sm='2' xs='4' className='text-left pr-0'>
+                            <Button type='button' onClick={this.addDetail}>
+                                {_.get(rs, 'widgetOrder.addFood')}
+                            </Button></Col>
+                        <Col sm='2' xs='4' className='text-center px-0'>
+                            <Button type='button' onClick={this.addDrink}>
+                                {_.get(rs, 'widgetOrder.addDrink')}
+                            </Button></Col>
+                        <Col sm='2' xs='4' className='text-right pl-0'>
+                            <Button type='button' onClick={this.addOption}>
+                                {_.get(rs, 'widgetOrder.addOption')}
+                            </Button></Col>
+                    </Row>}
+                    {this.props.pageType ==='cooker' && 
+                        <div className='my-3 text-center'>
+                            <Label for='table'>{_.get(rs, 'widgetOrder.tableId')}</Label>
+                            <span className='pl-3 pr-5 font-weight-bold'>{this.props.Table}</span>
+                            <Button type='button' onClick={this.handleEditOrder}>{_.get(rs, 'widgetOrder.cooker.editOrder')}</Button>
+                        </div>}
+                    <FieldArray name='Details' 
+                        rs={rs}
+                        pageType={this.props.pageType}
+                        component={renderFoods} 
+                        kinds={this.props.kinds} 
+                        foods={this.props.foods} 
+                        suggestNote={this.props.suggestNote}
+                        fnShowNoteSuggest={this.fnShowNoteSuggest}
+                        fnAddSuggestNote={this.fnAddSuggestNote}/>
+                    <FieldArray name='Drinks' 
+                        rs={rs}
+                        pageType={this.props.pageType}
+                        component={renderDrink} 
+                        drinks={this.props.drinks}/>   
+                    <FieldArray name='Options' 
+                        rs={rs}
+                        pageType={this.props.pageType}
+                        component={renderOption} 
+                        options={this.props.options}/> 
+                    <div className='form-submit-row text-center'>
+                        {totalPrice >0 && <span className='totalPrice text-danger'>Tong tien: {totalPrice}</span>}
+                        {this.props.pageType === 'order' && <Button type='button' onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                        {this.props.pageType === 'alter' && <Button type='button' onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
+                        {this.props.pageType === 'cooker' && <Button type='button' onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
                     </div>
-                    <form className='form-order' onSubmit={handleSubmit}>
-                        <Row className="form-header-row">
-                            <Col xs={{size:4, offset:2}}>
-                                <FormGroup row>
-                                    <Label for="table">{_.get(rs, `widgetOrder.${this.props.pageType}.tableId`)}</Label>
-                                    <Col sm={12} className="select-table">
-                                    { this.props.pageType !== 'cooker' &&  
-                                        <Field
-                                        name="Table"
-                                        valueField="id"
-                                        textField='title'
-                                        component={renderDropdownList}     
-                                        data={this.props.tables}/>}                                    
-                                    {this.props.pageType === 'cooker' && <span>{this.props.Table}</span>}
-                                    </Col>
-                                </FormGroup>
-                            </Col>
-                            {this.props.pageType !=='cooker' && <Col xs={2}>
-                                <Button type="button" onClick={this.addDetail}>{_.get(rs, `widgetOrder.${this.props.pageType}.addFood`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2}>
-                                <Button type="button" onClick={this.addDrink}>{_.get(rs, `widgetOrder.${this.props.pageType}.addDrink`)}</Button></Col>}
-                            {this.props.pageType !=='cooker' && <Col xs={2}>
-                                <Button type="button" onClick={this.addOption}>{_.get(rs, `widgetOrder.${this.props.pageType}.addOption`)}</Button></Col>}
-                            {this.props.pageType ==='cooker'&& <Col xs={{ size: 2}}>
-                                <Button type="button" onClick={this.handleEditOrder}>{_.get(rs, `widgetOrder.${this.props.pageType}.editOrder`)}</Button></Col>}
-                        </Row>
-                        <FieldArray name="Details" 
-                            rs={rs}
-                            pageType={this.props.pageType}
-                            component={renderFoods} 
-                            kinds={this.props.kinds} 
-                            foods={this.props.foods} 
-                            suggestNote={this.props.suggestNote}
-                            fnShowNoteSuggest={this.fnShowNoteSuggest}
-                            fnAddSuggestNote={this.fnAddSuggestNote}/>
-                        <FieldArray name="Drinks" 
-                            rs={rs}
-                            pageType={this.props.pageType}
-                            component={renderDrink} 
-                            drinks={this.props.drinks}/>   
-                        <FieldArray name="Options" 
-                            rs={rs}
-                            pageType={this.props.pageType}
-                            component={renderOption} 
-                            options={this.props.options}/> 
-                        <div className="form-submit-row">
-                            {totalPrice >0 && <span className='totalPrice'>Tong tien: {totalPrice}</span>}
-                            {this.props.pageType === 'order' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'order'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
-                            {this.props.pageType === 'alter' && <Button type="button" onClick={handleSubmit(values => this.props.onSubmit({...values, type: 'alter'}))}disabled={pristine || submitting}>{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
-                            {this.props.pageType === 'cooker' && <Button type="button" onClick={this.markDone} >{_.get(rs, `widgetOrder.${this.props.pageType}.submit`)}</Button>}
-                        </div>
-                    </form> 
-                </div>
+                </form> 
             </div>
         )
     }
@@ -212,7 +218,7 @@ const mapDispatchToProps = dispatch => ({
             i.kindId = i.kindId.id;
             let txtNote = '';
             _.forEach(i.selectedNote, (j) => {
-                txtNote += ` -- ` + j.title;           
+                txtNote += ` - ` + j.title;           
             });
             if (i.note !== null && i.note !== undefined)
                 txtNote += ` (` + i.note + `)`;

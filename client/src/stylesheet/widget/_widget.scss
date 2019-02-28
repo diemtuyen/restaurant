@@ -1,0 +1,72 @@
+//===================== button ====================
+.btn{
+    &:focus, &.disabled, &:disabled{
+        box-shadow: unset;
+    }
+}
+@mixin btn-secondary {
+    border-color: $line-gray;
+    background-image: linear-gradient($color-white, $line-gray);
+    color:$font-btn;
+    font-size: $font-size;
+    &:hover, &:not(:disabled):not(.disabled):active{
+        border-color: $line-gray;
+        background-image: linear-gradient($color-white, $line-gray2);
+        color:$font-btn;
+    }
+    &:not(:disabled):not(.disabled):active:focus{
+        position: relative;
+        top: 1px;
+        box-shadow: unset;
+    }
+    @content;
+}
+.btn-secondary{
+    @include btn-secondary{
+    }
+}
+.form-header-row, .form-submit-row, .my-3.text-center{
+    .btn-secondary{
+        @include btn-secondary{
+            text-shadow: 0px 1px 0px $font-btn;
+            border-radius: 5px;
+        }
+    }
+}
+//===================== end button ====================
+//===================== table ====================
+.table{
+    margin-bottom: 0;
+    thead{
+        tr{
+            th{
+                border-bottom: unset;
+            }
+        }
+    }
+}
+//===================== end table ====================
+//===================== widget ====================
+
+.rw-multiselect{
+    .rw-popup-container{
+        padding-left: $spacing-label; 
+        padding-right: $spacing-note + 5px;
+    }
+}
+.rw-widget-input{
+    box-shadow: unset;
+}
+.rw-widget-container{
+    border-color: $line-gray3;
+}
+.rw-list-optgroup{
+    padding-bottom: 7px;
+}
+.rw-list-option{
+    &.rw-state-focus{
+        border: unset;
+    }
+}
+//===================== end widget ====================
+
