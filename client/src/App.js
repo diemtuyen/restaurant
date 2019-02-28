@@ -60,7 +60,7 @@ class App extends Component {
               <PrivateRoute exact path="/order" component={OrderPage} />
               <PrivateRoute exact path="/cooker" component={CookerPage} />
               <PrivateRoute exact path="/table" component={TablePage} />
-              <PrivateRoute exact path="/category" component={CategoryPage} />
+              <PrivateRoute path="/category/:name?" component={CategoryPage} />
               <PrivateRoute exact path="/utility" component={UtilityPage} />
               <PrivateRoute exact path="/except" component={ExceptPage} />
               <PrivateRoute exact path="/kind" component={KindPage} />

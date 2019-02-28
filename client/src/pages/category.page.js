@@ -4,8 +4,11 @@ import {compose} from 'redux';
 import commonWrapped from '../hocs/hocs.common';
 import {bookingActions} from '../actions/booking.actions';
 import {adminActions} from '../actions/admin.actions';
+import ofsActionType from '../constants/ofs.constants';
 import CategoryForm from '../components/CategoryForm';
 import CatalogForm from '../components/Catalog.Form';
+import {ofsActions} from '../actions/ofs.actions';
+import ConfirmModal from '../controls/confirmModal';
 class CategoryList extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +16,9 @@ class CategoryList extends React.Component {
     render () {
         var items = this.props.items.map((item, index) => {
             return (        
-                <CategoryItem id ={item.id} key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
+                <CategoryItem id ={item.id} key={index} item={item} index={index} 
+                removeItem={this.props.removeItem}
+                selectedItem={this.props.selectedItem} />
             );
         });
         return (
@@ -35,16 +40,12 @@ class CategoryList extends React.Component {
             </div>
         );
     }
-  }
+}
     
 class CategoryItem extends React.Component {
     constructor(props) {
         super(props);
-        this.onClickEdit = this.onClickEdit.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
-    }
-    onClickEdit() {
-        
     }
     onClickDelete() {
         this.props.removeItem(this.props.item); 
@@ -57,7 +58,9 @@ class CategoryItem extends React.Component {
                 <td>{this.props.item.note}</td>
                 <td>{this.props.item.createdBy}</td>
                 <td>{this.props.item.modifiedBy}</td>                
-                <td><button type="button" className="close" onClick={this.onClickEdit}><i className="fa fa-pencil" aria-hidden="true"></i></button></td>
+                <td><button type="button" className="close" onClick={(e)=>{
+                    this.props.selectedItem(this.props.item)}
+                }><i className="fa fa-pencil" aria-hidden="true"></i></button></td>
                 <td><button type="button" className="close" onClick={this.onClickDelete}>&times;</button></td>
             </tr>  
         );
@@ -66,24 +69,59 @@ class CategoryItem extends React.Component {
 class CategoryPage extends React.Component {    
     constructor (props) {
         super(props);
-        this.removeItem = this.removeItem.bind(this);
+        this.onClickRemoveItem = this.onClickRemoveItem.bind(this);
+        this.onClickEditItem = this.onClickEditItem.bind(this);
+        this.state={
+            catalogName:null,
+            isOpen: false,
+            selectedRemoveItem: null
+        }
     }
     componentDidMount(){ 
-        this.props.dispatch(bookingActions.getCategories()); 
+        //this.props.dispatch(bookingActions.getCategories());
+        this.props.dispatch(ofsActions.getCategories());
+        const { name } = this.props.match.params;
+        this.setState({'catalogName': name});
     }
-    removeItem (item) { 
-        this.props.dispatch(adminActions.deleteCategory(item));        
+    onClickRemoveItem (item) { 
+        //this.props.dispatch(adminActions.deleteCategory(item));
+        this.setState({'selectedRemoveItem': item})
+        this.toggleFn();
     }
-    render(){ 
+    onClickEditItem(item){
+        this.props.dispatch({
+            type: ofsActionType.CATALOG_SELECTED,
+            data: item
+        });
+    }
+    toggleFn = () =>{
+        this.setState({isOpen: !this.state.isOpen});
+    }
+    okFn = (data)=>{
+        this.props.dispatch(ofsActions.submitCategory({type_action : 'delete', catalogName: this.state.catalogName}, data));
+    }
+    render(){
+        const items = this.props.cataglog[this.state.catalogName];
         return(
             <div>
                 <div className="title">
                     <h2>Category Management</h2>
                 </div>
                 {/* <CategoryForm /> */}
-                <CatalogForm url='food' action='ADD_FOOD' />
-                {(this.props.foods.length > 0) ?
-                    <CategoryList items={this.props.foods} removeItem={this.removeItem}/>: 
+                <ConfirmModal data={this.state.selectedRemoveItem} mdTitle='Modal Title' mdBody='Modal Body' isOpen={this.state.isOpen} okFn={this.okFn} toggleFn={this.toggleFn}/>
+                <CatalogForm catalogName={this.state.catalogName}/>{/*'FOODS'*/}
+                {/* {(this.props.foods.length > 0) ?
+                    <CategoryList 
+                        items={this.props.foods} 
+                        items={this.props.foods}
+                        removeItem={this.removeItem} 
+                        selectedItem={this.selectedItem}/>: 
+                    <div className="alignC">There are no items in list</div>} */}
+                 {(items !== undefined && items.length > 0) ?
+                    <CategoryList 
+                        items={items}
+                        removeItem={this.onClickRemoveItem}
+                        selectedItem={this.onClickEditItem}/>: 
                     <div className="alignC">There are no items in list</div>}
             </div>
         )
@@ -92,11 +130,12 @@ class CategoryPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        foods: state.bookingReducer.foods
+        //foods: state.bookingReducer.foods
+        cataglog: state.ofs.cataglog
     }
-  }
+}
   
 export default compose(
     connect(mapStateToProps),
     commonWrapped()
-  )(CategoryPage);
+)(CategoryPage);
